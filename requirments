@@ -1,0 +1,7 @@
+Requirement gathering week one
+
+Question one: as part A has a text based input how is it that we should be able to tkae in uinput from more than one person at once?
+Question two: though it is specified that correct behaviour should be observed when more than person attempts to move money around at the same time, the detials of this behaviour are not, is there an certain order to be followed in this case or priotrty given to certain roles e.g. employee over customer
+Qurstion Three: Is there an Upper limit on monthly deposits for any of the three account we are supporting?
+Question Four: What are the range of services provided by the various accounts? (e.g. card insurance, travel insurance, overdraft, interest rnage)
+Question Five: What information should we store about the customer, do they need log in details and log in recovery options as well as basic information?
