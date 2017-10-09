@@ -1,4 +1,6 @@
-public class Bank1 implements AccountsI{
+package bankSystem;
+
+public class Bank1 implements AccountsI {
 
     private double balance;
     private int accNumber;

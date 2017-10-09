@@ -1,9 +1,10 @@
-public class Bank3 implements AccountsI {
+package bankSystem;
 
+public class Bank2 implements AccountsI {
     private double balance;
     private int accNumber;
 
-    public Bank3(int acc, double bal){
+    public Bank2(int acc, double bal){
         accNumber = acc;
         balance = bal;
     }
@@ -53,4 +54,5 @@ public class Bank3 implements AccountsI {
     public void editAcc() {
 
     }
+
 }

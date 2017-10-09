@@ -1,3 +1,5 @@
+package bankSystem;
+
 public interface AccountsI {
     public void deposit(double dep);
     public boolean withdraw(double amount);
