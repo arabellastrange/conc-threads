@@ -2,6 +2,7 @@ package bankSystem;
 public class Employee {
     int employeeID;
     String employeeName;
+    double time; // how often interest is paid to account
 
     public Employee(int id, String name){
         employeeID = id;
@@ -18,6 +19,10 @@ public class Employee {
 
     public void transfer(AccountsI fromAccount, AccountsI toAccount, double amount){
 
+    }
+
+    public void depositInterest(AccountsI account){
+        account.deposit(account.checkBal() * account.getInterestRate() * time);
     }
 
 }

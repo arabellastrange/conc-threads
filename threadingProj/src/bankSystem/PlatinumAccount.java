@@ -8,9 +8,10 @@ public class PlatinumAccount implements AccountsI{
     double interestRate;
     boolean hasOverdraft = false;
 
-    public PlatinumAccount(int accNum, int sort){
+    public PlatinumAccount(int accNum, int sort, double intRate){
         accountNumber = accNum;
         sortCode = sort;
+        interestRate = intRate;
     }
 
     @Override

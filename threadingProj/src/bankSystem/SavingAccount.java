@@ -35,4 +35,14 @@ public class SavingAccount implements AccountsI {
     public int getAccountSort() {
         return 0;
     }
+
+    @Override
+    public void setInterestRate(double interestRate) {
+
+    }
+
+    @Override
+    public double getInterestRate() {
+        return 0;
+    }
 }
