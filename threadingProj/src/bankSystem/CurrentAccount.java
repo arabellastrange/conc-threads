@@ -1,14 +1,20 @@
 package bankSystem;
 
-public class Bank3 implements AccountsI {
+public class CurrentAccount implements AccountsI {
 
     private double balance;
     private int accNumber;
+    private String customerName;
+    private double openingBal;
 
-    public Bank3(int acc, double bal){
+    public CurrentAccount(int acc, double bal, double openingBal){
         accNumber = acc;
         balance = bal;
+        openingBal = 0;
+
     }
+
+
 
     @Override
     public void deposit(double dep) {
@@ -25,10 +31,12 @@ public class Bank3 implements AccountsI {
             return false;
     }
 
-
     @Override
-    public void transfer() {
+    public void transfer(double amount) {
+        if(balance >= amount) {
+            balance = balance - amount;
 
+        }
     }
 
     @Override
@@ -38,21 +46,10 @@ public class Bank3 implements AccountsI {
 
     @Override
     public void printBal() {
-
+    System.out.print("Account number " + accNumber + " has the balance of " + balance);
     }
 
-    @Override
-    public void createAcc() {
 
-    }
 
-    @Override
-    public void deleteAcc() {
 
-    }
-
-    @Override
-    public void editAcc() {
-
-    }
 }
