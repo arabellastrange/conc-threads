@@ -1,7 +1,17 @@
 package bankSystem;
 public class Employee {
-    //  public void createAcc()employee;
-    //  public void deleteAcc()employee;
+    public Employee(){
+
+    }
+
+
+      public void createAcc(){
+
+      }
+
+      public void deleteAcc(){
+
+      }
 
 
 
