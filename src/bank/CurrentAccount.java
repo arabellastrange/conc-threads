@@ -1,4 +1,4 @@
-package bankSystem;
+package bank;
 
 public class CurrentAccount implements AccountsI {
 
@@ -37,6 +37,11 @@ public class CurrentAccount implements AccountsI {
             balance = balance - amount;
 
         }
+    }
+
+    @Override
+    public void transfer() {
+
     }
 
     @Override

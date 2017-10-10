@@ -1,4 +1,4 @@
-package bankSystem;
+package bank;
 
 public class SavingAccount implements AccountsI {
     @Override
@@ -9,6 +9,11 @@ public class SavingAccount implements AccountsI {
     @Override
     public boolean withdraw(double amount) {
         return false;
+    }
+
+    @Override
+    public void transfer(double amount) {
+
     }
 
     @Override
