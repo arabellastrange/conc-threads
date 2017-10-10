@@ -14,8 +14,6 @@ public class CurrentAccount implements AccountsI {
 
     }
 
-
-
     @Override
     public void deposit(double dep) {
         balance = balance + dep;
@@ -49,7 +47,15 @@ public class CurrentAccount implements AccountsI {
     System.out.print("Account number " + accNumber + " has the balance of " + balance);
     }
 
+    @Override
+    public int getAccountNumber() {
+        return 0;
+    }
 
+    @Override
+    public int getAccountSort() {
+        return 0;
+    }
 
 
 }

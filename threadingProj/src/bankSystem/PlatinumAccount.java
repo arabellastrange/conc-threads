@@ -37,7 +37,7 @@ public class PlatinumAccount implements AccountsI{
 
     //takes in an account number gets an account by that number makes a deposit to it and withdraws an equal amount from this.acc
     @Override
-    public void transfer() {
+    public void transfer(double amount) {
 
     }
 
@@ -49,6 +49,16 @@ public class PlatinumAccount implements AccountsI{
     @Override
     public void printBal() {
         System.out.println(balance);
+    }
+
+    @Override
+    public int getAccountNumber() {
+        return accountNumber;
+    }
+
+    @Override
+    public int getAccountSort() {
+        return sortCode;
     }
 
     public void setOverdraft(double overdraft) {

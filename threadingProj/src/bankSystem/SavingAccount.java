@@ -12,7 +12,7 @@ public class SavingAccount implements AccountsI {
     }
 
     @Override
-    public void transfer() {
+    public void transfer(double amount) {
 
     }
 
@@ -24,5 +24,15 @@ public class SavingAccount implements AccountsI {
     @Override
     public void printBal() {
 
+    }
+
+    @Override
+    public int getAccountNumber() {
+        return 0;
+    }
+
+    @Override
+    public int getAccountSort() {
+        return 0;
     }
 }
