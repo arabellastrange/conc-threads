@@ -1,13 +1,21 @@
 package bankSystem;
 
-public class Bank3 implements AccountsI {
+public class CurrentAccount implements AccountsI {
 
     private double balance;
     private int accNumber;
+    private String customerName;
+    private double openingBal;
+    private int numAccounts;
 
-    public Bank3(int acc, double bal){
+    public CurrentAccount(int acc, double bal){
         accNumber = acc;
         balance = bal;
+        numAccounts = 0;
+    }
+
+    public int getNumAccounts(){
+        return numAccounts;
     }
 
     @Override
@@ -25,7 +33,6 @@ public class Bank3 implements AccountsI {
             return false;
     }
 
-
     @Override
     public void transfer() {
 
@@ -33,7 +40,7 @@ public class Bank3 implements AccountsI {
 
     @Override
     public double checkBal() {
-        return balance;
+        return 0;
     }
 
     @Override
@@ -41,18 +48,5 @@ public class Bank3 implements AccountsI {
 
     }
 
-    @Override
-    public void createAcc() {
 
-    }
-
-    @Override
-    public void deleteAcc() {
-
-    }
-
-    @Override
-    public void editAcc() {
-
-    }
 }
