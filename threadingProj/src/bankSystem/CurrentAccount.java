@@ -6,17 +6,15 @@ public class CurrentAccount implements AccountsI {
     private int accNumber;
     private String customerName;
     private double openingBal;
-    private int numAccounts;
 
-    public CurrentAccount(int acc, double bal){
+    public CurrentAccount(int acc, double bal, double openingBal){
         accNumber = acc;
         balance = bal;
-        numAccounts = 0;
+        openingBal = 0;
+
     }
 
-    public int getNumAccounts(){
-        return numAccounts;
-    }
+
 
     @Override
     public void deposit(double dep) {
@@ -34,19 +32,24 @@ public class CurrentAccount implements AccountsI {
     }
 
     @Override
-    public void transfer() {
+    public void transfer(double amount) {
+        if(balance >= amount) {
+            balance = balance - amount;
 
+        }
     }
 
     @Override
     public double checkBal() {
-        return 0;
+        return balance;
     }
 
     @Override
     public void printBal() {
-
+    System.out.print("Account number " + accNumber + " has the balance of " + balance);
     }
+
+
 
 
 }
