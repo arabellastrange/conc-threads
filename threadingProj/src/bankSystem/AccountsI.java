@@ -6,7 +6,4 @@ public interface AccountsI {
     public void transfer();
     public double checkBal();
     public void printBal();
-    public void createAcc();
-    public void deleteAcc();
-    public void editAcc();
 }
