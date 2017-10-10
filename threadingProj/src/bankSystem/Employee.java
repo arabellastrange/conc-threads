@@ -25,4 +25,8 @@ public class Employee {
         account.deposit(account.checkBal() * account.getInterestRate() * time);
     }
 
+    public void chargeFee(PlatinumAccount account){
+        account.withdraw(account.getAccountFee());
+    }
+
 }

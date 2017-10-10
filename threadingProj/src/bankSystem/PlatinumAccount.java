@@ -6,12 +6,14 @@ public class PlatinumAccount implements AccountsI{
     double balance;
     double overdraft;
     double interestRate;
+    double fee;
     boolean hasOverdraft = false;
 
-    public PlatinumAccount(int accNum, int sort, double intRate){
+    public PlatinumAccount(int accNum, int sort, double intRate, double accFee){
         accountNumber = accNum;
         sortCode = sort;
         interestRate = intRate;
+        fee = accFee;
     }
 
     @Override
@@ -77,5 +79,9 @@ public class PlatinumAccount implements AccountsI{
 
     public double getInterestRate(){
         return interestRate;
+    }
+
+    public double getAccountFee(){
+        return fee;
     }
 }
