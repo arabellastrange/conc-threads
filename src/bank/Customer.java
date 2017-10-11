@@ -1,4 +1,4 @@
-package bankSystem;
+package bank;
 
 import java.util.ArrayList;
 

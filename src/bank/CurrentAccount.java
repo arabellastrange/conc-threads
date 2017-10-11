@@ -1,4 +1,4 @@
-package bankSystem;
+package bank;
 
 public class CurrentAccount implements AccountsI {
 

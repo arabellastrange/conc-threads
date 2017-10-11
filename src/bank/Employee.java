@@ -1,4 +1,4 @@
-package bankSystem;
+package bank;
 public class Employee {
     int employeeID;
     String employeeName;

@@ -1,4 +1,4 @@
-package bankSystem;
+package bank;
 
 public class SavingAccount implements AccountsI {
     @Override
