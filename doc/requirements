@@ -1,3 +1,28 @@
+Requirement gathering week two
+1. decide on what accounts you are implementing (savings, ISA etc)
+2. decide on what services each account has
+3. decide on what privileges the bank employee has (closing accounts, creating accounts, etc)
+4. decide on upper and lower limits for each account type
+5. decide what customer info to store and what of it is shared
+
+Saving account standard services: Sandy
+ - minimum opening balance
+ - interest around 2% paid annually
+ - props good to set an upper limit
+ - no overdraft
+
+Current account: Sara Reid
+ - overdraft options
+ - interest around 1% paid annually
+
+platinum account: Chadha Degachi
+ - charges monthly fee around ~ £15
+ - lost of insurance perks etc
+ - interest around 2% paid monthly
+
+
+
+
 Requirement gathering week one
 
 Question one: as part A has a text based input how is it that we should be able to tkae in uinput from more than one person at once?

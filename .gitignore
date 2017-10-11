@@ -4,3 +4,5 @@
 /.classpath
 out/
 /.idea/
+*.iml
+.DS_Store
