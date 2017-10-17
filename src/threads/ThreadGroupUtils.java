@@ -89,8 +89,11 @@ public class ThreadGroupUtils {
     }
 
 
-
     public static List<ThreadGroup> getChildThreadGroups(ThreadGroup rootThreadGroup) {
+        return getChildThreadGroups(rootThreadGroup, false);
+    }
+
+    public static List<ThreadGroup> getChildThreadGroups(ThreadGroup rootThreadGroup, boolean displaySub) {
 
         if (rootThreadGroup.activeCount() == 1) {
             return new ArrayList<>();
@@ -98,7 +101,7 @@ public class ThreadGroupUtils {
 
         // Get thread groups
         ThreadGroup[] threadGroups = new ThreadGroup[rootThreadGroup.activeGroupCount()];
-        while (rootThreadGroup.enumerate(threadGroups, false) == threadGroups.length) {
+        while (rootThreadGroup.enumerate(threadGroups, displaySub) == threadGroups.length) {
             // Make space for threads
             threadGroups = new ThreadGroup[threadGroups.length * 2];
         }
