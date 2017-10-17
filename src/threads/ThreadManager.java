@@ -2,10 +2,6 @@ package threads;
 
 public class ThreadManager {
 
-    public ThreadManager() {
-
-    }
-
     public void run() {
         ThreadGroup rootThread = getRootThreadGroup();
 
@@ -13,12 +9,16 @@ public class ThreadManager {
         System.out.println("No of groups (root) " + rootThread.activeGroupCount());
         System.out.println("No of threads " + rootThread.activeCount());
 
-
         // System Thread (All child threads of the root)
         ThreadGroup[] allThreadGroups = getChildThreadGroups(rootThread);
 
+        // Loop through all thread groups
+        printThreadGroup(allThreadGroups);
 
-        // Loop through al thread groups
+    }
+
+    private void printThreadGroup(ThreadGroup[] allThreadGroups) {
+
         for (ThreadGroup group : allThreadGroups) {
             System.out.println("=============");
             System.out.println("GROUP: " + group.getName());
@@ -30,10 +30,17 @@ public class ThreadManager {
             }
 
             for (Thread thread : threads) {
+
+                // If the thread is not null print the name
                 if (!(thread == null)) {
                     System.out.println(thread.getName());
+
                 }
             }
+
+
+//            ThreadGroup[] childGroups = getChildThreadGroups(group);
+//            printThreadGroup(childGroups);
         }
     }
 
