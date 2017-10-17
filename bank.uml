@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>bank</OriginalElement>
+  <nodes>
+    <node x="969.0000000000001" y="313.0">bank.PlatinumAccount</node>
+    <node x="321.0" y="405.0">bank.SavingAccount</node>
+    <node x="0.0" y="417.0">bank.Customer</node>
+    <node x="254.52840909090912" y="0.0">bank.AccountsI</node>
+    <node x="1052.25" y="790.0">bank.Employee</node>
+    <node x="49.40340909090912" y="790.0">bank.BankSystem</node>
+    <node x="110.73295454545456" y="1110.0">bank.Main</node>
+    <node x="586.0" y="391.5">bank.CurrentAccount</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="bank.Customer" target="bank.AccountsI">
+      <point x="-72.25" y="-109.5" />
+      <point x="72.25" y="263.0" />
+      <point x="269.8409090909091" y="263.0" />
+      <point x="-107.1875" y="121.5" />
+    </edge>
+    <edge source="bank.BankSystem" target="bank.AccountsI">
+      <point x="35.5" y="-135.0" />
+      <point x="226.90340909090912" y="760.0" />
+      <point x="299.5" y="760.0" />
+      <point x="299.5" y="283.0" />
+      <point x="331.0909090909091" y="283.0" />
+      <point x="-45.9375" y="121.5" />
+    </edge>
+    <edge source="bank.BankSystem" target="bank.Customer">
+      <point x="-35.5" y="-135.0" />
+      <point x="155.90340909090912" y="770.0" />
+      <point x="216.75" y="770.0" />
+      <point x="72.25" y="109.5" />
+    </edge>
+    <edge source="bank.SavingAccount" target="bank.AccountsI">
+      <point x="0.0" y="-121.5" />
+      <point x="443.5" y="293.0" />
+      <point x="392.3409090909091" y="293.0" />
+      <point x="15.3125" y="121.5" />
+    </edge>
+    <edge source="bank.Main" target="bank.BankSystem">
+      <point x="48.0" y="-30.0" />
+      <point x="254.73295454545456" y="1085.0" />
+      <point x="262.4034090909091" y="1085.0" />
+      <point x="71.0" y="135.0" />
+    </edge>
+    <edge source="bank.PlatinumAccount" target="bank.AccountsI">
+      <point x="0.0" y="-213.5" />
+      <point x="1139.0" y="273.0" />
+      <point x="453.5909090909091" y="273.0" />
+      <point x="76.5625" y="121.5" />
+    </edge>
+    <edge source="bank.CurrentAccount" target="bank.AccountsI">
+      <point x="0.0" y="-135.0" />
+      <point x="767.5" y="283.0" />
+      <point x="422.9659090909091" y="283.0" />
+      <point x="45.9375" y="121.5" />
+    </edge>
+    <edge source="bank.Employee" target="bank.PlatinumAccount">
+      <point x="-88.5" y="-135.0" />
+      <point x="1140.75" y="770.0" />
+      <point x="1139.0" y="770.0" />
+      <point x="0.0" y="213.5" />
+    </edge>
+    <edge source="bank.Employee" target="bank.AccountsI">
+      <point x="88.5" y="-135.0" />
+      <point x="1317.75" y="770.0" />
+      <point x="1319.5" y="770.0" />
+      <point x="1319.5" y="263.0" />
+      <point x="484.2159090909091" y="263.0" />
+      <point x="107.1875" y="121.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7159663865546219" x="703.5" y="585.0" />
+  <SelectedNodes>
+    <node>bank.SavingAccount</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Inner Classes</Category>
+    <Category>Fields</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>packageLocal</VISIBILITY>
+</Diagram>
+

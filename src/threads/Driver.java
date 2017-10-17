@@ -3,6 +3,7 @@ package threads;
 public class Driver {
 
     public static void main(String[] args) {
+        gInterface gui = new gInterface();
 
         ThreadGroup A = new ThreadGroup("G-A");
         Thread t = new Thread(A, new Runnable() {

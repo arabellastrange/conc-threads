@@ -8,9 +8,9 @@ interface AccountsI { // change to inheritance to avoid code repeat?
     void transfer(double amount); // needs to take in an account number to transfer to as well
 
     //balance info - read operations
-
     double checkBal();
     void printBal();
+
 
     //account info getters and setters
     int getAccountNumber();

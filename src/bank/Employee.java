@@ -2,7 +2,7 @@ package bank;
 public class Employee {
     int employeeID;
     String employeeName;
-    double time; // how often interest is paid to account
+    double time; // how often interest is paid to account - maybe defined in account classes?
 
     public Employee(int id, String name){
         employeeID = id;
