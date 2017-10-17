@@ -18,6 +18,20 @@ public class Driver {
         }, "A thread");
         t.start();
 
+        ThreadGroup B = new ThreadGroup("G-B");
+        Thread b = new Thread(B, new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("H");
+                try {
+                    Thread.sleep(100000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, "B thread");
+        b.start();
+
         try {
             Thread.sleep(1000);
 

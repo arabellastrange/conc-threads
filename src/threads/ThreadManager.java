@@ -52,9 +52,13 @@ public class ThreadManager {
 
     private ThreadGroup[] getChildThreadGroups(ThreadGroup rootThreadGroup) {
 
+        if (rootThreadGroup.activeCount() == 1) {
+            return new ThreadGroup[0];
+        }
+
         // Get thread groups
         ThreadGroup[] threadGroups = new ThreadGroup[rootThreadGroup.activeGroupCount()];
-        while (rootThreadGroup.enumerate(threadGroups, true) == threadGroups.length) {
+        while (rootThreadGroup.enumerate(threadGroups, false) == threadGroups.length) {
             // Make space for threads
             threadGroups = new ThreadGroup[threadGroups.length * 2];
         }
