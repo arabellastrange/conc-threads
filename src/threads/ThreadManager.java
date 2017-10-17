@@ -2,37 +2,50 @@ package threads;
 
 public class ThreadManager {
 
-    public ThreadManager() {
+    public void run() {
 
+        ThreadGroup rootThreadGroup = getRootThreadGroup();
+
+        System.out.println("No of groups (root) " + rootThreadGroup.activeGroupCount());
+        System.out.println("No of threads " + rootThreadGroup.activeCount());
+
+        printThreadGroups(rootThreadGroup);
     }
 
-    public void run() {
-        ThreadGroup rootThread = getRootThreadGroup();
+    private void printThreadGroups(ThreadGroup rootThreadGroup) {
+        if (rootThreadGroup == null) {
+            return;
+        }
 
-        // Iterate to get Thread Groups
-        System.out.println("No of groups (root) " + rootThread.activeGroupCount());
-        System.out.println("No of threads " + rootThread.activeCount());
+        printThreads(rootThreadGroup);
 
+        // Get child thread groups
+        ThreadGroup[] childThreadGroups = getChildThreadGroups(rootThreadGroup);
 
-        // System Thread (All child threads of the root)
-        ThreadGroup[] allThreadGroups = getChildThreadGroups(rootThread);
+        // Print child ThreadGroups
+        for (int i = 1; i < childThreadGroups.length; i++) {
+            printThreadGroups(childThreadGroups[i]);
 
+        }
+    }
 
-        // Loop through al thread groups
-        for (ThreadGroup group : allThreadGroups) {
-            System.out.println("=============");
-            System.out.println("GROUP: " + group.getName());
-            System.out.println("=============");
+    private void printThreads(ThreadGroup group) {
+        System.out.println("=============");
+        System.out.println("GROUP: " + group.getName());
+        System.out.println("=============");
 
-            Thread[] threads = new Thread[group.activeCount()];
-            while ((group.enumerate(threads, true)) == threads.length) {
-                threads = new Thread[threads.length * 2];
-            }
+        Thread[] threads = new Thread[group.activeCount()];
+        // set the false, so it only displays sub-threadgroups and not their children
+        while ((group.enumerate(threads, false)) == threads.length) {
+            threads = new Thread[threads.length * 2];
+        }
 
-            for (Thread thread : threads) {
-                if (!(thread == null)) {
-                    System.out.println(thread.getName());
-                }
+        for (Thread thread : threads) {
+            // If the thread is not null print the name
+            if (!(thread == null)) {
+                System.out.println("ID: " + thread.getId() + " Name: " + thread.getName() + " Priority: "
+                        + thread.getPriority() + " State: " + thread.getState() + " Daemon: " + thread.isDaemon());
+
             }
         }
     }
@@ -57,7 +70,7 @@ public class ThreadManager {
         ThreadGroup[] allThreadGroups = new ThreadGroup[threadGroups.length + 1];
         allThreadGroups[0] = rootThreadGroup;
 
-        //Copy array to result
+        // Copy array to result
         System.arraycopy(threadGroups, 0, allThreadGroups, 1, threadGroups.length);
 
         return allThreadGroups;

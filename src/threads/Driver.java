@@ -4,79 +4,28 @@ public class Driver {
 
     public static void main(String[] args) {
 
-
-        //Test code (a bit messy)
-
-        Thread thread = new Thread(new Runnable() {
+        ThreadGroup A = new ThreadGroup("G-A");
+        Thread t = new Thread(A, new Runnable() {
             @Override
             public void run() {
-                System.out.println("Hi");
-
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        System.out.println("There");
-
-
-                        try {
-
-                            Thread.sleep(100000);
-
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                thread.start();
-
+                System.out.println("H");
                 try {
-
                     Thread.sleep(100000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        });
-        thread.start();
+        }, "A thread");
+        t.start();
 
+        try {
+            Thread.sleep(1000);
 
-        Thread thread2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("Hi");
-
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        System.out.println("There");
-
-
-                        try {
-                            ThreadManager tm = new ThreadManager();
-                            tm.run();
-
-                            Thread.sleep(100000);
-
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                thread.start();
-
-
-
-                try {
-
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread2.start();
-
-
+            ThreadManager tm = new ThreadManager();
+            tm.run();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
   }
 

@@ -1,17 +1,20 @@
 package bank;
 
+import org.omg.CORBA.Current;
+
 public class CurrentAccount implements AccountsI {
 
     private double balance;
     private int accNumber;
-    private String customerName;
-    private double openingBal;
+    private double interestRate;
+    private double interest;
+    private int sortCode;
 
-    public CurrentAccount(int acc, double bal, double openingBal){
+
+    public CurrentAccount(int acc, double bal, double rate, double interestRate){
         accNumber = acc;
         balance = bal;
-        openingBal = 0;
-
+        interestRate = rate;
     }
 
     @Override
@@ -31,10 +34,13 @@ public class CurrentAccount implements AccountsI {
 
     @Override
     public void transfer(double amount) {
-        if(balance >= amount) {
-            balance = balance - amount;
-
-        }
+            if (amount <= this.balance) {
+                withdraw(amount);
+               // CurrentAccount.deposit(amount);
+                System.out.print("\nTransfer successful. Transferred: £" + amount);
+            } else {
+                System.out.print("\nTransfer failed, not enough balance!");
+            }
     }
 
     @Override
@@ -49,22 +55,23 @@ public class CurrentAccount implements AccountsI {
 
     @Override
     public int getAccountNumber() {
-        return 0;
+        return accNumber;
     }
 
     @Override
     public int getAccountSort() {
-        return 0;
+        return sortCode;
     }
 
     @Override
-    public void setInterestRate(double interestRate) {
+    public void setInterestRate(double rate) {
+        interest = balance * rate;
 
     }
 
     @Override
-    public double getInterestRate() {
-        return 0;
+    public double getInterestRate(){
+       return interest;
     }
 
 
