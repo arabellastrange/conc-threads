@@ -43,7 +43,8 @@ public class ThreadManager {
         for (Thread thread : threads) {
             // If the thread is not null print the name
             if (!(thread == null)) {
-                System.out.println(thread.getName() + " " + thread.getId());
+                System.out.println("ID: " + thread.getId() + " Name: " + thread.getName() + " Priority: "
+                        + thread.getPriority() + " State: " + thread.getState() + " Daemon: " + thread.isDaemon());
 
             }
         }
