@@ -1,6 +1,8 @@
 package bank;
 
 public interface AccountsI { // change to inheritance to avoid code repeat?
+    //BETTER ACCOUNT NUMBER AND SORT CODE CREATION
+
     //move money - write operations
     public void deposit(double dep);
     public boolean withdraw(double amount);
