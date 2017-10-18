@@ -15,18 +15,19 @@ public class Employee {
         return employeeID;
     }
 
-    public void createAcc(String accType){
+    public AccountsI createAcc(String accType){
         switch (accType){
             case "Savings": AccountsI s = new SavingAccount();
                             workingAt.refresh().addAccount(s);
-                            break;
+                            return s;
             case "Platinum": AccountsI p= new PlatinumAccount(011032, 98, 0.02, 75);
                              workingAt.refresh().addAccount(p);
-                             break;
+                             return p;
             case "Current" : AccountsI c = new CurrentAccount(011033, 4000,4, 0.01);
                              workingAt.refresh().addAccount(c);
-                             break;
+                             return c;
         }
+        return null;
     }
 
     public void deleteAcc(int accNum){

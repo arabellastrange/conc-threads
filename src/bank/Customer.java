@@ -31,7 +31,7 @@ public class Customer {
     }
 
     public void requestOpenAccount( Employee contact,  String accountType){
-        contact.createAcc(accountType);
+        myAccounts.add(contact.createAcc(accountType));
     }
 }
 
