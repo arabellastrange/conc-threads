@@ -1,21 +1,25 @@
 package bank;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
-public class BankSystem {
-    ArrayList<AccountsI> accounts = new ArrayList<>();
-    ArrayList<Customer> customers = new ArrayList<>();
+
+public final class BankSystem {
+    private static BankSystem bank = null;
+    private LinkedList<AccountsI> accounts = new LinkedList();
     ArrayList<Employee> employees = new ArrayList<>();
-    String bankName;
-    String bankAddress;
 
-    public BankSystem(String name, String address){
-        bankAddress = address;
-        bankName = name;
+    private BankSystem(){
+        Employee emp =  new Employee();
+        employees.add(emp);
     }
 
-    public BankSystem refresh(){
-        return this;
+    // not thread safe
+    public BankSystem getBank(){
+        if (bank == null){
+            bank = new BankSystem();
+        }
+        return bank;
     }
 
     public void addAccount(AccountsI a){
@@ -27,7 +31,11 @@ public class BankSystem {
     }
 
     public void addCustomer(Customer c){
-        customers.add(c);
+        //customers.add(c);
+    }
+
+    public void removesCustomer(Customer c){
+       // customers.remove(c);
     }
 
     public void hireEmployee(Employee e){
@@ -38,25 +46,25 @@ public class BankSystem {
         employees.remove(e);
     }
 
-    // handle null exception pls
-    public AccountsI getAccount(int accountNumber){
-        for(AccountsI a : accounts){
-            if(a.getAccountNumber() == accountNumber){
-                return a;
-            }
-        }
-        return null;
-    }
+//    // handle null exception pls
+//    public AccountsI getAccount(int accountNumber){
+//        for(AccountsI a : accounts){
+//            if(a.getAccountNumber() == accountNumber){
+//                return a;
+//            }
+//        }
+//        return null;
+//    }
 
     //need something else too ensure unique
-    public Customer getCustomer(String name){
-        for(Customer c: customers){
-            if(c.getName().equals(name)){
-                return c;
-            }
-        }
-        return null;
-    }
+//    public Customer getCustomer(String name){
+//        for(Customer c: customers){
+//            if(c.getName().equals(name)){
+//                return c;
+//            }
+//        }
+//        return null;
+//    }
 
     public Employee getEmployee(int id){
         for(Employee e: employees){

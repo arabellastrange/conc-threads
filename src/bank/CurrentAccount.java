@@ -2,6 +2,8 @@ package bank;
 
 import org.omg.CORBA.Current;
 
+import java.util.Random;
+
 public class CurrentAccount implements AccountsI {
 
     private double balance;
@@ -9,10 +11,11 @@ public class CurrentAccount implements AccountsI {
     private double interestRate;
     private double interest;
     private int sortCode;
+    Random rand = new Random();
 
-
-    public CurrentAccount(int acc, double bal, double rate, double interestRate){
-        accNumber = acc;
+    public CurrentAccount(double bal, double rate){
+        accNumber = rand.nextInt(199999) + 100000;
+        sortCode = rand.nextInt(9999) + 1000;
         balance = bal;
         interestRate = rate;
     }

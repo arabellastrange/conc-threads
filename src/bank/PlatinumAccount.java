@@ -1,5 +1,9 @@
 package bank;
 
+import com.sun.jnlp.JNLPRandomAccessFileNSBImpl;
+
+import java.util.Random;
+
 public class PlatinumAccount implements AccountsI{
     int accountNumber;
     int sortCode;
@@ -8,10 +12,11 @@ public class PlatinumAccount implements AccountsI{
     double interestRate;
     double fee;
     boolean hasOverdraft = false;
+    Random rand = new Random();
 
-    public PlatinumAccount(int accNum, int sort, double intRate, double accFee){
-        accountNumber = accNum;
-        sortCode = sort;
+    public PlatinumAccount(double intRate, double accFee){
+        accountNumber = rand.nextInt(199999) + 100000;
+        sortCode = rand.nextInt(9999) + 1000;
         interestRate = intRate;
         fee = accFee;
     }

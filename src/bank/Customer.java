@@ -26,13 +26,13 @@ public class Customer {
         return myAccounts;
     }
 
-    public void requestAccountDeletion(Employee contact, int accNumber){
-        contact.deleteAcc(accNumber);
-    }
-
-    public void requestOpenAccount( Employee contact,  String accountType){
-        myAccounts.add(contact.createAcc(accountType));
-    }
+//    public void requestAccountDeletion(int accNumber){
+//        contact.deleteAcc(accNumber);
+//    }
+//
+//    public void requestOpenAccount(String accountType){
+//        myAccounts.add(contact.createAcc(accountType));
+//    }
 }
 
 

@@ -1,14 +1,12 @@
 package bank;
 public class Employee {
-    int employeeID;
     BankSystem workingAt;
-    String employeeName;
+    int employeeID;
+    int genID = 0;
     double time; // how often interest is paid to account - maybe defined in account classes?
 
-    public Employee(int id, String name, BankSystem b){
-        employeeID = id;
-        employeeName = name;
-        workingAt = b;
+    public Employee(){
+        employeeID = genID++;
     }
 
     public int getEmployeeID() {
@@ -18,20 +16,20 @@ public class Employee {
     public AccountsI createAcc(String accType){
         switch (accType){
             case "Savings": AccountsI s = new SavingAccount();
-                            workingAt.refresh().addAccount(s);
+                            workingAt.getBank().addAccount(s);
                             return s;
-            case "Platinum": AccountsI p= new PlatinumAccount(011032, 98, 0.02, 75);
-                             workingAt.refresh().addAccount(p);
+            case "Platinum": AccountsI p= new PlatinumAccount(0.02, 75);
+                             workingAt.getBank().addAccount(p);
                              return p;
-            case "Current" : AccountsI c = new CurrentAccount(011033, 4000,4, 0.01);
-                             workingAt.refresh().addAccount(c);
+            case "Current" : AccountsI c = new CurrentAccount(4000, 0.01);
+                             workingAt.getBank().addAccount(c);
                              return c;
         }
         return null;
     }
 
     public void deleteAcc(int accNum){
-        workingAt.refresh().removeAccount(workingAt.refresh().getAccount(accNum));
+       // workingAt.getBank().removeAccount(workingAt.getBank().getAccount(accNum));
     }
 
     public void transfer(AccountsI fromAccount, AccountsI toAccount, double amount){
