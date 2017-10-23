@@ -1,6 +1,11 @@
 package bank;
 
-public class SavingAccount implements AccountsI {
+public class SavingAccount extends Account {
+
+    public SavingAccount(double intialBalance, double interestRt, double interestLen){
+        super(intialBalance, interestRt, interestLen);
+    }
+
     @Override
     public void deposit(double dep) {
 
@@ -12,37 +17,8 @@ public class SavingAccount implements AccountsI {
     }
 
     @Override
-    public void transfer(double amount) {
+    public void transfer(double amount, int AccNum) {
 
     }
 
-    @Override
-    public double checkBal() {
-        return 0;
-    }
-
-    @Override
-    public void printBal() {
-
-    }
-
-    @Override
-    public int getAccountNumber() {
-        return 0;
-    }
-
-    @Override
-    public int getAccountSort() {
-        return 0;
-    }
-
-    @Override
-    public void setInterestRate(double interestRate) {
-
-    }
-
-    @Override
-    public double getInterestRate() {
-        return 0;
-    }
 }

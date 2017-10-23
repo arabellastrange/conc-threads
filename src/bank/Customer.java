@@ -1,38 +1,26 @@
 package bank;
 
-import java.util.ArrayList;
 
 public class Customer {
     String  name;
-    String address;
-    // date of birth date or int object
-    ArrayList<AccountsI> myAccounts = new ArrayList<>();
+    Employee contact;
 
-    public Customer(String cName, String cAddress){
+    public Customer(String cName, Employee conc){
         name = cName;
-        address = cAddress;
-    }
-
-    //needs to be more detailed - must edit each field not just account in general
-    public void editAcc(){
-
+        contact = conc;
     }
 
     public String getName(){
         return name;
     }
 
-    public ArrayList<AccountsI> getMyAccounts() {
-        return myAccounts;
+    public void requestAccountDeletion(int accNumber){
+        contact.deleteAcc(this, accNumber);
     }
 
-//    public void requestAccountDeletion(int accNumber){
-//        contact.deleteAcc(accNumber);
-//    }
-//
-//    public void requestOpenAccount(String accountType){
-//        myAccounts.add(contact.createAcc(accountType));
-//    }
+    public void requestNewAccount(Account a){
+        contact.createAcc(this, a);
+    }
 }
 
 

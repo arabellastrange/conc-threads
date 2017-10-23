@@ -4,21 +4,16 @@ import com.sun.jnlp.JNLPRandomAccessFileNSBImpl;
 
 import java.util.Random;
 
-public class PlatinumAccount implements AccountsI{
-    int accountNumber;
-    int sortCode;
-    double balance;
+public class PlatinumAccount extends Account{
     double overdraft;
-    double interestRate;
     double fee;
+    double feeLength;
     boolean hasOverdraft = false;
-    Random rand = new Random();
 
-    public PlatinumAccount(double intRate, double accFee){
-        accountNumber = rand.nextInt(199999) + 100000;
-        sortCode = rand.nextInt(9999) + 1000;
-        interestRate = intRate;
+    public PlatinumAccount(double intialBalance, double interestRt, double intrestLn, double accFee, double fLength){
+        super(intialBalance, interestRt, intrestLn);
         fee = accFee;
+        feeLength = fLength;
     }
 
     @Override
@@ -45,28 +40,8 @@ public class PlatinumAccount implements AccountsI{
 
     //takes in an account number gets an account by that number makes a deposit to it and withdraws an equal amount from this.acc
     @Override
-    public void transfer(double amount) {
+    public void transfer(double amount, int AccountNum) {
 
-    }
-
-    @Override
-    public double checkBal() {
-        return balance;
-    }
-
-    @Override
-    public void printBal() {
-        System.out.println(balance);
-    }
-
-    @Override
-    public int getAccountNumber() {
-        return accountNumber;
-    }
-
-    @Override
-    public int getAccountSort() {
-        return sortCode;
     }
 
     public void setOverdraft(double overdraft) {
@@ -76,14 +51,6 @@ public class PlatinumAccount implements AccountsI{
 
     public boolean hasOverdraft() {
         return hasOverdraft;
-    }
-
-    public void setInterestRate(double interestRate) {
-        this.interestRate = interestRate;
-    }
-
-    public double getInterestRate(){
-        return interestRate;
     }
 
     public double getAccountFee(){

@@ -3,7 +3,6 @@ public class Employee {
     BankSystem workingAt;
     int employeeID;
     int genID = 0;
-    double time; // how often interest is paid to account - maybe defined in account classes?
 
     public Employee(){
         employeeID = genID++;
@@ -13,31 +12,16 @@ public class Employee {
         return employeeID;
     }
 
-    public AccountsI createAcc(String accType){
-        switch (accType){
-            case "Savings": AccountsI s = new SavingAccount();
-                            workingAt.getBank().addAccount(s);
-                            return s;
-            case "Platinum": AccountsI p= new PlatinumAccount(0.02, 75);
-                             workingAt.getBank().addAccount(p);
-                             return p;
-            case "Current" : AccountsI c = new CurrentAccount(4000, 0.01);
-                             workingAt.getBank().addAccount(c);
-                             return c;
-        }
-        return null;
+    public void createAcc(Customer cust, Account a){
+        workingAt.getBank().addAccount(cust, a);
     }
 
-    public void deleteAcc(int accNum){
-       // workingAt.getBank().removeAccount(workingAt.getBank().getAccount(accNum));
+    public void deleteAcc(Customer c, int accNum){
+        workingAt.getBank().removeAccount(c, workingAt.getBank().getAccount(c, accNum));
     }
 
-    public void transfer(AccountsI fromAccount, AccountsI toAccount, double amount){
-
-    }
-
-    public void depositInterest(AccountsI account){
-        account.deposit(account.checkBal() * account.getInterestRate() * time);
+    public void depositInterest(Account account){
+        account.deposit(account.checkBal() * account.getInterestRate() * account.getInterestLength());
     }
 
     public void chargeFee(PlatinumAccount account){

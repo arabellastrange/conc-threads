@@ -9,12 +9,21 @@ public class MovingMoneyDriver implements Runnable{
 
     @Override
     public void run() {
-        BankSystem bank;
-        Customer c = new Customer("Jean", "2331 friend fnd");
-        c.requestOpenAccount("Current");
-        System.out.println(c.getMyAccounts().get(0).checkBal());
-        c.getMyAccounts().get(0).deposit(10);
-        System.out.println(c.getMyAccounts().get(0).checkBal());
+        BankSystem bank = BankSystem.getBank();
+        bank.getBank().tellMeAboutBank();
+        Customer c = new Customer("Jean", bank.getBank().getEmployee(0));
+        Account a = new CurrentAccount(400, 0.01, 1);
+        bank.getBank().tellMeAboutBank();
+        c.requestNewAccount(a);
+        a.printBal();
+        a.deposit(10);
+        a.printBal();
+        Account as = new CurrentAccount(500, 0.01, 0.5);
+        c.requestNewAccount(as);
+        for(int i = 0; i < bank.getBank().getCustomerAccounts(c).size(); i++){
+            System.out.print(bank.getBank().getCustomerAccounts(c).get(i).getAccountNumber());
+        }
+        bank.getBank().tellMeAboutBank();
 
     }
 }

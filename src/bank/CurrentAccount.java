@@ -1,23 +1,10 @@
 package bank;
 
-import org.omg.CORBA.Current;
 
-import java.util.Random;
+public class CurrentAccount extends Account {
 
-public class CurrentAccount implements AccountsI {
-
-    private double balance;
-    private int accNumber;
-    private double interestRate;
-    private double interest;
-    private int sortCode;
-    Random rand = new Random();
-
-    public CurrentAccount(double bal, double rate){
-        accNumber = rand.nextInt(199999) + 100000;
-        sortCode = rand.nextInt(9999) + 1000;
-        balance = bal;
-        interestRate = rate;
+    public CurrentAccount(double intialBalance, double interestRt, double intrestLn){
+        super(intialBalance, interestRt, intrestLn);
     }
 
     @Override
@@ -36,7 +23,7 @@ public class CurrentAccount implements AccountsI {
     }
 
     @Override
-    public void transfer(double amount) {
+    public void transfer(double amount, int AccNum) {
             if (amount <= this.balance) {
                 withdraw(amount);
                // CurrentAccount.deposit(amount);
@@ -44,37 +31,6 @@ public class CurrentAccount implements AccountsI {
             } else {
                 System.out.print("\nTransfer failed, not enough balance!");
             }
-    }
-
-    @Override
-    public double checkBal() {
-        return balance;
-    }
-
-    @Override
-    public void printBal() {
-    System.out.print("Account number " + accNumber + " has the balance of " + balance);
-    }
-
-    @Override
-    public int getAccountNumber() {
-        return accNumber;
-    }
-
-    @Override
-    public int getAccountSort() {
-        return sortCode;
-    }
-
-    @Override
-    public void setInterestRate(double rate) {
-        interest = balance * rate;
-
-    }
-
-    @Override
-    public double getInterestRate(){
-       return interest;
     }
 
 
