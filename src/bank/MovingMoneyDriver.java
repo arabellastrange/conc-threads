@@ -12,6 +12,7 @@ public class MovingMoneyDriver implements Runnable{
         BankSystem bank = BankSystem.getBank();
         bank.getBank().tellMeAboutBank();
         Customer c = new Customer("Jean", bank.getBank().getEmployee(0));
+        bank.getBank().addCustomer(c);
         Account a = new CurrentAccount(400, 0.01, 1);
         bank.getBank().tellMeAboutBank();
         c.requestNewAccount(a);
@@ -20,9 +21,6 @@ public class MovingMoneyDriver implements Runnable{
         a.printBal();
         Account as = new CurrentAccount(500, 0.01, 0.5);
         c.requestNewAccount(as);
-        for(int i = 0; i < bank.getBank().getCustomerAccounts(c).size(); i++){
-            System.out.print(bank.getBank().getCustomerAccounts(c).get(i).getAccountNumber());
-        }
         bank.getBank().tellMeAboutBank();
 
     }

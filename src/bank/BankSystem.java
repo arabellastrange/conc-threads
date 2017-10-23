@@ -26,7 +26,7 @@ public final class BankSystem {
 
     public void tellMeAboutBank(){
         for(Map.Entry c : cusomters.entrySet()){
-            System.out.print("Cusomter: " + c.getKey() + " their accounts are " + c.getValue());
+            System.out.println("Cusomter: " + c.getKey() + " their accounts are " + c.getValue());
         }
     }
 

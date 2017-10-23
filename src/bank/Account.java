@@ -30,7 +30,7 @@ public abstract class Account {
     }
 
     public void printBal(){
-        System.out.print("Account number " + accountNumber + " has the balance of " + balance);
+        System.out.println("Account number " + accountNumber + " has the balance of " + balance);
     }
 
     //account info getters and setters
