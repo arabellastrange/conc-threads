@@ -25,8 +25,14 @@ public final class BankSystem {
     }
 
     public void tellMeAboutBank(){
-        for(Map.Entry c : cusomters.entrySet()){
-            System.out.println("Cusomter: " + c.getKey() + " their accounts are " + c.getValue());
+        if(!cusomters.entrySet().isEmpty()) {
+            System.out.println("This bank has the following customers");
+            for (Map.Entry c : cusomters.entrySet()) {
+                System.out.println("Cusomter: " + c.getKey() + " their accounts are " + c.getValue());
+            }
+        }
+        else {
+            System.out.println("Nothing in bank yet!");
         }
     }
 
