@@ -1,8 +1,8 @@
 package bank;
 public class Employee {
-    BankSystem workingAt;
-    int employeeID;
-    int genID = 0;
+    private BankSystem workingAt;
+    private int employeeID;
+    private int genID = 0;
 
     public Employee(){
         employeeID = genID++;

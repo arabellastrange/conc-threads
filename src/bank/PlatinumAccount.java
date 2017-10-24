@@ -1,9 +1,9 @@
 package bank;
 public class PlatinumAccount extends Account{
-    double overdraft;
-    double fee;
-    double feeLength;
-    boolean hasOverdraft = false;
+    private double overdraft;
+    private double fee;
+    private double feeLength;
+    private boolean hasOverdraft = false;
 
     public PlatinumAccount(double intialBalance, double interestRt, double intrestLn, double accFee, double fLength){
         super(intialBalance, interestRt, intrestLn);
@@ -13,22 +13,22 @@ public class PlatinumAccount extends Account{
 
     @Override
     public void deposit(double dep) {
-        balance += dep;
+        setBalance(getBalance() + dep);
     }
 
     @Override
     public boolean withdraw(double amount) {
-        if(hasOverdraft){
-            if(balance - overdraft <= 0){
+        if (hasOverdraft) {
+            if(getBalance() - overdraft <= 0){
+                return false;
+            }
+        } else {
+            if(getBalance() <= 0){
                 return false;
             }
         }
-        else{
-            if(balance <= 0){
-                return false;
-            }
-        }
-        balance -= amount;
+
+        setBalance(getBalance() - amount);
         return true;
 
     }

@@ -9,13 +9,13 @@ public class CurrentAccount extends Account {
 
     @Override
     public void deposit(double dep) {
-        balance = balance + dep;
+        setBalance(getBalance() + dep);
     }
 
     @Override
     public boolean withdraw(double amount) {
-        if(balance >= amount) {
-            balance = balance - amount;
+        if(getBalance() >= amount) {
+            setBalance(getBalance() - amount);
             return true;
         }
         else
@@ -24,7 +24,7 @@ public class CurrentAccount extends Account {
 
     @Override
     public void transfer(double amount, int AccNum) {
-            if (amount <= this.balance) {
+            if (amount <= getBalance()) {
                 withdraw(amount);
                // CurrentAccount.deposit(amount);
                 System.out.print("\nTransfer successful. Transferred: £" + amount);
@@ -32,6 +32,5 @@ public class CurrentAccount extends Account {
                 System.out.print("\nTransfer failed, not enough balance!");
             }
     }
-
 
 }

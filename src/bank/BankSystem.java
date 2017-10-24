@@ -8,7 +8,7 @@ import java.util.Map;
 public final class BankSystem {
     private static BankSystem bank = null;
     private Map<Customer, ArrayList<Account>> cusomters = new HashMap<Customer, ArrayList<Account>>();
-    static ArrayList<Employee> employees = new ArrayList<>();
+    private static ArrayList<Employee> employees = new ArrayList<>();
 
     private BankSystem(){
 
