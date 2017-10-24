@@ -19,10 +19,10 @@ public class PrintBalanceDrive implements Runnable {
         BankSystem.getBank().tellMeAboutBank();
 
         c.requestNewAccount(a);
-        a.printBal();
+        c.printBalance(a);
         Account p = new PlatinumAccount(5000, 0.2, 0.25, 70, 1);
         c.requestNewAccount(p);
-        p.printBal();
+        c.printBalance(p);
 
         BankSystem.getBank().tellMeAboutBank();
 
