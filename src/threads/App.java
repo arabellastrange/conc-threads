@@ -83,7 +83,7 @@ public class App {
         ThreadGroup root = ThreadGroupUtils.getRootThreadGroup();
         List<Thread> threadList = ThreadGroupUtils.getAllThreads();
         for (Thread thread : threadList) {
-            listModel.addElement(thread.getName());
+            listModel.addElement(ThreadGroupUtils.printThreadInfo(thread));
         }
     }
 }

@@ -136,4 +136,10 @@ public class ThreadGroupUtils {
 
         return nullIndex;
     }
+
+
+    public static String printThreadInfo(Thread thread) {
+        return "ID: " + thread.getId() + " | Name: " + thread.getName() + " | Priority: "
+                + thread.getPriority() + " | State: " + thread.getState() + " | Daemon: " + thread.isDaemon();
+    }
 }
