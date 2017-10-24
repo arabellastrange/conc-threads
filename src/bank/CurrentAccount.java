@@ -18,8 +18,9 @@ public class CurrentAccount extends Account {
         if (checkBal() >= amount) {
             setBalance(checkBal() - amount);
             return true;
-        } else
-            return false;
+        }
+
+        return false;
     }
 
     @Override

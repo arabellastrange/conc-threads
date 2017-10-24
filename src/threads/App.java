@@ -10,6 +10,7 @@ public class App {
     private JFrame frame;
     private DefaultListModel<String> listModel;
     private JPanel mainPanel;
+    private JList list;
 
     public App(){
         setupUI();
@@ -40,9 +41,9 @@ public class App {
         listModel = new DefaultListModel<>();
         refresh();
 
-        JList tgList = new JList<>(listModel);
+        list = new JList<>(listModel);
 
-        mainPanel.add(tgList);
+        mainPanel.add(list);
 
         return mainPanel;
     }
@@ -55,18 +56,34 @@ public class App {
         refreshButton.addActionListener(actionEvent -> {
             refresh();
         });
+
+        JButton stopButton = new JButton("Stop");
+        stopButton.addActionListener(actionEvent -> {
+            int index = list.getSelectedIndex();
+
+            Thread selectedThread = ThreadGroupUtils.getAllThreads().get(index);
+            selectedThread.stop();
+            refresh();
+        });
+
         buttonPanel.add(refreshButton);
+        buttonPanel.add(stopButton);
 
         return buttonPanel;
     }
 
     private void refresh() {
         listModel.clear();
+//        ThreadGroup root = ThreadGroupUtils.getRootThreadGroup();
+//        List<ThreadGroup> threadGroupList = ThreadGroupUtils.getChildThreadGroups(root, true);
+//        for (ThreadGroup threadGroup : threadGroupList) {
+//            listModel.addElement(threadGroup.getName());
+//        }
 
         ThreadGroup root = ThreadGroupUtils.getRootThreadGroup();
-        List<ThreadGroup> threadGroupList = ThreadGroupUtils.getChildThreadGroups(root, true);
-        for (ThreadGroup threadGroup : threadGroupList) {
-            listModel.addElement(threadGroup.getName());
+        List<Thread> threadList = ThreadGroupUtils.getAllThreads();
+        for (Thread thread : threadList) {
+            listModel.addElement(thread.getName());
         }
     }
 }
