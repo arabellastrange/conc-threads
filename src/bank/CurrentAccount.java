@@ -2,9 +2,14 @@ package bank;
 
 
 public class CurrentAccount extends Account {
+    double overdraft;
+    boolean hasOverdraft = false;
+
 
     public CurrentAccount(double intialBalance, double interestRt, double intrestLn){
         super(intialBalance, interestRt, intrestLn);
+
+
     }
 
     @Override
@@ -15,12 +20,23 @@ public class CurrentAccount extends Account {
 
     @Override
     public boolean withdraw(double amount) {
-        if(balance >= amount) {
-            balance = balance - amount;
-            return true;
+        if (hasOverdraft = true) {
+            if (balance - overdraft <= 0) {
+                return false;
+            }
+        } else {
+            if (balance <= 0) {
+                return false;
+            }
         }
-        else
-            return false;
+        balance = balance - amount;
+        return true;
+    }
+
+    public void setOverdraft(double overdraft) {
+       this.overdraft = overdraft;
+        hasOverdraft = true;
+
     }
 
 
