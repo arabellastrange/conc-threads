@@ -20,9 +20,9 @@ public abstract class Account {
     }
 
     //move money - write operations
-    public abstract void deposit(double dep);
+    public abstract boolean deposit(double dep);
     public abstract boolean withdraw(double amount);
-    public abstract void transfer(double amount, int toAccountNum);
+    public abstract boolean transfer(double amount, int toAccountNum);
 
     //balance info - read operations
     public double checkBal(){
