@@ -17,7 +17,7 @@ public class Employee {
     }
 
     public void deleteAcc(Customer c, int accNum){
-        workingAt.getBank().removeAccount(c, workingAt.getBank().getAccount(c, accNum));
+        workingAt.getBank().removeAccount(c, workingAt.getBank().getAccount(accNum));
     }
 
     public void depositInterest(Account account){
