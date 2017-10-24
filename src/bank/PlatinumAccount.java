@@ -1,7 +1,5 @@
 package bank;
 
-import java.util.Random;
-
 public class PlatinumAccount extends Account{
     double overdraft;
     double fee;
@@ -15,8 +13,9 @@ public class PlatinumAccount extends Account{
     }
 
     @Override
-    public void deposit(double dep) {
+    public boolean deposit(double dep) {
         balance += dep;
+        return true;
     }
 
     @Override
@@ -38,8 +37,8 @@ public class PlatinumAccount extends Account{
 
     //takes in an account number gets an account by that number makes a deposit to it and withdraws an equal amount from this.acc
     @Override
-    public void transfer(double amount, int AccountNum) {
-
+    public boolean transfer(double amount, int AccountNum) {
+        return false;
     }
 
     public void setOverdraft(double overdraft) {

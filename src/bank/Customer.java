@@ -21,6 +21,12 @@ public class Customer {
     public void requestNewAccount(Account a){
         contact.createAcc(this, a);
     }
+
+    @Override
+    public String toString(){
+
+        return "Name: " + name + " Contact: " + contact;
+    }
 }
 
 
