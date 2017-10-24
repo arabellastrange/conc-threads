@@ -55,7 +55,12 @@ public final class BankSystem {
     }
 
     public void addCustomer(Customer c){
-       cusomters.put(c, new ArrayList<Account>());
+        if(!containsCustomer(c)){
+            cusomters.put(c, new ArrayList<Account>());
+        }
+        else {
+            System.out.println("Customer already in bank!");
+        }
     }
 
     public void removesCustomer(Customer c){
@@ -87,5 +92,12 @@ public final class BankSystem {
 
     public Employee getEmployee(int id){
         return employees.get(id);
+    }
+
+    public boolean containsCustomer(Customer c){
+        if(cusomters.containsKey(c)){
+            return true;
+        }
+        return false;
     }
 }

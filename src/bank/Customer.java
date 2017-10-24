@@ -23,36 +23,41 @@ public class Customer {
     }
 
     public void printBalance(Account a){
-        if(verifiyAccount(a)){
+        if(verifyAccount(a)){
             a.printBal();
         }
     }
 
     public void deposit(Account a, double amount){
-        if(verifiyAccount(a)){
+        if(verifyAccount(a)){
             a.deposit(amount);
         }
     }
 
     public void withdraw(Account a, double amount){
-        if(verifiyAccount(a)){
+        if(verifyAccount(a)){
             a.withdraw(amount);
         }
     }
 
     public void transfer(Account a, double amount, int AccNo){
-        if(verifiyAccount(a)){
+        if(verifyAccount(a)){
             a.transfer(amount, AccNo);
         }
     }
 
-    public void makeAccountJoint(Account a){
-        if(verifiyAccount(a)){
-            a.makeAccountJoint();
+    public void makeAccountJoint(Account a, Customer secondary ){
+        if(verifyAccount(a)){
+
+            if(!BankSystem.getBank().containsCustomer(secondary)){
+                BankSystem.getBank().addCustomer(secondary);
+            }
+
+            BankSystem.getBank().addAccount(secondary, a);
         }
     }
 
-    public boolean verifiyAccount(Account a){
+    public boolean verifyAccount(Account a){
         if(BankSystem.getBank().getCustomerAccounts(this).contains(a)){
             return true;
         }

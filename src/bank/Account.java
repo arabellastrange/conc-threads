@@ -27,7 +27,7 @@ public abstract class Account {
     public abstract boolean deposit(double dep);
     public abstract boolean withdraw(double amount);
 
-    public boolean transfer(double amount, int toAccountNum){
+    public boolean transfer( double amount, int toAccountNum){
         if(this.withdraw(amount)){
             BankSystem.getBank().getAccount(toAccountNum).deposit(amount);
             System.out.println("Transfer successful. Transferred: £" + amount);
@@ -69,10 +69,6 @@ public abstract class Account {
 
     public void setInterestLength(double interestLength) {
         this.interestLength = interestLength;
-    }
-
-    public void makeAccountJoint(){
-
     }
 
     @Override
