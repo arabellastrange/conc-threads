@@ -1,7 +1,8 @@
 package bank;
 
 public class SavingAccount extends Account {
-
+    double upperLimit;
+    
     public SavingAccount(double intialBalance, double interestRt, double interestLen){
         super(intialBalance, interestRt, interestLen);
     }
@@ -21,18 +22,6 @@ public class SavingAccount extends Account {
         } else
             System.out.println("Insufficient funds.");
         return false;
-    }
-
-    @Override
-    public boolean transfer(double amount, int AccNum) {
-        if (amount <= this.balance) {
-            withdraw(amount);
-            System.out.print("\nTransfer successful. Transferred: £" + amount);
-            return true;
-        } else {
-            System.out.print("\nTransfer failed, not enough balance!");
-            return false;
-        }
     }
 
 }

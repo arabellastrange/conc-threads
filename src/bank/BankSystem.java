@@ -28,7 +28,7 @@ public final class BankSystem {
         if(!cusomters.entrySet().isEmpty()) {
             System.out.println("This bank has the following customers");
             for (Map.Entry c : cusomters.entrySet()) {
-                System.out.println("Cusomter: " + c.getKey() + " their accounts are " + c.getValue());
+                System.out.println("Cusomter: " + c.getKey().toString() + " their accounts are " + c.getValue().toString());
             }
         }
         else {
@@ -74,10 +74,12 @@ public final class BankSystem {
         return cusomters.get(c);
    }
 
-   public Account getAccount(Customer c, int AccNo){
-       for(Account a : cusomters.get(c)){
-           if(a.getAccountNumber() == AccNo){
-               return a;
+   public Account getAccount(int AccNo){
+       for(ArrayList<Account> as : cusomters.values()){
+           for(Account a : as){
+               if(a.getAccountNumber() == AccNo){
+                   return a;
+               }
            }
        }
        return null;

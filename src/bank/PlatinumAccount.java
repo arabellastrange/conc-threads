@@ -22,23 +22,19 @@ public class PlatinumAccount extends Account{
     public boolean withdraw(double amount) {
         if(hasOverdraft){
             if(balance - overdraft <= 0){
+                System.out.println("Balance too low to preform this action");
                 return false;
             }
         }
         else{
             if(balance <= 0){
+                System.out.println("Balance too low to preform this action");
                 return false;
             }
         }
         balance -= amount;
         return true;
 
-    }
-
-    //takes in an account number gets an account by that number makes a deposit to it and withdraws an equal amount from this.acc
-    @Override
-    public boolean transfer(double amount, int AccountNum) {
-        return false;
     }
 
     public void setOverdraft(double overdraft) {

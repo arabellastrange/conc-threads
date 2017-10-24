@@ -22,7 +22,15 @@ public abstract class Account {
     //move money - write operations
     public abstract boolean deposit(double dep);
     public abstract boolean withdraw(double amount);
-    public abstract boolean transfer(double amount, int toAccountNum);
+
+    public boolean transfer(double amount, int toAccountNum){
+        if(this.withdraw(amount)){
+            BankSystem.getBank().getAccount(toAccountNum).deposit(amount);
+            System.out.println("Transfer successful. Transferred: £" + amount);
+            return true;
+        }
+        return false;
+    }
 
     //balance info - read operations
     public double checkBal(){
