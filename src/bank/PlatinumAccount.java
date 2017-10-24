@@ -1,9 +1,4 @@
 package bank;
-
-import com.sun.jnlp.JNLPRandomAccessFileNSBImpl;
-
-import java.util.Random;
-
 public class PlatinumAccount extends Account{
     double overdraft;
     double fee;

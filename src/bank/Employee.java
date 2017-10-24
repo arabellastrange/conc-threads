@@ -28,4 +28,8 @@ public class Employee {
         account.withdraw(account.getAccountFee());
     }
 
+    @Override
+    public String toString() {
+        return employeeID + "";
+    }
 }
