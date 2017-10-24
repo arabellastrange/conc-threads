@@ -3,8 +3,8 @@ package bank;
 public class SavingAccount extends Account {
     double upperLimit;
     
-    public SavingAccount(double intialBalance, double interestRt, double interestLen){
-        super(intialBalance, interestRt, interestLen);
+    public SavingAccount(double initialBalance, double interestRt, double interestLen){
+        super(initialBalance, interestRt, interestLen);
     }
 
     @Override

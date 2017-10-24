@@ -8,17 +8,17 @@ public abstract class Account {
     private int sortCode;
     private double balance;
     private double interestRate;
-    private double interestLength; // value between 0 and 1 to indicate how often per year intrest is paid
+    private double interestLength; // value between 0 and 1 to indicate how often per year interest is paid
 
     public enum Account_Types {
         SAVING, PLATINUM, CURRENT
     }
 
-    public Account(double intialBalance, double interestRt, double interestLn){
+    public Account(double initialBalance, double interestRt, double interestLn){
         Random rand = new Random();
         accountNumber = rand.nextInt(199999) + 100000;
         sortCode = rand.nextInt(9999) + 1000;
-        balance = intialBalance;
+        balance = initialBalance;
         interestRate = interestRt;
         interestLength = interestLn;
     }

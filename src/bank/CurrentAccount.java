@@ -6,10 +6,8 @@ public class CurrentAccount extends Account {
     boolean hasOverdraft = false;
 
 
-    public CurrentAccount(double intialBalance, double interestRt, double intrestLn){
-        super(intialBalance, interestRt, intrestLn);
-
-
+    public CurrentAccount(double initialBalance, double interestRt, double interestLn){
+        super(initialBalance, interestRt, interestLn);
     }
 
     @Override
@@ -38,6 +36,5 @@ public class CurrentAccount extends Account {
         hasOverdraft = true;
 
     }
-
 
 }

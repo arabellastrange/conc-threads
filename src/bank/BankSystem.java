@@ -7,7 +7,7 @@ import java.util.Map;
 
 public final class BankSystem {
     private static BankSystem bank = null;
-    private Map<Customer, ArrayList<Account>> cusomters = new HashMap<Customer, ArrayList<Account>>();
+    private Map<Customer, ArrayList<Account>> customers = new HashMap<Customer, ArrayList<Account>>();
     private static ArrayList<Employee> employees = new ArrayList<>();
 
     private BankSystem(){
@@ -25,10 +25,10 @@ public final class BankSystem {
     }
 
     public void tellMeAboutBank(){
-        if(!cusomters.entrySet().isEmpty()) {
+        if(!customers.entrySet().isEmpty()) {
             System.out.println("This bank has the following customers");
-            for (Map.Entry c : cusomters.entrySet()) {
-                System.out.println("Cusomter: " + c.getKey().toString() + " their accounts are " + c.getValue().toString());
+            for (Map.Entry c : customers.entrySet()) {
+                System.out.println("Customer: " + c.getKey().toString() + " their accounts are " + c.getValue().toString());
             }
         }
         else {
@@ -37,8 +37,8 @@ public final class BankSystem {
     }
 
     public void addAccount(Customer c, Account a){
-       if(cusomters.containsKey(c)) {
-           cusomters.get(c).add(a);
+       if(customers.containsKey(c)) {
+           customers.get(c).add(a);
        }
        else{
            System.out.println("No such customer exists");
@@ -46,8 +46,8 @@ public final class BankSystem {
     }
 
     public void removeAccount(Customer c, Account a){
-        if(cusomters.containsKey(c)) {
-            cusomters.get(c).remove(a);
+        if(customers.containsKey(c)) {
+            customers.get(c).remove(a);
         }
         else{
             System.out.println("No such customer exists");
@@ -56,7 +56,7 @@ public final class BankSystem {
 
     public void addCustomer(Customer c){
         if(!containsCustomer(c)){
-            cusomters.put(c, new ArrayList<Account>());
+            customers.put(c, new ArrayList<Account>());
         }
         else {
             System.out.println("Customer already in bank!");
@@ -64,7 +64,7 @@ public final class BankSystem {
     }
 
     public void removesCustomer(Customer c){
-       cusomters.remove(c);
+       customers.remove(c);
     }
 
     public void hireEmployee(Employee e){
@@ -76,11 +76,11 @@ public final class BankSystem {
     }
 
    public ArrayList<Account> getCustomerAccounts(Customer c){
-        return cusomters.get(c);
+        return customers.get(c);
    }
 
    public Account getAccount(int AccNo){
-       for(ArrayList<Account> as : cusomters.values()){
+       for(ArrayList<Account> as : customers.values()){
            for(Account a : as){
                if(a.getAccountNumber() == AccNo){
                    return a;
@@ -95,7 +95,7 @@ public final class BankSystem {
     }
 
     public boolean containsCustomer(Customer c){
-        if(cusomters.containsKey(c)){
+        if(customers.containsKey(c)){
             return true;
         }
         return false;
