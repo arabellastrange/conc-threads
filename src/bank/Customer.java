@@ -2,8 +2,8 @@ package bank;
 
 
 public class Customer {
-    String  name;
-    Employee contact;
+    private String  name;
+    private Employee contact;
 
     public Customer(String cName, Employee conc){
         name = cName;
@@ -25,7 +25,7 @@ public class Customer {
     @Override
     public String toString(){
 
-        return "Name: " + name + " Contact: " + contact;
+        return "{Name: " + name + ", Contact: " + contact + "}";
     }
 }
 
