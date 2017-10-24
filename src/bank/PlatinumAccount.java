@@ -1,10 +1,10 @@
 package bank;
 
 public class PlatinumAccount extends Account{
-    double overdraft;
-    double fee;
-    double feeLength;
-    boolean hasOverdraft = false;
+    private double overdraft;
+    private double fee;
+    private double feeLength;
+    private boolean hasOverdraft = false;
 
     public PlatinumAccount(double intialBalance, double interestRt, double intrestLn, double accFee, double fLength){
         super(intialBalance, interestRt, intrestLn);
@@ -14,25 +14,26 @@ public class PlatinumAccount extends Account{
 
     @Override
     public boolean deposit(double dep) {
-        balance += dep;
+        setBalance(checkBal() + dep);
         return true;
     }
 
     @Override
     public boolean withdraw(double amount) {
         if(hasOverdraft){
-            if(balance - overdraft <= 0){
+            if(checkBal() - overdraft <= 0){
                 System.out.println("Balance too low to preform this action");
                 return false;
             }
         }
         else{
-            if(balance <= 0){
+            if(checkBal() <= 0){
                 System.out.println("Balance too low to preform this action");
                 return false;
             }
         }
-        balance -= amount;
+
+        setBalance(checkBal() - amount);
         return true;
 
     }
