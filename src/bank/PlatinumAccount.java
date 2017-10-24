@@ -14,26 +14,26 @@ public class PlatinumAccount extends Account{
 
     @Override
     public boolean deposit(double dep) {
-        setBalance(getBalance() + dep);
+        setBalance(checkBal() + dep);
         return true;
     }
 
     @Override
     public boolean withdraw(double amount) {
         if(hasOverdraft){
-            if(getBalance() - overdraft <= 0){
+            if(checkBal() - overdraft <= 0){
                 System.out.println("Balance too low to preform this action");
                 return false;
             }
         }
         else{
-            if(getBalance() <= 0){
+            if(checkBal() <= 0){
                 System.out.println("Balance too low to preform this action");
                 return false;
             }
         }
 
-        setBalance(getBalance() - amount);
+        setBalance(checkBal() - amount);
         return true;
 
     }

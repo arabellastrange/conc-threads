@@ -62,9 +62,6 @@ public abstract class Account {
         return interestLength;
     }
 
-    public double getBalance() {
-        return balance;
-    }
 
     public void setBalance(double amount) {
         this.balance = amount;

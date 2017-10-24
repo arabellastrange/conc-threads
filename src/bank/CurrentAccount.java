@@ -9,14 +9,14 @@ public class CurrentAccount extends Account {
 
     @Override
     public boolean deposit(double dep) {
-        setBalance(getBalance() + dep);
+        setBalance(checkBal() + dep);
         return true;
     }
 
     @Override
     public boolean withdraw(double amount) {
-        if (getBalance() >= amount) {
-            setBalance(getBalance() - amount);
+        if (checkBal() >= amount) {
+            setBalance(checkBal() - amount);
             return true;
         } else
             return false;
@@ -24,7 +24,7 @@ public class CurrentAccount extends Account {
 
     @Override
     public boolean transfer(double amount, int AccNum) {
-        if (amount <= getBalance()) {
+        if (amount <= checkBal()) {
             withdraw(amount);
             // CurrentAccount.deposit(amount);
             System.out.print("\nTransfer successful. Transferred: £" + amount);
