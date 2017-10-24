@@ -6,29 +6,23 @@ public class Driver {
         App gui = new App();
 
         ThreadGroup A = new ThreadGroup("G-A");
-        Thread t = new Thread(A, new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("H");
-                try {
-                    Thread.sleep(100000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        Thread t = new Thread(A, () -> {
+            System.out.println("H");
+            try {
+                Thread.sleep(100000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }, "A thread");
         t.start();
 
         ThreadGroup B = new ThreadGroup("G-B");
-        Thread b = new Thread(B, new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("H");
-                try {
-                    Thread.sleep(100000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        Thread b = new Thread(B, () -> {
+            System.out.println("H");
+            try {
+                Thread.sleep(100000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }, "B thread");
         b.start();
