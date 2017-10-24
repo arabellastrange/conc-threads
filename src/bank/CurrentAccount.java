@@ -2,9 +2,14 @@ package bank;
 
 
 public class CurrentAccount extends Account {
+    double overdraft;
+    boolean hasOverdraft = false;
 
-    public CurrentAccount(double intialBalance, double interestRt, double intrestLn) {
+
+    public CurrentAccount(double intialBalance, double interestRt, double intrestLn){
         super(intialBalance, interestRt, intrestLn);
+
+
     }
 
     @Override
@@ -15,23 +20,24 @@ public class CurrentAccount extends Account {
 
     @Override
     public boolean withdraw(double amount) {
-        if (checkBal() >= amount) {
-            setBalance(checkBal() - amount);
-            return true;
-        } else
-            return false;
-    }
-
-    @Override
-    public boolean transfer(double amount, int AccNum) {
-        if (amount <= checkBal()) {
-            withdraw(amount);
-            // CurrentAccount.deposit(amount);
-            System.out.print("\nTransfer successful. Transferred: £" + amount);
+        if (hasOverdraft = true) {
+            if(checkBal() - overdraft <= 0){
+                return false;
+            }
         } else {
-            System.out.print("\nTransfer failed, not enough balance!");
+            if (checkBal() <= 0) {
+                return false;
+            }
         }
-
+        setBalance(checkBal() - amount);
         return true;
     }
+
+    public void setOverdraft(double overdraft) {
+       this.overdraft = overdraft;
+        hasOverdraft = true;
+
+    }
+
+
 }

@@ -9,6 +9,7 @@ public class SavingAccount extends Account {
 
     @Override
     public boolean deposit(double dep) {
+        //should have upper limit!!
         setBalance(checkBal() + dep);
         return true;
     }
@@ -23,16 +24,6 @@ public class SavingAccount extends Account {
         return false;
     }
 
-    @Override
-    public boolean transfer(double amount, int AccNum) {
-        if (amount <= checkBal()) {
-            withdraw(amount);
-            System.out.print("\nTransfer successful. Transferred: £" + amount);
-        } else {
-            System.out.print("\nTransfer failed, not enough balance!");
-        }
 
-        return true;
-    }
 
 }
