@@ -14,22 +14,22 @@ public class CurrentAccount extends Account {
 
     @Override
     public boolean deposit(double dep) {
-        balance = balance + dep;
+        setBalance(checkBal() + dep);
         return true;
     }
 
     @Override
     public boolean withdraw(double amount) {
         if (hasOverdraft = true) {
-            if (balance - overdraft <= 0) {
+            if(checkBal() - overdraft <= 0){
                 return false;
             }
         } else {
-            if (balance <= 0) {
+            if (checkBal() <= 0) {
                 return false;
             }
         }
-        balance = balance - amount;
+        setBalance(checkBal() - amount);
         return true;
     }
 
