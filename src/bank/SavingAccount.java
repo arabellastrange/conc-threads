@@ -1,14 +1,16 @@
 package bank;
 
 public class SavingAccount extends Account {
-
+    double upperLimit;
+    
     public SavingAccount(double intialBalance, double interestRt, double interestLen){
         super(intialBalance, interestRt, interestLen);
     }
 
     @Override
-    public void deposit(double dep) {
+    public boolean deposit(double dep) {
         setBalance(getBalance() + dep);
+        return true;
     }
 
     @Override
@@ -22,13 +24,15 @@ public class SavingAccount extends Account {
     }
 
     @Override
-    public void transfer(double amount, int AccNum) {
+    public boolean transfer(double amount, int AccNum) {
         if (amount <= getBalance()) {
             withdraw(amount);
             System.out.print("\nTransfer successful. Transferred: £" + amount);
         } else {
             System.out.print("\nTransfer failed, not enough balance!");
         }
+
+        return true;
     }
 
 }

@@ -11,13 +11,12 @@ public class PrintBalanceDrive implements Runnable {
 
     @Override
     public void run() {
-        BankSystem bank = BankSystem.getBank();
-        bank.getBank().tellMeAboutBank();
+        BankSystem.getBank().tellMeAboutBank();
 
-        Customer c = new Customer("Jean", bank.getBank().getEmployee(0));
-        bank.getBank().addCustomer(c);
+        Customer c = new Customer("Jean",  BankSystem.getBank().getEmployee(0));
+        BankSystem.getBank().addCustomer(c);
         Account a = new CurrentAccount(400, 0.01, 1);
-        bank.getBank().tellMeAboutBank();
+        BankSystem.getBank().tellMeAboutBank();
 
         c.requestNewAccount(a);
         a.printBal();
@@ -25,10 +24,10 @@ public class PrintBalanceDrive implements Runnable {
         c.requestNewAccount(p);
         p.printBal();
 
-        bank.getBank().tellMeAboutBank();
+        BankSystem.getBank().tellMeAboutBank();
 
-        Customer x = new Customer("Ororo", bank.getBank().getEmployee(0));
-        bank.getBank().addCustomer(x);
-        bank.getBank().tellMeAboutBank();
+        Customer x = new Customer("Ororo",  BankSystem.getBank().getEmployee(0));
+        BankSystem.getBank().addCustomer(x);
+        BankSystem.getBank().tellMeAboutBank();
     }
 }

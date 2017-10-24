@@ -1,4 +1,5 @@
 package bank;
+
 public class PlatinumAccount extends Account{
     private double overdraft;
     private double fee;
@@ -12,30 +13,28 @@ public class PlatinumAccount extends Account{
     }
 
     @Override
-    public void deposit(double dep) {
+    public boolean deposit(double dep) {
         setBalance(getBalance() + dep);
+        return true;
     }
 
     @Override
     public boolean withdraw(double amount) {
-        if (hasOverdraft) {
+        if(hasOverdraft){
             if(getBalance() - overdraft <= 0){
+                System.out.println("Balance too low to preform this action");
                 return false;
             }
-        } else {
+        }
+        else{
             if(getBalance() <= 0){
+                System.out.println("Balance too low to preform this action");
                 return false;
             }
         }
 
         setBalance(getBalance() - amount);
         return true;
-
-    }
-
-    //takes in an account number gets an account by that number makes a deposit to it and withdraws an equal amount from this.acc
-    @Override
-    public void transfer(double amount, int AccountNum) {
 
     }
 
