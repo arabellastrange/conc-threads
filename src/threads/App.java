@@ -3,9 +3,12 @@ package threads;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.*;
 import java.util.List;
 import java.util.Timer;
+import java.util.stream.Collectors;
 
 public class App {
 
@@ -26,14 +29,16 @@ public class App {
         mainPanel.setLayout(new BorderLayout());
 
         // Main components
+//        mainPanel.add(searchPanel(), BorderLayout.NORTH);
         mainPanel.add(mainPanel(), BorderLayout.CENTER);
         mainPanel.add(buttonPanel(), BorderLayout.EAST);
 
         frame.add(mainPanel);
 
-        frame.setMinimumSize(new Dimension(600, 300));
+        frame.setMinimumSize(new Dimension(600, 500));
         frame.setVisible(true);
     }
+
 
     private JPanel mainPanel() {
         JPanel mainPanel = new JPanel();
@@ -44,10 +49,46 @@ public class App {
 
         JScrollPane scrollableTable = new JScrollPane(table);
 
+        mainPanel.add(searchPanel());
         mainPanel.add(scrollableTable);
 
         return mainPanel;
     }
+
+    private JPanel searchPanel() {
+        JPanel searchPanel = new JPanel();
+        int height = searchPanel.getHeight();
+//        searchPanel.setSize(new Dimension(20, height));
+
+        searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.X_AXIS));
+
+        JTextField searchTextField = new JTextField(30);
+        searchTextField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                tableModel.filterThreadName(searchTextField.getText());
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+
+        JButton searchButton = new JButton("Search");
+        searchButton.addActionListener(e -> tableModel.filterThreadName(searchTextField.getText()));
+
+        searchPanel.add(searchTextField);
+        searchPanel.add(searchButton);
+
+        return searchPanel;
+    }
+
 
     private JPanel buttonPanel() {
         JPanel buttonPanel = new JPanel();
@@ -70,19 +111,15 @@ public class App {
         JButton stopButton = new JButton("Stop Thread");
         stopButton.addActionListener(actionEvent -> {
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
+            new Thread(() -> {
 
-                    int index =  table.getSelectedRow();
+                int index = table.getSelectedRow();
 
-                    if (index != -1) {
-                        tableModel.getThreadAtIndex(index).stop();
-                    }
-
-
-                    tableModel.fireTableDataChanged();
+                if (index != -1) {
+                    tableModel.getThreadAtIndex(index).stop();
                 }
+
+                tableModel.fireTableDataChanged();
             }).start();
 
         });
@@ -101,14 +138,17 @@ public class App {
     }
 
 
-
     private class ThreadTableModel extends AbstractTableModel {
 
         private List<Thread> threadList;
-        private Vector<String> columnNames = new Vector<>();
-        private Vector<Vector<String>> data = new Vector<>();
+        private Vector<String> columnNames;
+        private Vector<Vector<String>> data;
+        private String query = "";
 
         public ThreadTableModel() {
+            columnNames = new Vector<>();
+            data = new Vector<>();
+
             threadList = ThreadGroupUtils.getAllThreads();
 
             String[] columns = new String[]{"ID", "Name", "Priority", "State", "Daemon", "Thread Group"};
@@ -123,13 +163,13 @@ public class App {
                 public void run() {
                     fireTableDataChanged();
                 }
-            }, 0,seconds * 1000);
+            }, 0, seconds * 1000);
         }
 
         private void refresh() {
             data.clear();
 
-            threadList = ThreadGroupUtils.getAllThreads();
+            threadList = getThreads();
 
             for (int i = 0; i < threadList.size(); i++) {
                 data.addElement(new Vector<String>());
@@ -139,6 +179,19 @@ public class App {
                     data.get(i).addElement(property);
                 }
             }
+        }
+
+        private List<Thread> getThreads() {
+            List<Thread> threads = ThreadGroupUtils.getAllThreads();
+            if (query.equals("")) {
+                return threads;
+            }
+
+            threads = threads.stream()
+                    .filter((t) -> t.getName().toLowerCase().startsWith(query.toLowerCase()))
+                    .collect(Collectors.toList());
+
+            return threads;
         }
 
         private String getThreadProperty(Thread thread, int i) {
@@ -201,5 +254,23 @@ public class App {
             return data.get(rowIndex).get(columnIndex);
         }
 
+        /**
+         * Filters threads by query
+         *
+         * @param query
+         */
+        public void filterThreadName(String query) {
+            this.query = query.trim();
+            fireTableDataChanged();
+        }
+
+        /**
+         * Filters threads by query
+         * @param query
+         */
+        public void filterThreadGroup(String query) {
+            this.query = query.trim();
+            fireTableDataChanged();
+        }
     }
 }
