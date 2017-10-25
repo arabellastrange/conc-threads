@@ -137,6 +137,21 @@ public class ThreadGroupUtils {
         return nullIndex;
     }
 
+    public static ThreadGroup getThreadGroup(Thread thread) {
+        List<ThreadGroup> tg = getChildThreadGroups(getRootThreadGroup(), true);
+
+        for (ThreadGroup threadGroup : tg) {
+            List<Thread> threads = getThreads(threadGroup);
+
+            for (Thread t : threads) {
+                if (t.getId() == thread.getId()) {
+                    return threadGroup;
+                }
+            }
+        }
+
+        return getRootThreadGroup();
+    }
 
     public static String printThreadInfo(Thread thread) {
         return "ID: " + thread.getId() + " | Name: " + thread.getName() + " | Priority: "
