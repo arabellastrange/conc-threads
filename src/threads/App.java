@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.stream.Collectors;
 
+import static threads.ThreadGroupUtils.getRootThreadGroup;
+
 public class App {
 
     public static final String TITLE = "Thread Manager";
@@ -90,9 +92,31 @@ public class App {
     }
 
 
+
     private JPanel buttonPanel() {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+
+        JComboBox<ThreadGroup> threadGroupComboBox = new JComboBox<>(new ThreadGroupComboBoxModel());
+        threadGroupComboBox.setSelectedIndex(0);
+        JScrollPane threadGroupComboBoxScrollPane = new JScrollPane(threadGroupComboBox);
+        threadGroupComboBoxScrollPane.setMaximumSize(new Dimension(200, 50));
+
+        //This will print out the name of the thread group
+//        threadGroupComboBox.setRenderer(new ListCellRenderer<ThreadGroup>() {
+//            private DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+//
+//            @Override
+//            public Component getListCellRendererComponent(JList<? extends ThreadGroup> jList, ThreadGroup threadGroup, int i, boolean b, boolean b1) {
+//                JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(jList, threadGroup, i, b, b1);
+//                System.out.println(threadGroup == null);
+//
+////                renderer.setText("");
+//                return renderer;
+//            }
+//        });
+
+
 
         JButton newButton = new JButton("New Thread");
         newButton.addActionListener(actionEvent -> {
@@ -130,6 +154,7 @@ public class App {
             tableModel.fireTableDataChanged();
         });
 
+//        buttonPanel.add(threadGroupComboBoxScrollPane);
         buttonPanel.add(newButton);
         buttonPanel.add(stopButton);
         buttonPanel.add(refreshButton);
@@ -271,6 +296,56 @@ public class App {
         public void filterThreadGroup(String query) {
             this.query = query.trim();
             fireTableDataChanged();
+        }
+    }
+
+    private class ThreadGroupComboBoxModel extends AbstractListModel<ThreadGroup> implements ComboBoxModel<ThreadGroup> {
+
+        private List<ThreadGroup> threadGroups;
+        private ThreadGroup selectedItem;
+
+        public ThreadGroupComboBoxModel() {
+            threadGroups = new ArrayList<>();
+
+            refresh();
+
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    refresh();
+                }
+            }, 0, 5000);
+        }
+
+        private void refresh() {
+            threadGroups = ThreadGroupUtils.getChildThreadGroups(getRootThreadGroup(), true);
+        }
+
+        @Override
+        protected void fireContentsChanged(Object o, int i, int i1) {
+            refresh();
+            super.fireContentsChanged(o, i, i1);
+        }
+
+        @Override
+        public int getSize() {
+            return threadGroups.size();
+        }
+
+        @Override
+        public ThreadGroup getElementAt(int i) {
+            return threadGroups.get(i);
+        }
+
+        @Override
+        public void setSelectedItem(Object o) {
+            selectedItem = (ThreadGroup) o;
+        }
+
+        @Override
+        public ThreadGroup getSelectedItem() {
+            return selectedItem;
         }
     }
 }
