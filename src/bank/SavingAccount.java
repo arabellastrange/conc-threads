@@ -1,76 +1,38 @@
 package bank;
 
-public class SavingAccount implements AccountsI {
-
-    private double balance;
-    private int accNumber;
-    private double interestRate;
-    private double interest;
-    private int sortCode;
-
-
-    public SavingAccount(int acc, double bal, double rate, double intRate){
-        accNumber = acc;
-        balance = bal;
-        interestRate = rate;
+public class SavingAccount extends Account {
+    double upperLimit;
+    
+    public SavingAccount(double intialBalance, double interestRt, double interestLen){
+        super(intialBalance, interestRt, interestLen);
     }
 
-
-
     @Override
-    public void deposit(double dep) {
-        balance = balance + dep;
+    public boolean deposit(double dep) {
+        setBalance(checkBal() + dep);
+        return true;
     }
 
     @Override
     public boolean withdraw(double amount) {
-        if (balance >= amount) {
-            balance = balance - amount;
+        if (checkBal() >= amount) {
+            setBalance(checkBal() - amount);
             return true;
         } else
             System.out.println("Insufficient funds.");
-            return false;
+        return false;
     }
 
     @Override
-    public void transfer(double amount) {
-        if (amount <= this.balance) {
+    public boolean transfer(double amount, int AccNum) {
+        if (amount <= checkBal()) {
             withdraw(amount);
-            // CurrentAccount.deposit(amount);
             System.out.print("\nTransfer successful. Transferred: £" + amount);
         } else {
             System.out.print("\nTransfer failed, not enough balance!");
         }
+
+        return true;
     }
 
-    @Override
-    public double checkBal() {
-        return balance;
-    }
-
-    @Override
-    public void printBal()  {
-
-        System.out.print("Account number " + accNumber + " has the balance of " + balance);
-    }
-
-    @Override
-    public int getAccountNumber() {
-        return accNumber;
-    }
-
-    @Override
-    public int getAccountSort() {
-        return sortCode;
-    }
-
-    @Override
-    public void setInterestRate(double rate) {
-        interest = balance * rate;
-    }
-
-    @Override
-    public double getInterestRate() {
-        return interest;
-    }
 }

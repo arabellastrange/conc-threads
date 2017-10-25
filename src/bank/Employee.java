@@ -1,32 +1,35 @@
 package bank;
 public class Employee {
-    int employeeID;
-    String employeeName;
-    double time; // how often interest is paid to account - maybe defined in account classes?
+    private BankSystem workingAt;
+    private int employeeID;
+    private int genID = 0;
 
-    public Employee(int id, String name){
-        employeeID = id;
-        employeeName = name;
+    public Employee(){
+        employeeID = genID++;
     }
 
-    public AccountsI createAcc(String accType){
-        return null;
+    public int getEmployeeID() {
+        return employeeID;
     }
 
-    public void deleteAcc(int accNum){
-
+    public void createAcc(Customer cust, Account a){
+        workingAt.getBank().addAccount(cust, a);
     }
 
-    public void transfer(AccountsI fromAccount, AccountsI toAccount, double amount){
-
+    public void deleteAcc(Customer c, int accNum){
+        workingAt.getBank().removeAccount(c, workingAt.getBank().getAccount(accNum));
     }
 
-    public void depositInterest(AccountsI account){
-        account.deposit(account.checkBal() * account.getInterestRate() * time);
+    public void depositInterest(Account account){
+        account.deposit(account.checkBal() * account.getInterestRate() * account.getInterestLength());
     }
 
     public void chargeFee(PlatinumAccount account){
         account.withdraw(account.getAccountFee());
     }
 
+    @Override
+    public String toString() {
+        return employeeID + "";
+    }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ThreadGroupUtils {
 
@@ -135,5 +136,34 @@ public class ThreadGroupUtils {
         }
 
         return nullIndex;
+    }
+
+    public static ThreadGroup getThreadGroup(Thread thread) {
+        List<ThreadGroup> tg = getChildThreadGroups(getRootThreadGroup(), true);
+
+        for (ThreadGroup threadGroup : tg) {
+            List<Thread> threads = getThreads(threadGroup);
+
+            for (Thread t : threads) {
+                if (t.getId() == thread.getId()) {
+                    return threadGroup;
+                }
+            }
+        }
+
+        return getRootThreadGroup();
+    }
+
+    public static String printThreadInfo(Thread thread) {
+        return "ID: " + thread.getId() + " | Name: " + thread.getName() + " | Priority: "
+                + thread.getPriority() + " | State: " + thread.getState() + " | Daemon: " + thread.isDaemon();
+    }
+
+    public static Thread getThreadById(int id) {
+        List<Thread> thread =  getAllThreads().stream()
+                .filter(t -> t.getId() == id)
+                .collect(Collectors.toList());
+
+        return thread.isEmpty() ? null : thread.get(0);
     }
 }
