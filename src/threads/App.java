@@ -10,18 +10,15 @@ import java.util.Timer;
 public class App {
 
     public static final String TITLE = "Thread Manager";
-    private JFrame frame;
-    private JPanel mainPanel;
     private JTable table;
     private ThreadTableModel tableModel;
-
 
     public App() {
         setupUI();
     }
 
     private void setupUI() {
-        frame = new JFrame(TITLE);
+        JFrame frame = new JFrame(TITLE);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // mainPanel panel
@@ -39,7 +36,7 @@ public class App {
     }
 
     private JPanel mainPanel() {
-        mainPanel = new JPanel();
+        JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new FlowLayout());
 
         tableModel = new ThreadTableModel();
@@ -79,7 +76,6 @@ public class App {
 
                     int index =  table.getSelectedRow();
 
-                    System.out.println(index);
                     if (index != -1) {
                         tableModel.getThreadAtIndex(index).stop();
                     }
@@ -125,7 +121,7 @@ public class App {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    refresh();
+                    fireTableDataChanged();
                 }
             }, 0,seconds * 1000);
         }
