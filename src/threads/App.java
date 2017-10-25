@@ -3,15 +3,14 @@ package threads;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
-import java.util.Vector;
+import java.util.Timer;
 
 public class App {
 
     public static final String TITLE = "Thread Manager";
     private JFrame frame;
-    private DefaultListModel<String> listModel;
     private JPanel mainPanel;
     private JTable table;
     private ThreadTableModel tableModel;
@@ -43,18 +42,10 @@ public class App {
         mainPanel = new JPanel();
         mainPanel.setLayout(new FlowLayout());
 
-        listModel = new DefaultListModel<>();
-
-//        list = new JList<>(listModel);
-
-//        mainPanel.add(list);
-
         tableModel = new ThreadTableModel();
         table = new JTable(tableModel);
-//        table.tableChanged(new TableModelEvent());
 
         JScrollPane scrollableTable = new JScrollPane(table);
-
 
         mainPanel.add(scrollableTable);
 
@@ -67,7 +58,6 @@ public class App {
 
         JButton newButton = new JButton("New Thread");
         newButton.addActionListener(actionEvent -> {
-
 
             new Thread(() -> {
                 try {
@@ -127,7 +117,16 @@ public class App {
             String[] columns = new String[]{"ID", "Name", "Priority", "State", "Daemon", "Thread Group"};
             columnNames.addAll(Arrays.asList(columns));
 
-            refresh();
+
+            // update every 5 seconds
+            int seconds = 5;
+            java.util.Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    refresh();
+                }
+            }, 0,seconds * 1000);
         }
 
         private void refresh() {
