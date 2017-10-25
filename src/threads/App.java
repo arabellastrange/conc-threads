@@ -67,6 +67,7 @@ public class App {
                 }
             }).start();
 
+            tableModel.fireTableDataChanged();
         });
 
         JButton stopButton = new JButton("Stop Thread");
