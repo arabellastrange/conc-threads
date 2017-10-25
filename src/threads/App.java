@@ -23,7 +23,7 @@ public class App {
 
     private void setupUI() {
         frame = new JFrame(TITLE);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // mainPanel panel
         JPanel mainPanel = new JPanel();
@@ -78,11 +78,23 @@ public class App {
 
         JButton stopButton = new JButton("Stop Thread");
         stopButton.addActionListener(actionEvent -> {
-            int index =  0; //TODO: Fix this
 
-            Thread selectedThread = ThreadGroupUtils.getAllThreads().get(index);
-            selectedThread.stop();
-//            refresh();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    int index =  table.getSelectedRow();
+
+                    System.out.println(index);
+                    if (index != -1) {
+                        tableModel.getThreadAtIndex(index).stop();
+                    }
+
+
+                    tableModel.fireTableDataChanged();
+                }
+            }).start();
+
         });
 
 
@@ -104,7 +116,7 @@ public class App {
 
         private List<Thread> threadList;
         private Vector<String> columnNames = new Vector<>();
-        private Vector<Vector<String>> data = new Vector();
+        private Vector<Vector<String>> data = new Vector<>();
 
         public ThreadTableModel() {
             threadList = ThreadGroupUtils.getAllThreads();
@@ -149,6 +161,11 @@ public class App {
             return "";
         }
 
+        public Thread getThreadAtIndex(int i) {
+            int threadId = Integer.valueOf(data.get(i).get(0));
+            return ThreadGroupUtils.getThreadById(threadId);
+        }
+
         @Override
         public void fireTableDataChanged() {
             refresh();
@@ -184,7 +201,6 @@ public class App {
         public Object getValueAt(int rowIndex, int columnIndex) {
             return data.get(rowIndex).get(columnIndex);
         }
-
 
     }
 }
