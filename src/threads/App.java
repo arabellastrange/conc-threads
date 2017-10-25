@@ -83,7 +83,23 @@ public class App {
         ThreadGroup root = ThreadGroupUtils.getRootThreadGroup();
         List<Thread> threadList = ThreadGroupUtils.getAllThreads();
         for (Thread thread : threadList) {
-            listModel.addElement(ThreadGroupUtils.printThreadInfo(thread));
+            listModel.addElement(ThreadGroupUtils.printThreadInfo(thread) + " ");
         }
     }
+
+//    private void createTable() {
+//        ThreadGroup root = ThreadGroupUtils.getRootThreadGroup();
+//        List<Thread> threadList = ThreadGroupUtils.getAllThreads();
+//
+//        //
+//        String[] data = {"ID", "Name", "Priority", "State", "Daemon"};
+//        String[] columns = new String[threadList.size()];
+//
+//        for (Thread thread : threadList) {
+//
+//            listModel.addElement(ThreadGroupUtils.printThreadInfo(thread));
+//        }
+//
+//        JTable table = new JTable(data, columns);
+//    }
 }
