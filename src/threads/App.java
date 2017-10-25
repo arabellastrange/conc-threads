@@ -67,13 +67,16 @@ public class App {
 
         JButton newButton = new JButton("New Thread");
         newButton.addActionListener(actionEvent -> {
+
+
             new Thread(() -> {
                 try {
                     Thread.sleep(10000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            });
+            }).start();
+
         });
 
         JButton stopButton = new JButton("Stop Thread");
