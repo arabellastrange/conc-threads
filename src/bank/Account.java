@@ -27,9 +27,9 @@ public abstract class Account {
 
     //move money - write operations
     public abstract boolean deposit(double dep);
-    public abstract boolean withdraw(double amount);
+    public abstract boolean withdraw(double amount) throws InterruptedException;
 
-    public boolean transfer( double amount, int toAccountNum){
+    public boolean transfer( double amount, int toAccountNum) throws InterruptedException {
         System.out.println("Thread " + Thread.currentThread().getId() + " is attempting transfer");
         if(this.withdraw(amount)){
             BankSystem.getBank().getAccount(toAccountNum).deposit(amount);

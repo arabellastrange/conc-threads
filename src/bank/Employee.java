@@ -32,7 +32,7 @@ public class Employee {
         account.deposit(account.checkBal() * account.getInterestRate() * account.getInterestLength());
     }
 
-    public void chargeFee(PlatinumAccount account){
+    public void chargeFee(PlatinumAccount account) throws InterruptedException {
         account.withdraw(account.getAccountFee());
     }
 

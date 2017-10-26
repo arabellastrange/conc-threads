@@ -30,7 +30,13 @@ public class ExampleDriver implements Runnable{
         c.deposit(a,10);
         c.printBalance(a);
         c.printBalance(as);
-        c.transfer(a, 20, as.getAccountNumber());
+        try {
+            Thread.sleep(100);
+            c.transfer(a, 20, as.getAccountNumber());
+        }
+        catch (InterruptedException e){
+            System.out.println("Balance too low, never replenished, can't wait anymore");
+        }
         c.printBalance(a);
         c.printBalance(as);
     }

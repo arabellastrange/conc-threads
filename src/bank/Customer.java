@@ -34,13 +34,13 @@ public class Customer {
         }
     }
 
-    public void withdraw(Account a, double amount){
+    public void withdraw(Account a, double amount) throws InterruptedException {
         if(verifyAccount(a)){
             a.withdraw(amount);
         }
     }
 
-    public void transfer(Account a, double amount, int AccNo){
+    public void transfer(Account a, double amount, int AccNo) throws InterruptedException {
         if(verifyAccount(a)){
             a.transfer(amount, AccNo);
         }

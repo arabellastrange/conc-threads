@@ -28,10 +28,16 @@ public class InsufficientFundsDriver implements Runnable {
     @Override
     public void run() {
         c.printBalance(a);
-        c.withdraw(a, 200);
-        c.printBalance(a);
-        c.withdraw(a, 200);
-        c.printBalance(a);
-        c.withdraw(a, 200); //here will need to add waiting for top up
+        try {
+            Thread.sleep(100);
+            c.withdraw(a, 200);
+            c.printBalance(a);
+            c.withdraw(a, 200);
+            c.printBalance(a);
+            c.withdraw(a, 200);
+        } catch (InterruptedException e) {
+            System.out.println("Balance too low, never replenished, can't wait anymore");
+        }
+
     }
 }
