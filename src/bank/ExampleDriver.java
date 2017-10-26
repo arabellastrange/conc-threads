@@ -15,9 +15,9 @@ public class ExampleDriver implements Runnable{
         Account a = new CurrentAccount(400, 0.01, 1);
         bank.getBank().tellMeAboutBank();
         c.requestNewAccount(a);
-        a.printBal();
-        a.deposit(10);
-        a.printBal();
+        c.printBalance(a);
+        c.deposit(a,10);
+        c.printBalance(a);
         Account as = new CurrentAccount(500, 0.01, 0.5);
         c.requestNewAccount(as);
         bank.getBank().tellMeAboutBank();

@@ -1,46 +1,40 @@
 package bank;
 
-import com.sun.jnlp.JNLPRandomAccessFileNSBImpl;
-
-import java.util.Random;
-
 public class PlatinumAccount extends Account{
-    double overdraft;
-    double fee;
-    double feeLength;
-    boolean hasOverdraft = false;
+    private double overdraft;
+    private double fee;
+    private double feeLength;
+    private boolean hasOverdraft = false;
 
-    public PlatinumAccount(double intialBalance, double interestRt, double intrestLn, double accFee, double fLength){
-        super(intialBalance, interestRt, intrestLn);
+    public PlatinumAccount(double initialBalance, double interestRt, double interestLn, double accFee, double fLength){
+        super(initialBalance, interestRt, interestLn);
         fee = accFee;
         feeLength = fLength;
     }
 
     @Override
-    public void deposit(double dep) {
-        balance += dep;
+    public boolean deposit(double dep) {
+        setBalance(checkBal() + dep);
+        return true;
     }
 
     @Override
     public boolean withdraw(double amount) {
         if(hasOverdraft){
-            if(balance - overdraft <= 0){
+            if(checkBal() - overdraft <= 0){
+                System.out.println("Balance too low to preform this action");
                 return false;
             }
         }
         else{
-            if(balance <= 0){
+            if(checkBal() <= 0){
+                System.out.println("Balance too low to preform this action");
                 return false;
             }
         }
-        balance -= amount;
+
+        setBalance(checkBal() - amount);
         return true;
-
-    }
-
-    //takes in an account number gets an account by that number makes a deposit to it and withdraws an equal amount from this.acc
-    @Override
-    public void transfer(double amount, int AccountNum) {
 
     }
 

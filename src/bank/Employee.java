@@ -1,8 +1,8 @@
 package bank;
 public class Employee {
-    BankSystem workingAt;
-    int employeeID;
-    int genID = 0;
+    private BankSystem workingAt;
+    private int employeeID;
+    private int genID = 0;
 
     public Employee(){
         employeeID = genID++;
@@ -17,7 +17,7 @@ public class Employee {
     }
 
     public void deleteAcc(Customer c, int accNum){
-        workingAt.getBank().removeAccount(c, workingAt.getBank().getAccount(c, accNum));
+        workingAt.getBank().removeAccount(c, workingAt.getBank().getAccount(accNum));
     }
 
     public void depositInterest(Account account){
@@ -28,4 +28,8 @@ public class Employee {
         account.withdraw(account.getAccountFee());
     }
 
+    @Override
+    public String toString() {
+        return employeeID + "";
+    }
 }

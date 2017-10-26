@@ -3,26 +3,38 @@ package bank;
 import java.util.Random;
 
 public abstract class Account {
-    Random rand = new Random();
 
-    int accountNumber;
-    int sortCode;
-    double balance;
-    double interestRate;
-    double interestLength; // value between 0 and 1 to indicate how often per year intrest is paid
+    private int accountNumber;
+    private int sortCode;
+    private double balance;
+    private double interestRate;
+    private double interestLength; // value between 0 and 1 to indicate how often per year interest is paid
 
-    public Account(double intialBalance, double interestRt, double interestLn){
+    public enum Account_Types {
+        SAVING, PLATINUM, CURRENT
+    }
+
+    public Account(double initialBalance, double interestRt, double interestLn){
+        Random rand = new Random();
         accountNumber = rand.nextInt(199999) + 100000;
         sortCode = rand.nextInt(9999) + 1000;
-        balance = intialBalance;
+        balance = initialBalance;
         interestRate = interestRt;
         interestLength = interestLn;
     }
 
     //move money - write operations
-    public abstract void deposit(double dep);
+    public abstract boolean deposit(double dep);
     public abstract boolean withdraw(double amount);
-    public abstract void transfer(double amount, int toAccountNum);
+
+    public boolean transfer( double amount, int toAccountNum){
+        if(this.withdraw(amount)){
+            BankSystem.getBank().getAccount(toAccountNum).deposit(amount);
+            System.out.println("Transfer successful. Transferred: £" + amount);
+            return true;
+        }
+        return false;
+    }
 
     //balance info - read operations
     public double checkBal(){
@@ -50,11 +62,17 @@ public abstract class Account {
         return interestLength;
     }
 
+
+    public void setBalance(double amount) {
+        this.balance = amount;
+    }
+
     public void setInterestLength(double interestLength) {
         this.interestLength = interestLength;
     }
 
-    public void makeAccountJoint(){
-
+    @Override
+    public String toString() {
+        return "{ Account Number: " + accountNumber + " }";
     }
 }
