@@ -20,10 +20,12 @@ public class CurrentAccount extends Account {
     public boolean withdraw(double amount) {
         if (hasOverdraft = true) {
             if(checkBal() - overdraft <= 0){
+                System.out.println("Balance too low to preform this action");
                 return false;
             }
         } else {
             if (checkBal() <= 0) {
+                System.out.println("Balance too low to preform this action");
                 return false;
             }
         }

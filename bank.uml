@@ -8,7 +8,7 @@
     <node x="1203.8314732142858" y="608.0">bank.SavingAccount</node>
     <node x="403.91666666666663" y="1292.0">bank.Customer</node>
     <node x="442.17522321428584" y="961.0">bank.Employee</node>
-    <node x="1594.8314732142858" y="0.0">bank.InsuffiecientFundsDriver</node>
+    <node x="1594.8314732142858" y="0.0">bank.InsufficientFundsDriver</node>
     <node x="237.83147321428567" y="459.0">bank.BankSystem</node>
     <node x="269.8418898809525" y="1562.0">bank.ExampleDriver</node>
     <node x="523.0918898809525" y="1562.0">bank.PrintBalanceDrive</node>
