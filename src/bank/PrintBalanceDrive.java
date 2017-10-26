@@ -5,8 +5,7 @@ public class PrintBalanceDrive implements Runnable {
         Thread t0 = new Thread(new PrintBalanceDrive());
         Thread t1 = new Thread(new PrintBalanceDrive());
         t0.start();
-        //t1.start();
-
+        t1.start();
     }
     @Override
     public void run() {
