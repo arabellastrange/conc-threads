@@ -33,27 +33,22 @@ public class CurrentAccount extends Account {
 
     @Override
     public boolean withdraw(double amount) throws InterruptedException {
-        if(!isBalanceTooLow()){
-            balanceLock.lock();
-            try {
-                setBalance(checkBal() - amount);
-                System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to withdraw \n" + "\t Withdrawal Successful, withdrew: £" + amount);
-                return true;
-            }
-            finally {
-                balanceLock.unlock();
-            }
-        }
-        else{
+        balanceLock.lock();
+        try {
             while(isBalanceTooLow()){
                 if(!waitingForMoreMoney){
                     Thread.currentThread().interrupt();
-                    waitingForMoreMoney = balanceTooLow.await(5, TimeUnit.SECONDS);
+
                 }
+                waitingForMoreMoney = balanceTooLow.await(1, TimeUnit.SECONDS);
             }
+            setBalance(checkBal() - amount);
+            System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to withdraw \n" + "\t Withdrawal Successful, withdrew: £" + amount);
+            return true;
         }
-        System.out.println("Withdrawal failed");
-        return false;
+        finally {
+            balanceLock.unlock();
+        }
     }
 
     public boolean isBalanceTooLow(){
