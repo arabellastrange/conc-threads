@@ -1,49 +1,35 @@
 package bank;
 public class Employee {
-    int employeeID;
-    BankSystem workingAt;
-    String employeeName;
-    double time; // how often interest is paid to account - maybe defined in account classes?
+    private BankSystem workingAt;
+    private int employeeID;
+    private int genID = 0;
 
-    public Employee(int id, String name, BankSystem b){
-        employeeID = id;
-        employeeName = name;
-        workingAt = b;
+    public Employee(){
+        employeeID = genID++;
     }
 
     public int getEmployeeID() {
         return employeeID;
     }
 
-    public AccountsI createAcc(String accType){
-        switch (accType){
-            case "Savings": AccountsI s = new SavingAccount();
-                            workingAt.refresh().addAccount(s);
-                            return s;
-            case "Platinum": AccountsI p= new PlatinumAccount(011032, 98, 0.02, 75);
-                             workingAt.refresh().addAccount(p);
-                             return p;
-            case "Current" : AccountsI c = new CurrentAccount(011033, 4000,4, 0.01);
-                             workingAt.refresh().addAccount(c);
-                             return c;
-        }
-        return null;
+    public void createAcc(Customer cust, Account a){
+        workingAt.getBank().addAccount(cust, a);
     }
 
-    public void deleteAcc(int accNum){
-        workingAt.refresh().removeAccount(workingAt.refresh().getAccount(accNum));
+    public void deleteAcc(Customer c, int accNum){
+        workingAt.getBank().removeAccount(c, workingAt.getBank().getAccount(accNum));
     }
 
-    public void transfer(AccountsI fromAccount, AccountsI toAccount, double amount){
-
-    }
-
-    public void depositInterest(AccountsI account){
-        account.deposit(account.checkBal() * account.getInterestRate() * time);
+    public void depositInterest(Account account){
+        account.deposit(account.checkBal() * account.getInterestRate() * account.getInterestLength());
     }
 
     public void chargeFee(PlatinumAccount account){
         account.withdraw(account.getAccountFee());
     }
 
+    @Override
+    public String toString() {
+        return employeeID + "";
+    }
 }

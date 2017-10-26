@@ -3,21 +3,39 @@ package threads;
 public class Driver {
 
     public static void main(String[] args) {
-        gInterface gui = new gInterface();
+        App gui = new App();
 
         ThreadGroup A = new ThreadGroup("G-A");
-        ThreadGroup B = new ThreadGroup("G-B");
+        Thread t = new Thread(A, () -> {
+            System.out.println("H");
+            try {
+                Thread.sleep(100000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }, "A thread");
+        t.start();
 
-        ThreadGroup C = new ThreadGroup(A, "G-C");
+        ThreadGroup B = new ThreadGroup("G-B");
+        Thread b = new Thread(B, () -> {
+            System.out.println("H");
+            try {
+                Thread.sleep(100000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }, "B thread");
+        b.start();
 
         try {
             Thread.sleep(1000);
+
+            ThreadManager tm = new ThreadManager();
+            tm.run();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        ThreadManager tm = new ThreadManager();
-        tm.run();
   }
 
 

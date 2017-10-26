@@ -1,37 +1,74 @@
 package bank;
 
-import java.util.ArrayList;
 
 public class Customer {
-    String  name;
-    String address;
-    // date of birth date or int object
-    ArrayList<AccountsI> myAccounts = new ArrayList<>();
+    private String  name;
+    private Employee contact;
 
-    public Customer(String cName, String cAddress){
+    public Customer(String cName, Employee conc){
         name = cName;
-        address = cAddress;
-    }
-
-    //needs to be more detailed - must edit each field not just account in general
-    public void editAcc(){
-
+        contact = conc;
     }
 
     public String getName(){
         return name;
     }
 
-    public ArrayList<AccountsI> getMyAccounts() {
-        return myAccounts;
+    public void requestAccountDeletion(int accNumber){
+        contact.deleteAcc(this, accNumber);
     }
 
-    public void requestAccountDeletion(Employee contact, int accNumber){
-        contact.deleteAcc(accNumber);
+    public void requestNewAccount(Account a){
+        contact.createAcc(this, a);
     }
 
-    public void requestOpenAccount( Employee contact,  String accountType){
-        myAccounts.add(contact.createAcc(accountType));
+    public void printBalance(Account a){
+        if(verifyAccount(a)){
+            a.printBal();
+        }
+    }
+
+    public void deposit(Account a, double amount){
+        if(verifyAccount(a)){
+            a.deposit(amount);
+        }
+    }
+
+    public void withdraw(Account a, double amount){
+        if(verifyAccount(a)){
+            a.withdraw(amount);
+        }
+    }
+
+    public void transfer(Account a, double amount, int AccNo){
+        if(verifyAccount(a)){
+            a.transfer(amount, AccNo);
+        }
+    }
+
+    public void makeAccountJoint(Account a, Customer secondary ){
+        if(verifyAccount(a)){
+
+            if(!BankSystem.getBank().containsCustomer(secondary)){
+                BankSystem.getBank().addCustomer(secondary);
+            }
+
+            BankSystem.getBank().addAccount(secondary, a);
+        }
+    }
+
+    public boolean verifyAccount(Account a){
+        if(BankSystem.getBank().getCustomerAccounts(this).contains(a)){
+            return true;
+        }
+        System.out.println("Customer: " + this.toString() + " cannot access this account");
+        return false;
+    }
+
+    @Override
+    public String toString(){
+
+        return "{Name: " + name + ", Contact: " + contact + "}";
     }
 }
 

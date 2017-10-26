@@ -1,48 +1,29 @@
 package bank;
 
-public class SavingAccount implements AccountsI {
-    @Override
-    public void deposit(double dep) {
+public class SavingAccount extends Account {
+    double upperLimit;
+    
+    public SavingAccount(double initialBalance, double interestRt, double interestLen){
+        super(initialBalance, interestRt, interestLen);
+    }
 
+    @Override
+    public boolean deposit(double dep) {
+        //should have upper limit!!
+        setBalance(checkBal() + dep);
+        return true;
     }
 
     @Override
     public boolean withdraw(double amount) {
+        if (checkBal() >= amount) {
+            setBalance(checkBal() - amount);
+            return true;
+        } else
+            System.out.println("Insufficient funds.");
         return false;
     }
 
-    @Override
-    public void transfer(double amount) {
 
-    }
 
-    @Override
-    public double checkBal() {
-        return 0;
-    }
-
-    @Override
-    public void printBal() {
-
-    }
-
-    @Override
-    public int getAccountNumber() {
-        return 0;
-    }
-
-    @Override
-    public int getAccountSort() {
-        return 0;
-    }
-
-    @Override
-    public void setInterestRate(double interestRate) {
-
-    }
-
-    @Override
-    public double getInterestRate() {
-        return 0;
-    }
 }

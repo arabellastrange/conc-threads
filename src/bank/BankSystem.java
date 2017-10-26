@@ -1,33 +1,70 @@
 package bank;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class BankSystem {
-    ArrayList<AccountsI> accounts = new ArrayList<>();
-    ArrayList<Customer> customers = new ArrayList<>();
-    ArrayList<Employee> employees = new ArrayList<>();
-    String bankName;
-    String bankAddress;
 
-    public BankSystem(String name, String address){
-        bankAddress = address;
-        bankName = name;
+public final class BankSystem {
+    private static BankSystem bank = null;
+    private Map<Customer, ArrayList<Account>> customers = new HashMap<Customer, ArrayList<Account>>();
+    private static ArrayList<Employee> employees = new ArrayList<>();
+
+    private BankSystem(){
+
     }
 
-    public BankSystem refresh(){
-        return this;
+    // not thread safe
+    public static BankSystem getBank(){
+        if (bank == null){
+            Employee emp =  new Employee();
+            employees.add(emp);
+            bank = new BankSystem();
+        }
+        return bank;
     }
 
-    public void addAccount(AccountsI a){
-        accounts.add(a);
+    public void tellMeAboutBank(){
+        if(!customers.entrySet().isEmpty()) {
+            System.out.println("This bank has the following customers");
+            for (Map.Entry c : customers.entrySet()) {
+                System.out.println("Customer: " + c.getKey().toString() + " their accounts are " + c.getValue().toString());
+            }
+        }
+        else {
+            System.out.println("Nothing in bank yet!");
+        }
     }
 
-    public void removeAccount(AccountsI a){
-        accounts.remove(a);
+    public void addAccount(Customer c, Account a){
+       if(customers.containsKey(c)) {
+           customers.get(c).add(a);
+       }
+       else{
+           System.out.println("No such customer exists");
+       }
+    }
+
+    public void removeAccount(Customer c, Account a){
+        if(customers.containsKey(c)) {
+            customers.get(c).remove(a);
+        }
+        else{
+            System.out.println("No such customer exists");
+        }
     }
 
     public void addCustomer(Customer c){
-        customers.add(c);
+        if(!containsCustomer(c)){
+            customers.put(c, new ArrayList<Account>());
+        }
+        else {
+            System.out.println("Customer already in bank!");
+        }
+    }
+
+    public void removesCustomer(Customer c){
+       customers.remove(c);
     }
 
     public void hireEmployee(Employee e){
@@ -38,33 +75,29 @@ public class BankSystem {
         employees.remove(e);
     }
 
-    // handle null exception pls
-    public AccountsI getAccount(int accountNumber){
-        for(AccountsI a : accounts){
-            if(a.getAccountNumber() == accountNumber){
-                return a;
-            }
-        }
-        return null;
-    }
+   public ArrayList<Account> getCustomerAccounts(Customer c){
+        return customers.get(c);
+   }
 
-    //need something else too ensure unique
-    public Customer getCustomer(String name){
-        for(Customer c: customers){
-            if(c.getName().equals(name)){
-                return c;
-            }
-        }
-        return null;
-    }
+   public Account getAccount(int AccNo){
+       for(ArrayList<Account> as : customers.values()){
+           for(Account a : as){
+               if(a.getAccountNumber() == AccNo){
+                   return a;
+               }
+           }
+       }
+       return null;
+   }
 
     public Employee getEmployee(int id){
-        for(Employee e: employees){
-            if(e.getEmployeeID() == id){
-                return e;
-            }
-        }
-        return null;
+        return employees.get(id);
     }
 
+    public boolean containsCustomer(Customer c){
+        if(customers.containsKey(c)){
+            return true;
+        }
+        return false;
+    }
 }

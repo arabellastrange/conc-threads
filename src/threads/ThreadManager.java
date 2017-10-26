@@ -1,97 +1,26 @@
 package threads;
 
+
 public class ThreadManager {
 
+
+    public ThreadManager() {
+
+    }
+
     public void run() {
-        ThreadGroup rootThread = getRootThreadGroup();
 
-        // Iterate to get Thread Groups
-        System.out.println("No of groups (root) " + rootThread.activeGroupCount());
-        System.out.println("No of threads " + rootThread.activeCount());
+        ThreadGroup rootThreadGroup = ThreadGroupUtils.getRootThreadGroup();
 
-        // System Thread (All child threads of the root)
-        ThreadGroup[] allThreadGroups = getChildThreadGroups(rootThread);
+        System.out.println("No of groups (root) " + rootThreadGroup.activeGroupCount());
+        System.out.println("No of threads " + rootThreadGroup.activeCount());
 
-        // Loop through all thread groups
-        printThreadGroup(allThreadGroups);
-
+//        updateGraph(rootThreadGroup);
+        ThreadGroupUtils.updateGraph(rootThreadGroup);
     }
 
-    private void printThreadGroup(ThreadGroup[] allThreadGroups) {
 
-        for (ThreadGroup group : allThreadGroups) {
-            System.out.println("=============");
-            System.out.println("GROUP: " + group.getName());
-            System.out.println("=============");
+    public void filterByName(String str) {
 
-            Thread[] threads = new Thread[group.activeCount()];
-            while ((group.enumerate(threads, true)) == threads.length) {
-                threads = new Thread[threads.length * 2];
-            }
-
-            for (Thread thread : threads) {
-
-                // If the thread is not null print the name
-                if (!(thread == null)) {
-                    System.out.println(thread.getName());
-
-                }
-            }
-
-
-//            ThreadGroup[] childGroups = getChildThreadGroups(group);
-//            printThreadGroup(childGroups);
-        }
-    }
-
-    private ThreadGroup[] getChildThreadGroups(ThreadGroup rootThreadGroup) {
-
-        // Get thread groups
-        ThreadGroup[] threadGroups = new ThreadGroup[rootThreadGroup.activeGroupCount()];
-        while (rootThreadGroup.enumerate(threadGroups, true) == threadGroups.length) {
-            // Make space for threads
-            threadGroups = new ThreadGroup[threadGroups.length * 2];
-        }
-
-        // Get index of first null
-        int nullIndex = getNullIndex(threadGroups);
-
-        // Resize to the exact amount
-        threadGroups = new ThreadGroup[nullIndex];
-        rootThreadGroup.enumerate(threadGroups, true);
-
-        // Set the first element to the threadGroup Root
-        ThreadGroup[] allThreadGroups = new ThreadGroup[threadGroups.length + 1];
-        allThreadGroups[0] = rootThreadGroup;
-
-        //Copy array to result
-        System.arraycopy(threadGroups, 0, allThreadGroups, 1, threadGroups.length);
-
-        return allThreadGroups;
-    }
-
-    private int getNullIndex(Object[] allThreadGroups) {
-        int nullIndex = -1; // Keep it explicit
-
-        for (int i = 0; i < allThreadGroups.length; i++) {
-            if (allThreadGroups[i] == null) {
-                nullIndex = i;
-                return nullIndex;
-            }
-        }
-
-        return nullIndex;
-    }
-
-    private ThreadGroup getRootThreadGroup() {
-        ThreadGroup group = Thread.currentThread().getThreadGroup();
-
-        ThreadGroup parent = null;
-
-        while ((group = group.getParent()) != null) {
-            parent = group;
-        }
-
-        return parent;
     }
 }

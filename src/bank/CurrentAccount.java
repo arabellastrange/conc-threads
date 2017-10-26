@@ -1,78 +1,42 @@
 package bank;
 
-import org.omg.CORBA.Current;
 
-public class CurrentAccount implements AccountsI {
-
-    private double balance;
-    private int accNumber;
-    private double interestRate;
-    private double interest;
-    private int sortCode;
+public class CurrentAccount extends Account {
+    double overdraft;
+    boolean hasOverdraft = false;
 
 
-    public CurrentAccount(int acc, double bal, double rate, double interestRate){
-        accNumber = acc;
-        balance = bal;
-        interestRate = rate;
+    public CurrentAccount(double initialBalance, double interestRt, double interestLn){
+        super(initialBalance, interestRt, interestLn);
     }
 
     @Override
-    public void deposit(double dep) {
-        balance = balance + dep;
+    public boolean deposit(double dep) {
+        setBalance(checkBal() + dep);
+        return true;
     }
 
     @Override
     public boolean withdraw(double amount) {
-        if(balance >= amount) {
-            balance = balance - amount;
-            return true;
-        }
-        else
-            return false;
-    }
-
-    @Override
-    public void transfer(double amount) {
-            if (amount <= this.balance) {
-                withdraw(amount);
-               // CurrentAccount.deposit(amount);
-                System.out.print("\nTransfer successful. Transferred: £" + amount);
-            } else {
-                System.out.print("\nTransfer failed, not enough balance!");
+        if (hasOverdraft = true) {
+            if(checkBal() - overdraft <= 0){
+                System.out.println("Balance too low to preform this action");
+                return false;
             }
+        } else {
+            if (checkBal() <= 0) {
+                System.out.println("Balance too low to preform this action");
+                return false;
+            }
+        }
+        setBalance(checkBal() - amount);
+        return true;
     }
 
-    @Override
-    public double checkBal() {
-        return balance;
-    }
-
-    @Override
-    public void printBal() {
-    System.out.print("Account number " + accNumber + " has the balance of " + balance);
-    }
-
-    @Override
-    public int getAccountNumber() {
-        return accNumber;
-    }
-
-    @Override
-    public int getAccountSort() {
-        return sortCode;
-    }
-
-    @Override
-    public void setInterestRate(double rate) {
-        interest = balance * rate;
+    public void setOverdraft(double overdraft) {
+       this.overdraft = overdraft;
+        hasOverdraft = true;
 
     }
-
-    @Override
-    public double getInterestRate(){
-       return interest;
-    }
-
 
 }
