@@ -23,12 +23,22 @@ public class MakeJointAccountDriver implements Runnable{
         x = new Customer("Ororo",  BankSystem.getBank().getEmployee(0));
         as = new CurrentAccount(600);
         BankSystem.getBank().addCustomer(x);
+        x.requestNewAccount(as);
         BankSystem.getBank().tellMeAboutBank();
+
+        Thread t0 = new Thread(new MakeJointAccountDriver());
+        Thread t1 = new Thread(new MakeJointAccountDriver());
+        t0.start();
+        //t1.start();
 
     }
 
     @Override
     public void run() {
-
+        x.requestJointAccount(as, c);
+        BankSystem.getBank().tellMeAboutBank();
+        c.printBalance(as);
+        c.deposit(as, 20);
+        c.printBalance(as);
     }
 }

@@ -46,7 +46,7 @@ public class Customer {
         }
     }
 
-    public void makeAccountJoint(Account a, Customer secondary ){
+    public void requestJointAccount(Account a, Customer secondary ){
         if(verifyAccount(a)){
             contact.makeJoint(this, secondary, a);
         }
