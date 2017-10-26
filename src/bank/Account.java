@@ -11,16 +11,14 @@ public abstract class Account {
     private double interestLength; // value between 0 and 1 to indicate how often per year interest is paid
 
     public enum Account_Types {
-        SAVING, PLATINUM, CURRENT
+        SAVING, PLATINUM, CURRENT //if you want to use strategy no inheritance
     }
 
-    public Account(double initialBalance, double interestRt, double interestLn){
+    public Account(double initialBalance){
         Random rand = new Random();
         accountNumber = rand.nextInt(199999) + 100000;
         sortCode = rand.nextInt(9999) + 1000;
         balance = initialBalance;
-        interestRate = interestRt;
-        interestLength = interestLn;
     }
 
     //move money - write operations
@@ -52,6 +50,10 @@ public abstract class Account {
     }
     public int getAccountSort(){
         return sortCode;
+    }
+
+    public void setInterestRate(double interestRt){
+        interestRate = interestRt;
     }
 
     public double getInterestRate(){

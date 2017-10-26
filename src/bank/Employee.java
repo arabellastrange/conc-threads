@@ -20,6 +20,14 @@ public class Employee {
         workingAt.getBank().removeAccount(c, workingAt.getBank().getAccount(accNum));
     }
 
+    public void makeJoint(Customer c, Customer secondary, Account a){
+        if(!BankSystem.getBank().containsCustomer(secondary)){
+            BankSystem.getBank().addCustomer(secondary);
+        }
+
+        BankSystem.getBank().addAccount(secondary, a);
+    }
+
     public void depositInterest(Account account){
         account.deposit(account.checkBal() * account.getInterestRate() * account.getInterestLength());
     }

@@ -48,12 +48,7 @@ public class Customer {
 
     public void makeAccountJoint(Account a, Customer secondary ){
         if(verifyAccount(a)){
-
-            if(!BankSystem.getBank().containsCustomer(secondary)){
-                BankSystem.getBank().addCustomer(secondary);
-            }
-
-            BankSystem.getBank().addAccount(secondary, a);
+            contact.makeJoint(this, secondary, a);
         }
     }
 

@@ -6,8 +6,10 @@ public class CurrentAccount extends Account {
     boolean hasOverdraft = false;
 
 
-    public CurrentAccount(double initialBalance, double interestRt, double interestLn){
-        super(initialBalance, interestRt, interestLn);
+    public CurrentAccount(double initialBalance){
+        super(initialBalance);
+        setInterestRate(0.01);
+        setInterestLength(1);
     }
 
     @Override
@@ -34,9 +36,13 @@ public class CurrentAccount extends Account {
     }
 
     public void setOverdraft(double overdraft) {
-       this.overdraft = overdraft;
-        hasOverdraft = true;
-
+        if(overdraft <= 1000){
+            this.overdraft = overdraft;
+            hasOverdraft = true;
+        }
+        else{
+            System.out.println("You cannot set an overdraft of over £1000 with a current account, you may instead use a platinum account");
+        }
     }
 
 }

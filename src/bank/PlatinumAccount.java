@@ -6,10 +6,12 @@ public class PlatinumAccount extends Account{
     private double feeLength;
     private boolean hasOverdraft = false;
 
-    public PlatinumAccount(double initialBalance, double interestRt, double interestLn, double accFee, double fLength){
-        super(initialBalance, interestRt, interestLn);
-        fee = accFee;
-        feeLength = fLength;
+    public PlatinumAccount(double initialBalance){
+        super(initialBalance);
+        setInterestRate(0.2);
+        setInterestLength(0.25);
+        fee = 75;
+        feeLength = 1;
     }
 
     @Override

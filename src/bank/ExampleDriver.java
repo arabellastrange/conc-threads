@@ -10,10 +10,10 @@ public class ExampleDriver implements Runnable{
         BankSystem.getBank().tellMeAboutBank();
         c = new Customer("Jean", BankSystem.getBank().getEmployee(0));
         BankSystem.getBank().addCustomer(c);
-        a = new CurrentAccount(400, 0.01, 1);
+        a = new CurrentAccount(400);
         c.requestNewAccount(a);
         BankSystem.getBank().tellMeAboutBank();
-        as = new CurrentAccount(500, 0.01, 0.5);
+        as = new CurrentAccount(500);
         c.requestNewAccount(as);
         BankSystem.getBank().tellMeAboutBank();
 
@@ -26,5 +26,9 @@ public class ExampleDriver implements Runnable{
         c.printBalance(a);
         c.deposit(a,10);
         c.printBalance(a);
+        c.printBalance(as);
+        c.transfer(a, 20, as.getAccountNumber());
+        c.printBalance(a);
+        c.printBalance(as);
     }
 }

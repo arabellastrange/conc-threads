@@ -13,8 +13,8 @@ public class InsufficientFundsDriver implements Runnable {
         BankSystem.getBank().tellMeAboutBank();
 
 
-        a = new CurrentAccount(400, 0.01, 1);
-        p = new PlatinumAccount(5000, 0.2, 0.25, 70, 1);
+        a = new CurrentAccount(400);
+        p = new PlatinumAccount(5000);
         c.requestNewAccount(a);
         c.requestNewAccount(p);
         BankSystem.getBank().tellMeAboutBank();
