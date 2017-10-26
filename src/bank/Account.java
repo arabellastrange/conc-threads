@@ -52,8 +52,8 @@ public abstract class Account {
     }
 
     public void printBal(){
-        System.out.println("Thread " + Thread.currentThread().getId() + " is checking balance");
-        System.out.println("Account number " + accountNumber + " has the balance of " + checkBal());
+        System.out.println("Thread " + Thread.currentThread().getId() + " is checking balance: \n" + "\t Account number " + accountNumber + " has the balance of " + checkBal());
+       // System.out.println("Account number " + accountNumber + " has the balance of " + checkBal());
     }
 
     //account info getters and setters

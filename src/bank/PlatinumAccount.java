@@ -14,11 +14,10 @@ public class PlatinumAccount extends Account{
 
     @Override
     public boolean deposit(double dep) {
-        System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to deposit");
         balanceLock.lock();
         try {
             setBalance(checkBal() + dep);
-            System.out.println("Deposit successful, deposited: £" + dep);
+            System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to deposit \n"+ "\t Deposit successful, deposited: £" + dep);
             return true;
         }
         finally {
@@ -28,23 +27,22 @@ public class PlatinumAccount extends Account{
 
     @Override
     public boolean withdraw(double amount) {
-        System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to withdraw");
         if(hasOverdraft){
             if(checkBal() - overdraft <= 0){
-                System.out.println("Balance too low to preform this action");
+                System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to withdraw \n" + "\t Balance too low to preform this action");
                 return false;
             }
         }
         else{
             if(checkBal() <= 0){
-                System.out.println("Balance too low to preform this action");
+                System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to withdraw \n" + "\t Balance too low to preform this action");
                 return false;
             }
         }
         balanceLock.lock();
         try {
             setBalance(checkBal() - amount);
-            System.out.println("Withdrawal Successful, withdrew: £" + amount);
+            System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to withdraw \n" + "\t Withdrawal Successful, withdrew: £" + amount);
             return true;
         }
         finally {

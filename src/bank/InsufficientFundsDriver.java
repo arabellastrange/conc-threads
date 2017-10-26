@@ -22,7 +22,7 @@ public class InsufficientFundsDriver implements Runnable {
         Thread t0 = new Thread(new InsufficientFundsDriver());
         Thread t1 = new Thread(new InsufficientFundsDriver());
         t0.start();
-        //t1.start();
+        t1.start();
     }
 
     @Override
