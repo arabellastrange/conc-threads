@@ -17,7 +17,10 @@ public class ExampleDriver implements Runnable{
         c.requestNewAccount(as);
         BankSystem.getBank().tellMeAboutBank();
 
-        (new Thread(new ExampleDriver())).start();
+        Thread t0 = new Thread(new ExampleDriver());
+        Thread t1 = new Thread(new ExampleDriver());
+        t0.start();
+        t1.start();
     }
 
     @Override

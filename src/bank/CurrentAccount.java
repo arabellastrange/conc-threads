@@ -14,12 +14,21 @@ public class CurrentAccount extends Account {
 
     @Override
     public boolean deposit(double dep) {
-        setBalance(checkBal() + dep);
-        return true;
+        System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to deposit");
+        balanceLock.lock();
+        try {
+            setBalance(checkBal() + dep);
+            System.out.println("Deposit successful, deposited: £" + dep);
+            return true;
+        }
+        finally {
+            balanceLock.unlock();
+        }
     }
 
     @Override
     public boolean withdraw(double amount) {
+        System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to withdraw");
         if (hasOverdraft = true) {
             if(checkBal() - overdraft <= 0){
                 System.out.println("Balance too low to preform this action");
@@ -31,8 +40,15 @@ public class CurrentAccount extends Account {
                 return false;
             }
         }
-        setBalance(checkBal() - amount);
-        return true;
+        balanceLock.lock();
+        try {
+            setBalance(checkBal() - amount);
+            System.out.println("Withdrawal Successful, withdrew: £" + amount);
+            return true;
+        }
+        finally {
+            balanceLock.unlock();
+        }
     }
 
     public void setOverdraft(double overdraft) {
