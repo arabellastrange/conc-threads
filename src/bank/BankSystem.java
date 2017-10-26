@@ -1,13 +1,13 @@
 package bank;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 
 public final class BankSystem {
     private static BankSystem bank = null;
-    private Map<Customer, ArrayList<Account>> customers = new HashMap<Customer, ArrayList<Account>>();
+    private ConcurrentMap<Customer, ArrayList<Account>> customers = new ConcurrentHashMap<Customer, ArrayList<Account>>();
     private static ArrayList<Employee> employees = new ArrayList<>();
 
     private BankSystem(){
@@ -27,7 +27,7 @@ public final class BankSystem {
     public void tellMeAboutBank(){
         if(!customers.entrySet().isEmpty()) {
             System.out.println("This bank has the following customers");
-            for (Map.Entry c : customers.entrySet()) {
+            for (ConcurrentHashMap.Entry c : customers.entrySet()) {
                 System.out.println("Customer: " + c.getKey().toString() + " their accounts are " + c.getValue().toString());
             }
         }
