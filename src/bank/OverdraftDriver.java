@@ -18,7 +18,7 @@ public class OverdraftDriver implements Runnable {
         Thread t0 = new Thread(new OverdraftDriver());
         Thread t1 = new Thread(new OverdraftDriver());
         t0.start();
-        t1.start();
+        //t1.start();
     }
 
     @Override

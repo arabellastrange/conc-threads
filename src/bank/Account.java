@@ -87,6 +87,8 @@ public abstract class Account {
 
     public abstract void setOverdraft(double amount);
 
+    public abstract void verifyOverdraft(double amount);
+
     @Override
     public String toString() {
         return "{ Account Number: " + accountNumber + " }";
