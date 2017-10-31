@@ -36,11 +36,11 @@ public class PlatinumAccount extends Account{
     public boolean withdraw(double amount) throws InterruptedException {
         balanceLock.lock();
         try {
-            while(isBalanceTooLow()){
+            while(isBalanceTooLow(amount)){
                 if(!waitingForMoreMoney){
                     Thread.currentThread().interrupt();
                 }
-                waitingForMoreMoney = balanceTooLow.await(1, TimeUnit.SECONDS);
+                waitingForMoreMoney = balanceTooLow.await(10, TimeUnit.SECONDS);
             }
             setBalance(checkBal() - amount);
             System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to withdraw \n" + "\t Withdrawal Successful, withdrew: £" + amount);
@@ -51,9 +51,9 @@ public class PlatinumAccount extends Account{
         }
     }
 
-    public boolean isBalanceTooLow(){
+    public boolean isBalanceTooLow(double amount){
         if (hasOverdraft()) {
-            if(checkBal() - overdraft <= 0){
+            if(checkBal() + overdraft < amount){
                 System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to withdraw \n" + "\t Balance too low to preform this action will wait for more money");
                 return true;
             }

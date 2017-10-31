@@ -29,7 +29,7 @@ public class MakeJointAccountDriver implements Runnable{
         Thread t0 = new Thread(new MakeJointAccountDriver());
         Thread t1 = new Thread(new MakeJointAccountDriver());
         t0.start();
-        //t1.start();
+        t1.start();
 
     }
 
@@ -40,5 +40,12 @@ public class MakeJointAccountDriver implements Runnable{
         c.printBalance(as);
         c.deposit(as, 20);
         c.printBalance(as);
+        try {
+            x.withdraw(as, 10);
+            x.printBalance(as);
+        } catch (InterruptedException e) {
+            System.out.println("Balance too low, never replenished, can't wait anymore");
+        }
+
     }
 }

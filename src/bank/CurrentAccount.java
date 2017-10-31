@@ -35,12 +35,12 @@ public class CurrentAccount extends Account {
     public boolean withdraw(double amount) throws InterruptedException {
         balanceLock.lock();
         try {
-            while(isBalanceTooLow()){
+            while(isBalanceTooLow(amount)){
                 if(!waitingForMoreMoney){
                     Thread.currentThread().interrupt();
 
                 }
-                waitingForMoreMoney = balanceTooLow.await(1, TimeUnit.SECONDS);
+                waitingForMoreMoney = balanceTooLow.await(10, TimeUnit.SECONDS);
             }
             setBalance(checkBal() - amount);
             System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to withdraw \n" + "\t Withdrawal Successful, withdrew: £" + amount);
@@ -51,9 +51,9 @@ public class CurrentAccount extends Account {
         }
     }
 
-    public boolean isBalanceTooLow(){
+    public boolean isBalanceTooLow(double amount){
         if (hasOverdraft()) {
-            if(checkBal() - overdraft <= 0){
+            if(checkBal() + overdraft < amount){
                 System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to withdraw \n" + "\t Balance too low to preform this action will wait for more money");
                 return true;
             }
@@ -70,9 +70,9 @@ public class CurrentAccount extends Account {
         return hasOverdraft;
     }
 
-    public void setOverdraft(double overdraft) {
-        if(overdraft <= 1000){
-            this.overdraft = overdraft;
+    public void setOverdraft(double amount) {
+        if(overdraft <= 1000 || amount <= 1000){
+            this.overdraft = amount;
             hasOverdraft = true;
         }
         else{

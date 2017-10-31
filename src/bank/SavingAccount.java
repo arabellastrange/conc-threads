@@ -27,6 +27,10 @@ public class SavingAccount extends Account {
         return false;
     }
 
+    @Override
+    public void setOverdraft(double amount) {
+        System.out.println("You cannot set n overdraft on a savings account");
+    }
 
 
 }
