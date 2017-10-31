@@ -1,9 +1,6 @@
 package threads;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ThreadGroupUtils {
@@ -69,19 +66,18 @@ public class ThreadGroupUtils {
         return getThreads(threadGroup, false);
     }
 
-    public static List<Thread> getThreads(ThreadGroup threadGroup, boolean includeAllSubThreads) {
+    public static List<Thread> getThreads(ThreadGroup threadGroup, boolean recurse) {
         List<Thread> threadList = new ArrayList<>();
 
         Thread[] threads = new Thread[threadGroup.activeCount()];
         // set the false, so it only displays sub-threadgroups and not their children
-        while ((threadGroup.enumerate(threads, includeAllSubThreads)) == threads.length) {
+        while ((threadGroup.enumerate(threads, recurse)) == threads.length) {
             threads = new Thread[threads.length * 2];
         }
 
         for (Thread thread : threads) {
             // If the thread is not null print the name
             if (!(thread == null)) {
-
                 threadList.add(thread);
             }
         }
@@ -102,6 +98,8 @@ public class ThreadGroupUtils {
 
         // Get thread groups
         ThreadGroup[] threadGroups = new ThreadGroup[rootThreadGroup.activeGroupCount()];
+
+
         while (rootThreadGroup.enumerate(threadGroups, displaySub) == threadGroups.length) {
             // Make space for threads
             threadGroups = new ThreadGroup[threadGroups.length * 2];
@@ -165,5 +163,22 @@ public class ThreadGroupUtils {
                 .collect(Collectors.toList());
 
         return thread.isEmpty() ? null : thread.get(0);
+    }
+
+    /**
+     * Returns a list of thread groups that the threads have
+     *
+     * @param threads
+     * @return
+     */
+    public static List<ThreadGroup> getThreadGroupsFromThreads(List<Thread> threads) {
+        Set<ThreadGroup> set = new HashSet<>();
+
+        for (Thread thread : threads) {
+            ThreadGroup tg = getThreadGroup(thread);
+            set.add(tg);
+        }
+
+        return new ArrayList<>(set);
     }
 }
