@@ -85,8 +85,6 @@ public abstract class Account {
         this.interestLength = interestLength;
     }
 
-    public abstract void setOverdraft(double amount);
-
     public abstract void verifyOverdraft(double amount);
 
     @Override
