@@ -22,7 +22,7 @@ public class Customer {
         contact.createAcc(this, a);
     }
 
-    public void requestOverdraft(Account a, double amount){
+    public void requestOverdraft(UnlimitedAccounts a, double amount){
         if(verifyAccount(a)){
             contact.grantOverdraft(a, amount);
         }

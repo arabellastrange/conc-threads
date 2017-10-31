@@ -36,8 +36,8 @@ public class Employee {
         account.withdraw(account.getAccountFee());
     }
 
-    public void grantOverdraft(Account a, double amount){
-        a.setOverdraft(amount);
+    public void grantOverdraft(UnlimitedAccounts a, double amount){
+            a.verifyOverdraft(amount);
     }
 
     @Override

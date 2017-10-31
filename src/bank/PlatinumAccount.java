@@ -14,9 +14,10 @@ public class PlatinumAccount extends UnlimitedAccounts {
     }
 
 
-    public void verifyOverdraft(double overdraft) {
+    public boolean verifyOverdraft(double overdraft) {
         setOverdraft(overdraft);
         setHasOverdraft(true);
+        return true;
     }
 
     public double getAccountFee(){

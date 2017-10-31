@@ -80,5 +80,5 @@ public abstract class UnlimitedAccounts extends Account {
     }
 
     @Override
-    public abstract void verifyOverdraft(double amount);
+    public abstract boolean verifyOverdraft(double amount);
 }
