@@ -1,6 +1,8 @@
 package threads.gui;
 
 
+import threads.ThreadUtils;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,7 @@ public class ThreadGroupComboBoxModel extends AbstractListModel<ThreadGroup> imp
     }
 
     private void refresh() {
-        threadGroups = ThreadGroupUtils.getThreadGroupsFromThreads(ThreadGroupUtils.getAllThreads());
+        threadGroups = ThreadUtils.getThreadGroupsFromThreads(ThreadUtils.getAllThreads());
     }
 
     @Override

@@ -1,53 +1,10 @@
-package threads.gui;
+package threads;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ThreadGroupUtils {
+public class ThreadUtils {
 
-    private static HashMap<ThreadGroup, List<ThreadGroup>> graph = new HashMap<>();
-
-
-    public static List<ThreadGroup> getAdjacentThreadGroup(ThreadGroup threadGroup) {
-        updateGraph(getRootThreadGroup());
-        return graph.getOrDefault(threadGroup, null);
-    }
-
-    public static List<Thread> getAllThreads() {
-        return getThreads(getRootThreadGroup(), true);
-    }
-
-    public static void updateGraph(ThreadGroup rootThreadGroup) {
-        if (rootThreadGroup == null) {
-            return;
-        }
-
-        //Print out threads in Thread Group
-        System.out.println("============");
-        System.out.println("GROUP: " + rootThreadGroup.getName());
-        System.out.println("============");
-        for (Thread thread : ThreadGroupUtils.getThreads(rootThreadGroup)) {
-            System.out.println("ID: " + thread.getId() + " Name: " + thread.getName() + " Priority: "
-                    + thread.getPriority() + " State: " + thread.getState() + " Daemon: " + thread.isDaemon());
-        }
-
-
-        // Get child thread groups
-        List<ThreadGroup>  childThreadGroups = getChildThreadGroups(rootThreadGroup);
-
-        //Remove first element because it is the root thread
-        if (childThreadGroups.size() >= 1) {
-            childThreadGroups.remove(0);
-        }
-
-        // add to graph
-        graph.put(rootThreadGroup, childThreadGroups);
-
-        // Print child ThreadGroups
-        for (ThreadGroup tg : childThreadGroups) {
-            updateGraph(tg);
-        }
-    }
 
     public static ThreadGroup getRootThreadGroup() {
         ThreadGroup group = Thread.currentThread().getThreadGroup();
@@ -62,9 +19,25 @@ public class ThreadGroupUtils {
     }
 
 
+    /**
+     * Returns a list of all threads
+     *
+     * @return
+     */
+    public static List<Thread> getAllThreads() {
+        return getThreads(getRootThreadGroup(), true);
+    }
+
+    /**
+     * Returns a list of thread in the provided Thread Group
+     *
+     * @param threadGroup
+     * @return
+     */
     public static List<Thread> getThreads(ThreadGroup threadGroup) {
         return getThreads(threadGroup, false);
     }
+
 
     public static List<Thread> getThreads(ThreadGroup threadGroup, boolean recurse) {
         List<Thread> threadList = new ArrayList<>();
@@ -157,6 +130,12 @@ public class ThreadGroupUtils {
                 + thread.getPriority() + " | State: " + thread.getState() + " | Daemon: " + thread.isDaemon();
     }
 
+    /**
+     * Returns thread with id provided returns null if the thread with the provided ID doesn't exist
+     *
+     * @param id
+     * @return
+     */
     public static Thread getThreadById(int id) {
         List<Thread> thread =  getAllThreads().stream()
                 .filter(t -> t.getId() == id)
@@ -181,4 +160,5 @@ public class ThreadGroupUtils {
 
         return new ArrayList<>(set);
     }
+
 }

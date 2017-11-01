@@ -7,17 +7,12 @@ import java.awt.event.KeyListener;
 
 public class App {
 
-    public static final String TITLE = "Thread Manager";
+    private static final String TITLE = "Thread Manager";
     private JTable table;
     private ThreadTableModel tableModel;
     private ThreadGroupComboBoxModel threadGroupComboBoxModel;
-    private JComboBox<ThreadGroup>  threadGroupComboBox;
 
-    public App() {
-        setupUI();
-    }
-
-    private void setupUI() {
+    public void display() {
         JFrame frame = new JFrame(TITLE);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,29 +78,11 @@ public class App {
         return searchPanel;
     }
 
-
-
     private JPanel buttonPanel() {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
-        threadGroupComboBoxModel = new ThreadGroupComboBoxModel();
-        threadGroupComboBox = new JComboBox<>(threadGroupComboBoxModel);
-        threadGroupComboBox.setSelectedIndex(0);
-        JScrollPane threadGroupComboBoxScrollPane = new JScrollPane(threadGroupComboBox);
-        threadGroupComboBoxScrollPane.setMaximumSize(new Dimension(200, 50));
-
-        //This will print out the name of the thread group
-        threadGroupComboBox.setRenderer(new ListCellRenderer<ThreadGroup>() {
-            private DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
-
-            @Override
-            public Component getListCellRendererComponent(JList<? extends ThreadGroup> jList, ThreadGroup threadGroup, int i, boolean b, boolean b1) {
-                JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(jList, threadGroup, i, b, b1);
-                renderer.setText(threadGroup.getName());
-                return renderer;
-            }
-        });
+        JComboBox<ThreadGroup> threadGroupComboBox = threadComboBoxSetup();
 
         JButton newButton = new JButton("New Thread");
         newButton.addActionListener(actionEvent -> {
@@ -141,7 +118,7 @@ public class App {
         refreshButton.addActionListener(actionEvent -> {
             tableModel.fireTableDataChanged();
 
-            threadGroupComboBoxModel.fireContentsChanged(threadGroupComboBoxModel, 0, threadGroupComboBoxModel.getSize()-1);
+            threadGroupComboBoxModel.fireContentsChanged(threadGroupComboBoxModel, 0, threadGroupComboBoxModel.getSize() - 1);
 //            threadGroupComboBox.revalidate();
 //            threadGroupComboBox.updateUI();
 //            threadGroupComboBox.repaint();
@@ -154,5 +131,27 @@ public class App {
         buttonPanel.add(threadGroupComboBox);
 
         return buttonPanel;
+    }
+
+    private JComboBox<ThreadGroup> threadComboBoxSetup() {
+        threadGroupComboBoxModel = new ThreadGroupComboBoxModel();
+        JComboBox<ThreadGroup> threadGroupComboBox = new JComboBox<>(threadGroupComboBoxModel);
+        threadGroupComboBox.setSelectedIndex(0);
+        JScrollPane threadGroupComboBoxScrollPane = new JScrollPane(threadGroupComboBox);
+        threadGroupComboBoxScrollPane.setMaximumSize(new Dimension(200, 50));
+
+        //This will print out the name of the thread group
+        threadGroupComboBox.setRenderer(new ListCellRenderer<ThreadGroup>() {
+            private DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+
+            @Override
+            public Component getListCellRendererComponent(JList<? extends ThreadGroup> jList, ThreadGroup threadGroup, int i, boolean b, boolean b1) {
+                JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(jList, threadGroup, i, b, b1);
+                renderer.setText(threadGroup.getName());
+                return renderer;
+            }
+        });
+
+        return threadGroupComboBox;
     }
 }

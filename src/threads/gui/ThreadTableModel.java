@@ -1,5 +1,7 @@
 package threads.gui;
 
+import threads.ThreadUtils;
+
 import javax.swing.table.AbstractTableModel;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -15,7 +17,7 @@ public class ThreadTableModel extends AbstractTableModel {
         columnNames = new Vector<>();
         data = new Vector<>();
 
-        threadList = ThreadGroupUtils.getAllThreads();
+        threadList = ThreadUtils.getAllThreads();
 
         String[] columns = new String[]{"ID", "Name", "Priority", "State", "Daemon", "Thread Group"};
         columnNames.addAll(Arrays.asList(columns));
@@ -48,7 +50,7 @@ public class ThreadTableModel extends AbstractTableModel {
     }
 
     private List<Thread> getThreads() {
-        List<Thread> threads = ThreadGroupUtils.getAllThreads();
+        List<Thread> threads = ThreadUtils.getAllThreads();
         if (query.equals("")) {
             return threads;
         }
@@ -73,7 +75,7 @@ public class ThreadTableModel extends AbstractTableModel {
             case 4:
                 return String.valueOf(thread.isDaemon());
             case 5:
-                return ThreadGroupUtils.getThreadGroup(thread).getName();
+                return ThreadUtils.getThreadGroup(thread).getName();
         }
 
         return "";
@@ -81,7 +83,7 @@ public class ThreadTableModel extends AbstractTableModel {
 
     public Thread getThreadAtIndex(int i) {
         int threadId = Integer.valueOf(data.get(i).get(0));
-        return ThreadGroupUtils.getThreadById(threadId);
+        return ThreadUtils.getThreadById(threadId);
     }
 
     @Override
