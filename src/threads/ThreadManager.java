@@ -1,6 +1,8 @@
 package threads;
 
 
+import threads.gui.ThreadGroupUtils;
+
 public class ThreadManager {
 
 

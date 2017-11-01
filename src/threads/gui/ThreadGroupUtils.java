@@ -1,4 +1,4 @@
-package threads;
+package threads.gui;
 
 import java.util.*;
 import java.util.stream.Collectors;
