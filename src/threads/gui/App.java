@@ -106,7 +106,12 @@ public class App {
                 int index = table.getSelectedRow();
 
                 if (index != -1) {
-                    tableModel.getThreadAtIndex(index).stop();
+                    Thread thread = tableModel.getThreadAtIndex(index);
+
+                    // Stop thread if it's not null
+                    if (thread != null) {
+                        thread.stop();
+                    }
                 }
 
                 tableModel.fireTableDataChanged();
