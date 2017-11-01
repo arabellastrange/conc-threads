@@ -123,7 +123,6 @@ public class App {
         JButton refreshButton = new JButton("Refresh");
         refreshButton.addActionListener(actionEvent -> {
             tableModel.fireTableDataChanged();
-
             threadGroupComboBoxModel.fireContentsChanged(threadGroupComboBoxModel, 0, threadGroupComboBoxModel.getSize() - 1);
 //            threadGroupComboBox.revalidate();
 //            threadGroupComboBox.updateUI();

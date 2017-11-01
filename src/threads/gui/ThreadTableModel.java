@@ -75,7 +75,7 @@ public class ThreadTableModel extends AbstractTableModel {
             case 4:
                 return String.valueOf(thread.isDaemon());
             case 5:
-                return ThreadUtils.getThreadGroup(thread).getName();
+                return thread.getThreadGroup().getName();
         }
 
         return "";
