@@ -26,45 +26,64 @@ public final class BankSystem {
 
     public void tellMeAboutBank(){
         if(!customers.entrySet().isEmpty()) {
-            System.out.println("This bank has the following customers");
+            System.out.println("Thread " + Thread.currentThread().getId() + " is checking the bank");
+            System.out.println("\t This bank has the following customers");
             for (ConcurrentHashMap.Entry c : customers.entrySet()) {
-                System.out.println("Customer: " + c.getKey().toString() + " their accounts are " + c.getValue().toString());
+                System.out.println("\t \t Customer: " + c.getKey().toString() + " their accounts are " + c.getValue().toString());
+            }
+            System.out.println("This bank has the following employees");
+            for(Employee e : employees){
+                System.out.println("\t \t Employee: " + e.toString());
             }
         }
         else {
-            System.out.println("Nothing in bank yet!");
+            System.out.println("\t Nothing in bank yet!");
         }
     }
 
     public void addAccount(Customer c, Account a){
-       if(customers.containsKey(c)) {
+       if(containsCustomer(c)) {
            customers.get(c).add(a);
+           System.out.println("Thread " + Thread.currentThread().getId() + " is adding an account\n" + "\t Success!");
        }
        else{
-           System.out.println("No such customer exists");
+           System.out.println("Thread " + Thread.currentThread().getId() + " is adding an account\n" + "\t No such customer exists");
        }
     }
 
     public void removeAccount(Customer c, Account a){
-        if(customers.containsKey(c)) {
-            customers.get(c).remove(a);
+        if(containsCustomer(c)) {
+            if(customers.get(c).contains(a)){
+                customers.get(c).remove(a);
+                System.out.println("Thread " + Thread.currentThread().getId() + " is removing an account\n" + "\t Success!");
+            }
+            else {
+                System.out.println("Thread " + Thread.currentThread().getId() + " is removing an account \n" + "\t No such account exists");
+            }
         }
         else{
-            System.out.println("No such customer exists");
+            System.out.println("Thread " + Thread.currentThread().getId() + " is removing an account \n" + "\t No such customer exists");
         }
     }
 
     public void addCustomer(Customer c){
         if(!containsCustomer(c)){
+            System.out.println("Thread " + Thread.currentThread().getId() + " is adding a customer \n" + "\t Success!");
             customers.put(c, new ArrayList<Account>());
         }
         else {
-            System.out.println("Customer already in bank!");
+            System.out.println("Thread " + Thread.currentThread().getId() + " is adding a customer \n" + "\t Customer already in bank!");
         }
     }
 
-    public void removesCustomer(Customer c){
-       customers.remove(c);
+    public void removeCustomer(Customer c){
+        if(containsCustomer(c)){
+            customers.remove(c);
+            System.out.println("Thread " + Thread.currentThread().getId() + " is removing a customer \n" + "\t Success!");
+        }
+        else {
+            System.out.println("Thread " + Thread.currentThread().getId() + " is removing a customer \n" + "\t No such customer");
+        }
     }
 
     public void hireEmployee(Employee e){

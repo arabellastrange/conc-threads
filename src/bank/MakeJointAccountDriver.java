@@ -21,7 +21,7 @@ public class MakeJointAccountDriver implements Runnable{
         BankSystem.getBank().tellMeAboutBank();
 
         x = new Customer("Ororo",  BankSystem.getBank().getEmployee(0));
-        as = new CurrentAccount(600);
+        as = new SavingAccount(600);
         BankSystem.getBank().addCustomer(x);
         x.requestNewAccount(as);
         BankSystem.getBank().tellMeAboutBank();

@@ -1,9 +1,5 @@
 package bank;
 
-
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Condition;
-
 public class CurrentAccount extends UnlimitedAccounts {
     public CurrentAccount(double initialBalance){
         super(initialBalance);

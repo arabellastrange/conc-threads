@@ -1,11 +1,14 @@
 package bank;
+
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Employee {
     private BankSystem workingAt;
     private int employeeID;
-    private int genID = 0;
+    private static final AtomicInteger genID = new AtomicInteger();  // concurrent and thread safe data type
 
     public Employee(){
-        employeeID = genID++;
+        employeeID = genID.incrementAndGet();
     }
 
     public int getEmployeeID() {
@@ -42,6 +45,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return employeeID + "";
+        return "ID: " + employeeID + "";
     }
 }
