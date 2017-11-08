@@ -1,6 +1,8 @@
 package bank;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -43,8 +45,11 @@ public final class BankSystem {
 
     public void addAccount(Customer c, Account a){
        if(containsCustomer(c)) {
-           customers.get(c).add(a);
-           System.out.println("Thread " + Thread.currentThread().getId() + " is adding an account\n" + "\t Success!");
+           if(!customers.get(c).contains(a)){
+               customers.get(c).add(a);
+               System.out.println("Thread " + Thread.currentThread().getId() + " is adding an account\n" + "\t Success!");
+           }
+           System.out.println("Thread " + Thread.currentThread().getId() + " is adding an account\n" + "\t Account already exists");
        }
        else{
            System.out.println("Thread " + Thread.currentThread().getId() + " is adding an account\n" + "\t No such customer exists");
@@ -65,6 +70,18 @@ public final class BankSystem {
             System.out.println("Thread " + Thread.currentThread().getId() + " is removing an account \n" + "\t No such customer exists");
         }
     }
+
+//    public ArrayList<Account> getAllInstancesOfAccount(Account a){
+//        ArrayList accounts = new ArrayList();
+//        for(ConcurrentMap.Entry<Customer, ArrayList<Account>> custMap : customers.entrySet()){
+//            List<Account> list = custMap.;
+//            for(int i = 0; i < list.size(); i++){
+//                if(list.get(i).equals(a)){
+//                     accounts.add(list.get(i));
+//                }
+//            }
+//        }
+//    }
 
     public void addCustomer(Customer c){
         if(!containsCustomer(c)){
