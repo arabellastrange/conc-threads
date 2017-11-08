@@ -36,6 +36,10 @@ public class Employee {
         account.withdraw(account.getAccountFee());
     }
 
+    public void grantOverdraft(UnlimitedAccounts a, double amount){
+            a.verifyOverdraft(amount);
+    }
+
     @Override
     public String toString() {
         return employeeID + "";

@@ -22,6 +22,12 @@ public class Customer {
         contact.createAcc(this, a);
     }
 
+    public void requestOverdraft(UnlimitedAccounts a, double amount){
+        if(verifyAccount(a)){
+            contact.grantOverdraft(a, amount);
+        }
+    }
+
     public void printBalance(Account a){
         if(verifyAccount(a)){
             a.printBal();

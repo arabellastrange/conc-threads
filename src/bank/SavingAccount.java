@@ -27,6 +27,11 @@ public class SavingAccount extends Account {
         return false;
     }
 
+    @Override
+    public boolean verifyOverdraft(double amount) {
+        System.out.println("You cannot set an overdraft on a savings account");
+        return false;
+    }
 
 
 }

@@ -5,6 +5,7 @@ public class DeletingAccountDriver implements Runnable{
     private static Account a;
 
     public static void main(String[] args){
+        //want two employees to delete at same time so expand
         c = new Customer("Mary", BankSystem.getBank().getEmployee(0));
         BankSystem.getBank().addCustomer(c);
         a = new CurrentAccount(380);
