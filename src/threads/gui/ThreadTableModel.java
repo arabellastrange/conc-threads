@@ -22,7 +22,6 @@ public class ThreadTableModel extends AbstractTableModel {
         String[] columns = new String[]{"ID", "Name", "Priority", "State", "Daemon", "Thread Group"};
         columnNames.addAll(Arrays.asList(columns));
 
-
         // update every 5 seconds
         int seconds = 5;
         java.util.Timer timer = new Timer();
