@@ -37,11 +37,12 @@ public class SavingAccount extends Account {
     public boolean withdraw(double amount) throws InterruptedException {
         balanceLock.lock();
         try{
-            while (checkBal() <= amount){
+            while (checkBal() <= amount || checkBal() - amount <= 20){
                 if(!waitingForMoreMoney){
                     Thread.currentThread().interrupt();
 
                 }
+                System.out.println("Thread " + Thread.currentThread().getId() + " Balance too low to preform this action, Savings Account must at least contain £20 at all time");
                 waitingForMoreMoney = balanceTooLow.await(10, TimeUnit.SECONDS);
             }
             setBalance(checkBal() - amount);

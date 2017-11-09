@@ -58,6 +58,19 @@ public class Customer {
         }
     }
 
+    public void requestNoLongerJoint(Account a, Customer secondary){
+        if(verifyAccount(a)){
+            contact.makeUnjoint( secondary, a);
+        }
+    }
+
+    public void requestJointAccountDeletion(Account a, Customer secondary){
+        if(verifyAccount(a)){
+            contact.deleteJointAcc(a, this, secondary);
+        }
+
+    }
+
     public boolean verifyAccount(Account a){
         if(BankSystem.getBank().getCustomerAccounts(this).contains(a)){
             return true;

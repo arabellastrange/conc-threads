@@ -16,35 +16,69 @@ public class Employee {
     }
 
     public void createAcc(Customer cust, Account a){
-        workingAt.getBank().addAccount(cust, a);
+        if(verifyEmployee(this)){
+            workingAt.getBank().addAccount(cust, a);
+        }
     }
 
     public void deleteAcc(Customer c, int accNum){
-        workingAt.getBank().removeAccount(c, workingAt.getBank().getAccount(accNum));
+        if(verifyEmployee(this)){
+            workingAt.getBank().removeAccount(c, workingAt.getBank().getAccount(accNum));
+        }
     }
 
     public void makeJoint(Customer c, Customer secondary, Account a){
-        if(!BankSystem.getBank().containsCustomer(secondary)){
-            BankSystem.getBank().addCustomer(secondary);
-        }
+        if(verifyEmployee(this)){
+            if(!BankSystem.getBank().containsCustomer(secondary)){
+                BankSystem.getBank().addCustomer(secondary);
+            }
 
-        BankSystem.getBank().addAccount(secondary, a);
+            BankSystem.getBank().addAccount(secondary, a);
+        }
+    }
+
+    public void makeUnjoint(Customer secondary, Account a){
+        if(verifyEmployee(this)){
+            BankSystem.getBank().removeAccount(secondary,a);
+        }
+    }
+
+    public void deleteJointAcc(Account a, Customer customer, Customer secondary) {
+        if(verifyEmployee(this)){
+            BankSystem.getBank().removeJointAccount(a,customer,secondary);
+        }
     }
 
     public void depositInterest(Account account){
-        account.deposit(account.checkBal() * account.getInterestRate() * account.getInterestLength());
+        if(verifyEmployee(this)){
+            account.deposit(account.checkBal() * account.getInterestRate() * account.getInterestLength());
+        }
     }
 
     public void chargeFee(PlatinumAccount account) throws InterruptedException {
-        account.withdraw(account.getAccountFee());
+        if(verifyEmployee(this)){
+            account.withdraw(account.getAccountFee());
+        }
     }
 
     public void grantOverdraft(UnlimitedAccounts a, double amount){
+        if(verifyEmployee(this)){
             a.verifyOverdraft(amount);
+        }
     }
 
     @Override
     public String toString() {
         return "ID: " + employeeID + "";
+    }
+
+    public Boolean verifyEmployee(Employee e){
+        if(BankSystem.getBank().verifyEmployee(e)){
+            return true;
+        }
+        else{
+            System.out.println("This employee does not have permission to complete this action");
+            return false;
+        }
     }
 }

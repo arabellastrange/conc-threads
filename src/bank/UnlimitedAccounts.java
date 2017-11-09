@@ -2,16 +2,20 @@ package bank;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public abstract class UnlimitedAccounts extends Account {
     private Condition balanceTooLow;
     private boolean waitingForMoreMoney = true;
+    Lock overdraftLock;
     private double overdraft;
     private boolean hasOverdraft = false;
 
     public UnlimitedAccounts(double initialBalance) {
         super(initialBalance);
         balanceTooLow = balanceLock.newCondition();
+        overdraftLock = new ReentrantLock();
     }
 
     @Override
@@ -35,7 +39,6 @@ public abstract class UnlimitedAccounts extends Account {
             while(isBalanceTooLow(amount)){
                 if(!waitingForMoreMoney){
                     Thread.currentThread().interrupt();
-
                 }
                 waitingForMoreMoney = balanceTooLow.await(10, TimeUnit.SECONDS);
             }
@@ -67,8 +70,15 @@ public abstract class UnlimitedAccounts extends Account {
         return hasOverdraft;
     }
 
-    public void setHasOverdraft(boolean sho){
-        hasOverdraft = sho;
+    public void setHasOverdraft(boolean overdraft){
+        overdraftLock.lock();
+        try {
+            hasOverdraft = overdraft;
+        }
+        finally {
+            overdraftLock.unlock();
+        }
+
     }
 
     public double getOverdraft(){
@@ -76,7 +86,13 @@ public abstract class UnlimitedAccounts extends Account {
     }
 
     public void setOverdraft(double amount){
-        overdraft = amount;
+        overdraftLock.lock();
+        try{
+            overdraft = amount;
+        }
+        finally {
+            overdraftLock.unlock();
+        }
     }
 
     @Override

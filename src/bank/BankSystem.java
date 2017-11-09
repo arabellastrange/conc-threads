@@ -71,17 +71,21 @@ public final class BankSystem {
         }
     }
 
-//    public ArrayList<Account> getAllInstancesOfAccount(Account a){
-//        ArrayList accounts = new ArrayList();
-//        for(ConcurrentMap.Entry<Customer, ArrayList<Account>> custMap : customers.entrySet()){
-//            List<Account> list = custMap.;
-//            for(int i = 0; i < list.size(); i++){
-//                if(list.get(i).equals(a)){
-//                     accounts.add(list.get(i));
-//                }
-//            }
-//        }
-//    }
+    public void removeJointAccount(Account a, Customer customer, Customer secondary) {
+        if(containsCustomer(customer) && containsCustomer(secondary)) {
+            if(customers.get(customer).contains(a) && customers.get(secondary).contains(a)){
+                customers.get(customer).remove(a);
+                customers.get(secondary).remove(a);
+                System.out.println("Thread " + Thread.currentThread().getId() + " is removing an account\n" + "\t Success!");
+            }
+            else {
+                System.out.println("Thread " + Thread.currentThread().getId() + " is removing an account \n" + "\t No such account exists in one or both customer profiles");
+            }
+        }
+        else{
+            System.out.println("Thread " + Thread.currentThread().getId() + " is removing an account \n" + "\t One or both customers do not exist");
+        }
+    }
 
     public void addCustomer(Customer c){
         if(!containsCustomer(c)){
@@ -130,10 +134,16 @@ public final class BankSystem {
         return employees.get(id);
     }
 
+    public Boolean verifyEmployee(Employee e){
+        return employees.contains(e);
+    }
+
     public boolean containsCustomer(Customer c){
         if(customers.containsKey(c)){
             return true;
         }
         return false;
     }
+
+
 }
