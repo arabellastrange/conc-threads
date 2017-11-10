@@ -1,8 +1,5 @@
 package bank;
 
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Condition;
-
 public class PlatinumAccount extends UnlimitedAccounts {
     private double fee;
 

@@ -21,7 +21,7 @@ public class MakeJointAccountDriver implements Runnable{
         BankSystem.getBank().tellMeAboutBank();
 
         x = new Customer("Ororo",  BankSystem.getBank().getEmployee(0));
-        as = new CurrentAccount(600);
+        as = new SavingAccount(600);
         BankSystem.getBank().addCustomer(x);
         x.requestNewAccount(as);
         BankSystem.getBank().tellMeAboutBank();
@@ -43,6 +43,8 @@ public class MakeJointAccountDriver implements Runnable{
         try {
             x.withdraw(as, 10);
             x.printBalance(as);
+            x.requestJointAccountDeletion(as,c);
+            BankSystem.getBank().tellMeAboutBank();
         } catch (InterruptedException e) {
             System.out.println("Balance too low, never replenished, can't wait anymore");
         }
