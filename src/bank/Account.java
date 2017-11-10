@@ -85,6 +85,8 @@ public abstract class Account {
         this.interestLength = interestLength;
     }
 
+    public abstract boolean verifyOverdraft(double amount);
+
     @Override
     public String toString() {
         return "{ Account Number: " + accountNumber + " }";
