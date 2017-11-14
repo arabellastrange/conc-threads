@@ -12,6 +12,7 @@ public class ThreadTableModel extends AbstractTableModel {
     private Vector<String> columnNames;
     private Vector<Vector<String>> data;
     private String query = "";
+    private ThreadGroup threadGroup;
 
     public ThreadTableModel() {
         columnNames = new Vector<>();
@@ -50,13 +51,16 @@ public class ThreadTableModel extends AbstractTableModel {
 
     private List<Thread> getThreads() {
         List<Thread> threads = ThreadUtils.getAllThreads();
-        if (query.equals("")) {
-            return threads;
-        }
 
         threads = threads.stream()
                 .filter((t) -> t.getName().toLowerCase().startsWith(query.toLowerCase()))
                 .collect(Collectors.toList());
+
+        if (threadGroup != null) {
+            threads = threads.stream()
+                    .filter((t) -> t.getThreadGroup().equals(threadGroup))
+                    .collect(Collectors.toList());
+        }
 
         return threads;
     }
@@ -133,10 +137,10 @@ public class ThreadTableModel extends AbstractTableModel {
 
     /**
      * Filters threads by query
-     * @param query
+     * @param threadGroup
      */
-    public void filterThreadGroup(String query) {
-        this.query = query.trim();
+    public void filterThreadGroup(ThreadGroup threadGroup) {
+        this.threadGroup = threadGroup;
         fireTableDataChanged();
     }
 }

@@ -2,6 +2,8 @@ package threads.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -84,6 +86,13 @@ public class App {
         threadGroupComboBoxModel = new ThreadGroupComboBoxModel();
         JComboBox<ThreadGroup> threadGroupComboBox = new JThreadGroupComboBox(threadGroupComboBoxModel);
         threadGroupComboBox.setSelectedIndex(0);
+        threadGroupComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ThreadGroup tg = (ThreadGroup) threadGroupComboBox.getSelectedItem();
+                tableModel.filterThreadGroup(tg);
+            }
+        });
 
         JButton newButton = new JButton("New Thread");
         newButton.addActionListener(actionEvent -> {

@@ -2,11 +2,19 @@ package threads;
 
 import threads.gui.App;
 
+import javax.swing.*;
+
 public class Driver {
 
     public static void main(String[] args) {
         App gui = new App();
-        gui.display();
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                gui.display();
+            }
+        });
 
         ThreadGroup A = new ThreadGroup("G-A");
         Thread t = new Thread(A, () -> {
