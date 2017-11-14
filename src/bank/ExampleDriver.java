@@ -32,7 +32,9 @@ public class ExampleDriver implements Runnable {
     public void run() {
         // preform your actions: deposit, transfer and withdraw
         customer.printBalance(accountA);
+
         customer.deposit(accountA, 10);
+
         customer.printBalance(accountA);
         customer.printBalance(accountB);
         try {

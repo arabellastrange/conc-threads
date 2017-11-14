@@ -14,12 +14,12 @@ public class Customer {
         return name;
     }
 
-    public void requestAccountDeletion(int accNumber) {
-        employee.deleteAcc(this, accNumber);
-    }
-
     public void requestNewAccount(Account a) {
         employee.createAccount(this, a);
+    }
+
+    public void requestAccountDeletion(int accNumber) {
+        employee.deleteAcc(this, accNumber);
     }
 
     public void requestOverdraft(UnlimitedAccounts a, double amount) {
@@ -84,5 +84,3 @@ public class Customer {
         return "{Name: " + name + ", Contact: " + employee + "}";
     }
 }
-
-

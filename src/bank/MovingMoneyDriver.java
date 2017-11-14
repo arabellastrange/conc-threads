@@ -2,7 +2,7 @@ package bank;
 
 import bank.system.*;
 
-public class MovingMoneyDriver implements Runnable {
+public class MovingMoneyDriver implements Runnable{
     private static Customer customer;
     private static Account accountA;
     private static Account accountB;
@@ -10,10 +10,10 @@ public class MovingMoneyDriver implements Runnable {
     private static Customer customerA;
     private static Customer customerB;
 
-    public static void main(String args[]) {
+    public static void main(String args[]){
         BankSystem.getBank().printBankSystemInfo();
 
-        customer = new Customer("Jean", BankSystem.getBank().getEmployee(0));
+        customer = new Customer("Jean",  BankSystem.getBank().getEmployee(0));
         BankSystem.getBank().addCustomer(customer);
         BankSystem.getBank().printBankSystemInfo();
 
@@ -22,6 +22,7 @@ public class MovingMoneyDriver implements Runnable {
         BankSystem.getBank().printBankSystemInfo();
 
         customerA = new Customer("Ororo", BankSystem.getBank().getEmployee(0));
+
         accountB = new PlatinumAccount(5000);
         BankSystem.getBank().addCustomer(customerA);
         customerA.requestNewAccount(accountB);

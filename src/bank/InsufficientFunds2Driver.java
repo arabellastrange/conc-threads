@@ -9,6 +9,7 @@ public class InsufficientFunds2Driver implements Runnable {
     private static Account accountB;
     private static Account accountC;
 
+
     public static void main(String[] args) {
         BankSystem.getBank().printBankSystemInfo();
 
@@ -20,6 +21,7 @@ public class InsufficientFunds2Driver implements Runnable {
         accountA = new CurrentAccount(400);
         accountC = new PlatinumAccount(5000);
         accountB = new CurrentAccount(800);
+
         customer.requestNewAccount(accountA);
         customer.requestNewAccount(accountC);
         customer.requestNewAccount(accountB);

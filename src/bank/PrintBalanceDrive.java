@@ -9,10 +9,10 @@ public class PrintBalanceDrive implements Runnable {
     private static Customer customerA;
     private static Customer customerB;
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         BankSystem.getBank().printBankSystemInfo();
 
-        customerA = new Customer("Jean", BankSystem.getBank().getEmployee(0));
+        customerA = new Customer("Jean",  BankSystem.getBank().getEmployee(0));
         BankSystem.getBank().addCustomer(customerA);
         BankSystem.getBank().printBankSystemInfo();
 
@@ -25,6 +25,7 @@ public class PrintBalanceDrive implements Runnable {
         BankSystem.getBank().printBankSystemInfo();
 
         customerB = new Customer("Ororo", BankSystem.getBank().getEmployee(0));
+
         BankSystem.getBank().addCustomer(customerB);
         BankSystem.getBank().printBankSystemInfo();
 

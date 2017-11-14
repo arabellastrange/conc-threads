@@ -35,9 +35,6 @@ public class DeletingAccountDriver implements Runnable {
         BankSystem.getBank().printBankSystemInfo();
 
         employeeB.deleteAcc(customer, accountB.getAccountNumber());
-        BankSystem.getBank().printBankSystemInfo();
-
-        employeeB.deleteAcc(customer, accountA.getAccountNumber());
     }
 
 }

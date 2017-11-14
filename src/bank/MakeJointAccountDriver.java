@@ -46,6 +46,8 @@ public class MakeJointAccountDriver implements Runnable {
             customerB.withdraw(accountC, 10);
             customerB.printBalance(accountC);
             customerB.requestJointAccountDeletion(accountC, customerA);
+
+
             BankSystem.getBank().printBankSystemInfo();
         } catch (InterruptedException e) {
             System.out.println("Balance too low, never replenished, can't wait anymore");

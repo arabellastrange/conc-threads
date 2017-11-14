@@ -19,6 +19,8 @@ public class InsufficientFundsDriver implements Runnable {
         accountB = new PlatinumAccount(5000);
         customer.requestNewAccount(accountA);
         customer.requestNewAccount(accountB);
+
+
         BankSystem.getBank().printBankSystemInfo();
 
         Thread threadA = new Thread(new InsufficientFundsDriver());
