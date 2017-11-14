@@ -38,6 +38,7 @@ public class JThreadGroupComboBox extends JComboBox<ThreadGroup>{
             public Component getListCellRendererComponent(JList<? extends ThreadGroup> jList, ThreadGroup threadGroup, int i, boolean b, boolean b1) {
                 JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(jList, threadGroup, i, b, b1);
 
+                renderer.setText("View All");
                 if (threadGroup != null) {
                     renderer.setText(threadGroup.getName());
                 }

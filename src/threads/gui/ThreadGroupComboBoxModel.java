@@ -27,7 +27,10 @@ public class ThreadGroupComboBoxModel extends AbstractListModel<ThreadGroup> imp
     }
 
     private void refresh() {
-        threadGroups = ThreadUtils.getThreadGroupsFromThreads(ThreadUtils.getAllThreads());
+        threadGroups = new ArrayList<ThreadGroup>(){{
+            add(null); // null is to view all
+        }};
+        threadGroups.addAll(ThreadUtils.getThreadGroupsFromThreads(ThreadUtils.getAllThreads()));
     }
 
     @Override

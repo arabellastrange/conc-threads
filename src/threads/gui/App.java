@@ -23,12 +23,10 @@ public class App {
         mainPanel.setLayout(new BorderLayout());
 
         // Main components
-//        mainPanel.add(searchPanel(), BorderLayout.NORTH);
         mainPanel.add(mainPanel(), BorderLayout.CENTER);
         mainPanel.add(buttonPanel(), BorderLayout.EAST);
 
         frame.add(mainPanel);
-
         frame.setMinimumSize(new Dimension(700, 500));
         frame.setVisible(true);
     }
@@ -133,12 +131,8 @@ public class App {
         refreshButton.addActionListener(actionEvent -> {
             tableModel.fireTableDataChanged();
             threadGroupComboBoxModel.fireContentsChanged(threadGroupComboBoxModel, 0, threadGroupComboBoxModel.getSize() - 1);
-//            threadGroupComboBox.revalidate();
-//            threadGroupComboBox.updateUI();
-//            threadGroupComboBox.repaint();
         });
 
-//        buttonPanel.add(threadGroupComboBoxScrollPane);
         buttonPanel.add(newButton);
         buttonPanel.add(stopButton);
         buttonPanel.add(refreshButton);
@@ -146,5 +140,4 @@ public class App {
 
         return buttonPanel;
     }
-
 }
