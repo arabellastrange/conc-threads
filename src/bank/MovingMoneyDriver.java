@@ -3,35 +3,35 @@ package bank;
 import bank.system.*;
 
 public class MovingMoneyDriver implements Runnable{
-    private static Customer c;
-    private static Account a;
-    private static Account p;
-    private static Account l;
-    private static Customer x;
-    private static Customer v;
+    private static Customer customer;
+    private static Account accountA;
+    private static Account accountB;
+    private static Account accountC;
+    private static Customer customerA;
+    private static Customer customerB;
 
     public static void main(String args[]){
-        BankSystem.getBank().tellMeAboutBank();
+        BankSystem.getBank().printBankSystemInfo();
 
-        c = new Customer("Jean",  BankSystem.getBank().getEmployee(0));
-        BankSystem.getBank().addCustomer(c);
-        BankSystem.getBank().tellMeAboutBank();
+        customer = new Customer("Jean",  BankSystem.getBank().getEmployee(0));
+        BankSystem.getBank().addCustomer(customer);
+        BankSystem.getBank().printBankSystemInfo();
 
-        a = new CurrentAccount(400);
-        c.requestNewAccount(a);
-        BankSystem.getBank().tellMeAboutBank();
+        accountA = new CurrentAccount(400);
+        customer.requestNewAccount(accountA);
+        BankSystem.getBank().printBankSystemInfo();
 
-        x = new Customer("Ororo",  BankSystem.getBank().getEmployee(0));
-        p = new PlatinumAccount(5000);
-        BankSystem.getBank().addCustomer(x);
-        x.requestNewAccount(p);
-        BankSystem.getBank().tellMeAboutBank();
+        customerA = new Customer("Ororo",  BankSystem.getBank().getEmployee(0));
+        accountB = new PlatinumAccount(5000);
+        BankSystem.getBank().addCustomer(customerA);
+        customerA.requestNewAccount(accountB);
+        BankSystem.getBank().printBankSystemInfo();
 
-        v = new Customer("Kurt", BankSystem.getBank().getEmployee(0));
-        l = new CurrentAccount(20);
-        BankSystem.getBank().addCustomer(v);
-        v.requestNewAccount(l);
-        BankSystem.getBank().tellMeAboutBank();
+        customerB = new Customer("Kurt", BankSystem.getBank().getEmployee(0));
+        accountC = new CurrentAccount(20);
+        BankSystem.getBank().addCustomer(customerB);
+        customerB.requestNewAccount(accountC);
+        BankSystem.getBank().printBankSystemInfo();
 
         Thread t0 = new Thread(new MovingMoneyDriver());
         Thread t1 = new Thread(new MovingMoneyDriver());
@@ -42,18 +42,18 @@ public class MovingMoneyDriver implements Runnable{
 
     @Override
     public void run() {
-        c.printBalance(a);
-        c.deposit(a, 300);
-        c.printBalance(a);
+        customer.printBalance(accountA);
+        customer.deposit(accountA, 300);
+        customer.printBalance(accountA);
         try {
-            x.printBalance(p);
-            x.transfer(p, 200, a.getAccountNumber());
-            x.printBalance(p);
-            c.transfer(a, 100, l.getAccountNumber());
-            c.printBalance(a);
-            v.printBalance(l);
-            v.withdraw(l, 10);
-            v.printBalance(l);
+            customerA.printBalance(accountB);
+            customerA.transfer(accountB, 200, accountA.getAccountNumber());
+            customerA.printBalance(accountB);
+            customer.transfer(accountA, 100, accountC.getAccountNumber());
+            customer.printBalance(accountA);
+            customerB.printBalance(accountC);
+            customerB.withdraw(accountC, 10);
+            customerB.printBalance(accountC);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

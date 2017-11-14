@@ -3,41 +3,41 @@ package bank;
 import bank.system.*;
 
 public class PrintBalanceDrive implements Runnable {
-    private static Customer c;
-    private static Account a;
-    private static Account p;
-    private static Account s;
-    private static Customer x;
+    private static Account accountA;
+    private static Account accountB;
+    private static Account accountC;
+    private static Customer customerA;
+    private static Customer customerB;
 
     public static void main(String[] args){
-        BankSystem.getBank().tellMeAboutBank();
+        BankSystem.getBank().printBankSystemInfo();
 
-        c = new Customer("Jean",  BankSystem.getBank().getEmployee(0));
-        BankSystem.getBank().addCustomer(c);
-        BankSystem.getBank().tellMeAboutBank();
+        customerA = new Customer("Jean",  BankSystem.getBank().getEmployee(0));
+        BankSystem.getBank().addCustomer(customerA);
+        BankSystem.getBank().printBankSystemInfo();
 
-        a = new CurrentAccount(400);
-        p = new PlatinumAccount(5000);
-        s = new SavingAccount(1000);
-        c.requestNewAccount(a);
-        c.requestNewAccount(p);
-        c.requestNewAccount(s);
-        BankSystem.getBank().tellMeAboutBank();
+        accountA = new CurrentAccount(400);
+        accountB = new PlatinumAccount(5000);
+        accountC = new SavingAccount(1000);
+        customerA.requestNewAccount(accountA);
+        customerA.requestNewAccount(accountB);
+        customerA.requestNewAccount(accountC);
+        BankSystem.getBank().printBankSystemInfo();
 
-        x = new Customer("Ororo",  BankSystem.getBank().getEmployee(0));
-        BankSystem.getBank().addCustomer(x);
-        BankSystem.getBank().tellMeAboutBank();
+        customerB = new Customer("Ororo",  BankSystem.getBank().getEmployee(0));
+        BankSystem.getBank().addCustomer(customerB);
+        BankSystem.getBank().printBankSystemInfo();
 
-        Thread t0 = new Thread(new PrintBalanceDrive());
-        Thread t1 = new Thread(new PrintBalanceDrive());
-        t0.start();
-        t1.start();
+        Thread threadA = new Thread(new PrintBalanceDrive());
+        Thread threadB = new Thread(new PrintBalanceDrive());
+        threadA.start();
+        threadB.start();
     }
 
     @Override
     public void run() {
-        c.printBalance(p);
-        c.printBalance(a);
-        c.printBalance(s);
+        customerA.printBalance(accountB);
+        customerA.printBalance(accountA);
+        customerA.printBalance(accountC);
     }
 }

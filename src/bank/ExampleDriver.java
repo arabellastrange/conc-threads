@@ -6,21 +6,21 @@ import bank.system.CurrentAccount;
 import bank.system.Customer;
 
 public class ExampleDriver implements Runnable{
-    private static Customer c;
-    private static Account a;
-    private static Account as;
+    private static Customer customer;
+    private static Account accountA;
+    private static Account accountB;
 
     public static void main(String[] args){
         //set up bank: accounts and customers all created
-        BankSystem.getBank().tellMeAboutBank();
-        c = new Customer("Jean", BankSystem.getBank().getEmployee(0));
-        BankSystem.getBank().addCustomer(c);
-        a = new CurrentAccount(400);
-        c.requestNewAccount(a);
-        BankSystem.getBank().tellMeAboutBank();
-        as = new CurrentAccount(500);
-        c.requestNewAccount(as);
-        BankSystem.getBank().tellMeAboutBank();
+        BankSystem.getBank().printBankSystemInfo();
+        customer = new Customer("Jean", BankSystem.getBank().getEmployee(0));
+        BankSystem.getBank().addCustomer(customer);
+        accountA = new CurrentAccount(400);
+        customer.requestNewAccount(accountA);
+        BankSystem.getBank().printBankSystemInfo();
+        accountB = new CurrentAccount(500);
+        customer.requestNewAccount(accountB);
+        BankSystem.getBank().printBankSystemInfo();
 
         Thread t0 = new Thread(new ExampleDriver());
         Thread t1 = new Thread(new ExampleDriver());
@@ -31,18 +31,18 @@ public class ExampleDriver implements Runnable{
     @Override
     public void run() {
         // preform your actions: deposit, transfer and withdraw
-        c.printBalance(a);
-        c.deposit(a,10);
-        c.printBalance(a);
-        c.printBalance(as);
+        customer.printBalance(accountA);
+        customer.deposit(accountA,10);
+        customer.printBalance(accountA);
+        customer.printBalance(accountB);
         try {
             Thread.sleep(100);
-            c.transfer(a, 20, as.getAccountNumber());
+            customer.transfer(accountA, 20, accountB.getAccountNumber());
         }
         catch (InterruptedException e){
             System.out.println("Balance too low, never replenished, can't wait anymore");
         }
-        c.printBalance(a);
-        c.printBalance(as);
+        customer.printBalance(accountA);
+        customer.printBalance(accountB);
     }
 }

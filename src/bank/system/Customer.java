@@ -3,11 +3,11 @@ package bank.system;
 
 public class Customer {
     private String  name;
-    private Employee contact;
+    private Employee employee;
 
-    public Customer(String cName, Employee conc){
-        name = cName;
-        contact = conc;
+    public Customer(String customerName, Employee employee){
+        name = customerName;
+        this.employee = employee;
     }
 
     public String getName(){
@@ -15,16 +15,16 @@ public class Customer {
     }
 
     public void requestAccountDeletion(int accNumber){
-        contact.deleteAcc(this, accNumber);
+        employee.deleteAcc(this, accNumber);
     }
 
     public void requestNewAccount(Account a){
-        contact.createAcc(this, a);
+        employee.createAccount(this, a);
     }
 
     public void requestOverdraft(UnlimitedAccounts a, double amount){
         if(verifyAccount(a)){
-            contact.grantOverdraft(a, amount);
+            employee.grantOverdraft(a, amount);
         }
     }
 
@@ -54,19 +54,19 @@ public class Customer {
 
     public void requestJointAccount(Account a, Customer secondary ){
         if(verifyAccount(a)){
-            contact.makeJoint(this, secondary, a);
+            employee.makeJoint(this, secondary, a);
         }
     }
 
     public void requestNoLongerJoint(Account a, Customer secondary){
         if(verifyAccount(a)){
-            contact.makeUnjoint( secondary, a);
+            employee.makeUnjoint( secondary, a);
         }
     }
 
     public void requestJointAccountDeletion(Account a, Customer secondary){
         if(verifyAccount(a)){
-            contact.deleteJointAcc(a, this, secondary);
+            employee.deleteJointAcc(a, this, secondary);
         }
 
     }
@@ -81,7 +81,7 @@ public class Customer {
 
     @Override
     public String toString(){
-        return "{Name: " + name + ", Contact: " + contact + "}";
+        return "{Name: " + name + ", Contact: " + employee + "}";
     }
 }
 

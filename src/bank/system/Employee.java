@@ -15,7 +15,7 @@ public class Employee {
         return employeeID;
     }
 
-    public void createAcc(Customer cust, Account a){
+    public void createAccount(Customer cust, Account a){
         if(verifyEmployee(this)){
             workingAt.getBank().addAccount(cust, a);
         }

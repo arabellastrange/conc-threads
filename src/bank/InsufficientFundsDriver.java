@@ -8,18 +8,18 @@ public class InsufficientFundsDriver implements Runnable {
     private static Account p;
 
     public static void main(String[] args){
-        BankSystem.getBank().tellMeAboutBank();
+        BankSystem.getBank().printBankSystemInfo();
 
         c = new Customer("Jean", BankSystem.getBank().getEmployee(0));
         BankSystem.getBank().addCustomer(c);
-        BankSystem.getBank().tellMeAboutBank();
+        BankSystem.getBank().printBankSystemInfo();
 
 
         a = new CurrentAccount(400);
         p = new PlatinumAccount(5000);
         c.requestNewAccount(a);
         c.requestNewAccount(p);
-        BankSystem.getBank().tellMeAboutBank();
+        BankSystem.getBank().printBankSystemInfo();
 
         Thread t0 = new Thread(new InsufficientFundsDriver());
         Thread t1 = new Thread(new InsufficientFundsDriver());

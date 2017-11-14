@@ -10,23 +10,23 @@ public class MakeJointAccountDriver implements Runnable{
     private static Customer x;
 
     public static void main(String args[]){
-        BankSystem.getBank().tellMeAboutBank();
+        BankSystem.getBank().printBankSystemInfo();
 
         c = new Customer("Jean",  BankSystem.getBank().getEmployee(0));
         BankSystem.getBank().addCustomer(c);
-        BankSystem.getBank().tellMeAboutBank();
+        BankSystem.getBank().printBankSystemInfo();
 
         a = new CurrentAccount(400);
         p = new PlatinumAccount(5000);
         c.requestNewAccount(a);
         c.requestNewAccount(p);
-        BankSystem.getBank().tellMeAboutBank();
+        BankSystem.getBank().printBankSystemInfo();
 
         x = new Customer("Ororo",  BankSystem.getBank().getEmployee(0));
         as = new SavingAccount(600);
         BankSystem.getBank().addCustomer(x);
         x.requestNewAccount(as);
-        BankSystem.getBank().tellMeAboutBank();
+        BankSystem.getBank().printBankSystemInfo();
 
         Thread t0 = new Thread(new MakeJointAccountDriver());
         Thread t1 = new Thread(new MakeJointAccountDriver());
@@ -38,7 +38,7 @@ public class MakeJointAccountDriver implements Runnable{
     @Override
     public void run() {
         x.requestJointAccount(as, c);
-        BankSystem.getBank().tellMeAboutBank();
+        BankSystem.getBank().printBankSystemInfo();
         c.printBalance(as);
         c.deposit(as, 20);
         c.printBalance(as);
@@ -46,7 +46,7 @@ public class MakeJointAccountDriver implements Runnable{
             x.withdraw(as, 10);
             x.printBalance(as);
             x.requestJointAccountDeletion(as,c);
-            BankSystem.getBank().tellMeAboutBank();
+            BankSystem.getBank().printBankSystemInfo();
         } catch (InterruptedException e) {
             System.out.println("Balance too low, never replenished, can't wait anymore");
         }

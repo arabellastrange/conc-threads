@@ -27,7 +27,7 @@ public final class BankSystem {
         return bank;
     }
 
-    public void tellMeAboutBank() {
+    public void printBankSystemInfo() {
         if (!customers.entrySet().isEmpty()) {
             System.out.println("Thread " + Thread.currentThread().getId() + " is checking the bank");
             System.out.println("\t This bank has the following customers");

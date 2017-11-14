@@ -16,7 +16,7 @@ public class DeletingAccountDriver implements Runnable{
         s = new SavingAccount(450);
         c.requestNewAccount(a);
         c.requestNewAccount(s);
-        BankSystem.getBank().tellMeAboutBank();
+        BankSystem.getBank().printBankSystemInfo();
 
         e = new Employee();
         e1 = new Employee();
@@ -31,10 +31,10 @@ public class DeletingAccountDriver implements Runnable{
 
     public void run(){
         e.deleteAcc(c,a.getAccountNumber());
-        BankSystem.getBank().tellMeAboutBank();
+        BankSystem.getBank().printBankSystemInfo();
 
         e1.deleteAcc(c, s.getAccountNumber());
-        BankSystem.getBank().tellMeAboutBank();
+        BankSystem.getBank().printBankSystemInfo();
 
         e1.deleteAcc(c,a.getAccountNumber());
     }
