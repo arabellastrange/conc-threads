@@ -22,6 +22,12 @@ public class Customer {
         contact.createAcc(this, a);
     }
 
+    public void requestOverdraft(UnlimitedAccounts a, double amount){
+        if(verifyAccount(a)){
+            contact.grantOverdraft(a, amount);
+        }
+    }
+
     public void printBalance(Account a){
         if(verifyAccount(a)){
             a.printBal();
@@ -52,6 +58,19 @@ public class Customer {
         }
     }
 
+    public void requestNoLongerJoint(Account a, Customer secondary){
+        if(verifyAccount(a)){
+            contact.makeUnjoint( secondary, a);
+        }
+    }
+
+    public void requestJointAccountDeletion(Account a, Customer secondary){
+        if(verifyAccount(a)){
+            contact.deleteJointAcc(a, this, secondary);
+        }
+
+    }
+
     public boolean verifyAccount(Account a){
         if(BankSystem.getBank().getCustomerAccounts(this).contains(a)){
             return true;
@@ -62,7 +81,6 @@ public class Customer {
 
     @Override
     public String toString(){
-
         return "{Name: " + name + ", Contact: " + contact + "}";
     }
 }

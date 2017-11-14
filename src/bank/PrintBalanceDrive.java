@@ -4,6 +4,7 @@ public class PrintBalanceDrive implements Runnable {
     private static Customer c;
     private static Account a;
     private static Account p;
+    private static Account s;
     private static Customer x;
 
     public static void main(String[] args){
@@ -15,8 +16,10 @@ public class PrintBalanceDrive implements Runnable {
 
         a = new CurrentAccount(400);
         p = new PlatinumAccount(5000);
+        s = new SavingAccount(1000);
         c.requestNewAccount(a);
         c.requestNewAccount(p);
+        c.requestNewAccount(s);
         BankSystem.getBank().tellMeAboutBank();
 
         x = new Customer("Ororo",  BankSystem.getBank().getEmployee(0));
@@ -33,5 +36,6 @@ public class PrintBalanceDrive implements Runnable {
     public void run() {
         c.printBalance(p);
         c.printBalance(a);
+        c.printBalance(s);
     }
 }
