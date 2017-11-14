@@ -1,4 +1,4 @@
-package bank;
+package bank.system;
 
 public class PlatinumAccount extends UnlimitedAccounts {
     private double fee;

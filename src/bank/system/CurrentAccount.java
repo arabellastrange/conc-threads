@@ -1,4 +1,4 @@
-package bank;
+package bank.system;
 
 public class CurrentAccount extends UnlimitedAccounts {
     public CurrentAccount(double initialBalance){

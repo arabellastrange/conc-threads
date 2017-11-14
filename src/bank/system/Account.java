@@ -1,4 +1,4 @@
-package bank;
+package bank.system;
 
 import java.util.Random;
 import java.util.concurrent.locks.Lock;
