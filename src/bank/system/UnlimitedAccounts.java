@@ -26,8 +26,7 @@ public abstract class UnlimitedAccounts extends Account {
             System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to deposit \n" + "\t Deposit successful, deposited: £" + dep);
             balanceTooLow.signalAll();
             return true;
-        }
-        finally {
+        } finally {
             balanceLock.unlock();
         }
     }
@@ -36,8 +35,8 @@ public abstract class UnlimitedAccounts extends Account {
     public boolean withdraw(double amount) throws InterruptedException {
         balanceLock.lock();
         try {
-            while(isBalanceTooLow(amount)){
-                if(!waitingForMoreMoney){
+            while (isBalanceTooLow(amount)) {
+                if (!waitingForMoreMoney) {
                     Thread.currentThread().interrupt();
                 }
                 waitingForMoreMoney = balanceTooLow.await(10, TimeUnit.SECONDS);
@@ -45,15 +44,14 @@ public abstract class UnlimitedAccounts extends Account {
             setBalance(checkBal() - amount);
             System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to withdraw \n" + "\t Withdrawal Successful, withdrew: £" + amount);
             return true;
-        }
-        finally {
+        } finally {
             balanceLock.unlock();
         }
     }
 
-    public boolean isBalanceTooLow(double amount){
+    public boolean isBalanceTooLow(double amount) {
         if (hasOverdraft()) {
-            if(checkBal() + overdraft < amount){
+            if (checkBal() + overdraft < amount) {
                 System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to withdraw \n" + "\t Balance too low to preform this action will wait for more money");
                 return true;
             }
@@ -70,27 +68,25 @@ public abstract class UnlimitedAccounts extends Account {
         return hasOverdraft;
     }
 
-    public void setHasOverdraft(boolean overdraft){
+    public void setHasOverdraft(boolean overdraft) {
         overdraftLock.lock();
         try {
             hasOverdraft = overdraft;
-        }
-        finally {
+        } finally {
             overdraftLock.unlock();
         }
 
     }
 
-    public double getOverdraft(){
+    public double getOverdraft() {
         return overdraft;
     }
 
-    public void setOverdraft(double amount){
+    public void setOverdraft(double amount) {
         overdraftLock.lock();
-        try{
+        try {
             overdraft = amount;
-        }
-        finally {
+        } finally {
             overdraftLock.unlock();
         }
     }

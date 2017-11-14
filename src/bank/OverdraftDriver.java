@@ -3,38 +3,38 @@ package bank;
 import bank.system.*;
 
 public class OverdraftDriver implements Runnable {
-    private static Customer c;
-    private static Account a;
+    private static Customer customer;
+    private static Account account;
 
-    public static void main(String[] args){
-        BankSystem.getBank().tellMeAboutBank();
+    public static void main(String[] args) {
+        BankSystem.getBank().printBankSystemInfo();
 
-        c = new Customer("Jean", BankSystem.getBank().getEmployee(0));
-        BankSystem.getBank().addCustomer(c);
-        BankSystem.getBank().tellMeAboutBank();
+        customer = new Customer("Jean", BankSystem.getBank().getEmployee(0));
+        BankSystem.getBank().addCustomer(customer);
+        BankSystem.getBank().printBankSystemInfo();
 
-        a = new CurrentAccount(400);
-        c.requestNewAccount(a);
-        BankSystem.getBank().tellMeAboutBank();
+        account = new CurrentAccount(400);
+        customer.requestNewAccount(account);
+        BankSystem.getBank().printBankSystemInfo();
 
-        Thread t0 = new Thread(new OverdraftDriver());
-        Thread t1 = new Thread(new OverdraftDriver());
-        t0.start();
-        t1.start();
+        Thread threadA = new Thread(new OverdraftDriver());
+        Thread threadB = new Thread(new OverdraftDriver());
+        threadA.start();
+        threadB.start();
     }
 
     @Override
     public void run() {
-        c.printBalance(a);
-        c.deposit(a,10);
-        c.printBalance(a);
-        c.requestOverdraft((UnlimitedAccounts) a, 800);
+        customer.printBalance(account);
+        customer.deposit(account, 10);
+        customer.printBalance(account);
+        customer.requestOverdraft((UnlimitedAccounts) account, 800);
         try {
-            c.withdraw(a,1000);
-            c.printBalance(a);
-            c.deposit(a,100);
-            c.withdraw(a, 300);
-            c.printBalance(a);
+            customer.withdraw(account, 1000);
+            customer.printBalance(account);
+            customer.deposit(account, 100);
+            customer.withdraw(account, 300);
+            customer.printBalance(account);
         } catch (InterruptedException e) {
             System.out.println("Balance too low, never replenished, can't wait anymore");
         }

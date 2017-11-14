@@ -3,7 +3,7 @@ package bank.system;
 public class PlatinumAccount extends UnlimitedAccounts {
     private double fee;
 
-    public PlatinumAccount(double initialBalance){
+    public PlatinumAccount(double initialBalance) {
         super(initialBalance);
         setInterestRate(0.2);
         setInterestLength(0.25);
@@ -17,7 +17,7 @@ public class PlatinumAccount extends UnlimitedAccounts {
         return true;
     }
 
-    public double getAccountFee(){
+    public double getAccountFee() {
         return fee;
     }
 }

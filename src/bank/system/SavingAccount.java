@@ -6,8 +6,8 @@ import java.util.concurrent.locks.Condition;
 public class SavingAccount extends Account {
     private Condition balanceTooLow;
     private boolean waitingForMoreMoney = true;
-    
-    public SavingAccount(double initialBalance){
+
+    public SavingAccount(double initialBalance) {
         // must have minimum initial balance of £20?
         super(initialBalance);
         setInterestRate(0);
@@ -18,8 +18,8 @@ public class SavingAccount extends Account {
     @Override
     public boolean deposit(double dep) {
         balanceLock.lock();
-        try{
-            if(checkBal() < 10000){
+        try {
+            if (checkBal() < 10000) {
                 setBalance(checkBal() + dep);
                 System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to deposit \n" + "\t Deposit successful, deposited: £" + dep);
                 balanceTooLow.signalAll();
@@ -27,8 +27,7 @@ public class SavingAccount extends Account {
             }
             System.out.println("You have reached the maximum upper balance limit");
             return false;
-        }
-        finally {
+        } finally {
             balanceLock.unlock();
         }
     }
@@ -36,9 +35,9 @@ public class SavingAccount extends Account {
     @Override
     public boolean withdraw(double amount) throws InterruptedException {
         balanceLock.lock();
-        try{
-            while (checkBal() <= amount || checkBal() - amount <= 20){
-                if(!waitingForMoreMoney){
+        try {
+            while (checkBal() <= amount || checkBal() - amount <= 20) {
+                if (!waitingForMoreMoney) {
                     Thread.currentThread().interrupt();
 
                 }
@@ -48,8 +47,7 @@ public class SavingAccount extends Account {
             setBalance(checkBal() - amount);
             System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to withdraw \n" + "\t Withdrawal Successful, withdrew: £" + amount);
             return true;
-        }
-        finally {
+        } finally {
             balanceLock.unlock();
         }
     }

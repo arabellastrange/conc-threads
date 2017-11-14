@@ -3,40 +3,40 @@ package bank;
 import bank.system.*;
 
 public class InsufficientFundsDriver implements Runnable {
-    private static Customer c;
-    private static Account a;
-    private static Account p;
+    private static Customer customer;
+    private static Account accountA;
+    private static Account accountB;
 
-    public static void main(String[] args){
-        BankSystem.getBank().tellMeAboutBank();
+    public static void main(String[] args) {
+        BankSystem.getBank().printBankSystemInfo();
 
-        c = new Customer("Jean", BankSystem.getBank().getEmployee(0));
-        BankSystem.getBank().addCustomer(c);
-        BankSystem.getBank().tellMeAboutBank();
+        customer = new Customer("Jean", BankSystem.getBank().getEmployee(0));
+        BankSystem.getBank().addCustomer(customer);
+        BankSystem.getBank().printBankSystemInfo();
 
 
-        a = new CurrentAccount(400);
-        p = new PlatinumAccount(5000);
-        c.requestNewAccount(a);
-        c.requestNewAccount(p);
-        BankSystem.getBank().tellMeAboutBank();
+        accountA = new CurrentAccount(400);
+        accountB = new PlatinumAccount(5000);
+        customer.requestNewAccount(accountA);
+        customer.requestNewAccount(accountB);
+        BankSystem.getBank().printBankSystemInfo();
 
-        Thread t0 = new Thread(new InsufficientFundsDriver());
-        Thread t1 = new Thread(new InsufficientFundsDriver());
-        t0.start();
-        t1.start();
+        Thread threadA = new Thread(new InsufficientFundsDriver());
+        Thread threadB = new Thread(new InsufficientFundsDriver());
+        threadA.start();
+        threadB.start();
     }
 
     @Override
     public void run() {
-        c.printBalance(a);
+        customer.printBalance(accountA);
         try {
             Thread.sleep(100);
-            c.withdraw(a, 200);
-            c.printBalance(a);
-            c.withdraw(a, 200);
-            c.printBalance(a);
-            c.withdraw(a, 200);
+            customer.withdraw(accountA, 200);
+            customer.printBalance(accountA);
+            customer.withdraw(accountA, 200);
+            customer.printBalance(accountA);
+            customer.withdraw(accountA, 200);
         } catch (InterruptedException e) {
             System.out.println("Balance too low, never replenished, can't wait anymore");
         }

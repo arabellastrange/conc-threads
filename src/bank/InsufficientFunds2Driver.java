@@ -2,28 +2,28 @@ package bank;
 
 import bank.system.*;
 
-public class InsufficientFunds2Driver implements Runnable{
+public class InsufficientFunds2Driver implements Runnable {
 
-    private static Customer c;
-    private static Account a;
-    private static Account n;
-    private static Account p;
+    private static Customer customer;
+    private static Account accountA;
+    private static Account accountB;
+    private static Account accountC;
 
-    public static void main(String[] args){
-        BankSystem.getBank().tellMeAboutBank();
+    public static void main(String[] args) {
+        BankSystem.getBank().printBankSystemInfo();
 
-        c = new Customer("Jean", BankSystem.getBank().getEmployee(0));
-        BankSystem.getBank().addCustomer(c);
-        BankSystem.getBank().tellMeAboutBank();
+        customer = new Customer("Jean", BankSystem.getBank().getEmployee(0));
+        BankSystem.getBank().addCustomer(customer);
+        BankSystem.getBank().printBankSystemInfo();
 
 
-        a = new CurrentAccount(400);
-        p = new PlatinumAccount(5000);
-        n =  new CurrentAccount(800);
-        c.requestNewAccount(a);
-        c.requestNewAccount(p);
-        c.requestNewAccount(n);
-        BankSystem.getBank().tellMeAboutBank();
+        accountA = new CurrentAccount(400);
+        accountC = new PlatinumAccount(5000);
+        accountB = new CurrentAccount(800);
+        customer.requestNewAccount(accountA);
+        customer.requestNewAccount(accountC);
+        customer.requestNewAccount(accountB);
+        BankSystem.getBank().printBankSystemInfo();
 
         Thread t0 = new Thread(new InsufficientFunds2Driver());
         Thread t1 = new Thread(new InsufficientFunds2Driver());
@@ -33,19 +33,19 @@ public class InsufficientFunds2Driver implements Runnable{
 
     @Override
     public void run() {
-        c.printBalance(a);
+        customer.printBalance(accountA);
         try {
             Thread.sleep(100);
-            c.withdraw(a, 200);
-            c.printBalance(a);
-            c.withdraw(a, 200);
-            c.printBalance(a);
-            c.deposit(a, 300);
-            c.printBalance(a);
-            c.withdraw(a, 200);
-            c.printBalance(a);
-            c.deposit(a, 300);
-            c.printBalance(a);
+            customer.withdraw(accountA, 200);
+            customer.printBalance(accountA);
+            customer.withdraw(accountA, 200);
+            customer.printBalance(accountA);
+            customer.deposit(accountA, 300);
+            customer.printBalance(accountA);
+            customer.withdraw(accountA, 200);
+            customer.printBalance(accountA);
+            customer.deposit(accountA, 300);
+            customer.printBalance(accountA);
         } catch (InterruptedException e) {
             System.out.println("Balance too low, never replenished, can't wait anymore");
         }

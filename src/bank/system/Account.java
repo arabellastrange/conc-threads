@@ -17,7 +17,7 @@ public abstract class Account {
         SAVING, PLATINUM, CURRENT //if you want to use strategy no inheritance
     }
 
-    public Account(double initialBalance){
+    public Account(double initialBalance) {
         Random rand = new Random();
         accountNumber = rand.nextInt(199999) + 100000;
         sortCode = rand.nextInt(9999) + 1000;
@@ -27,11 +27,13 @@ public abstract class Account {
 
     //move money - write operations
     public abstract boolean deposit(double dep);
+
     public abstract boolean withdraw(double amount) throws InterruptedException;
 
-    public boolean transfer( double amount, int toAccountNum) throws InterruptedException {
+    public boolean transfer(double amount, int toAccountNum) throws InterruptedException {
         System.out.println("Thread " + Thread.currentThread().getId() + " is attempting transfer");
-        if(this.withdraw(amount)){
+
+        if (this.withdraw(amount)) {
             BankSystem.getBank().getAccount(toAccountNum).deposit(amount);
             System.out.println("Transfer successful. Transferred: £" + amount);
             return true;
@@ -40,35 +42,35 @@ public abstract class Account {
     }
 
     //balance info - read operations
-    public double checkBal(){
+    public double checkBal() {
         balanceLock.lock();
-        try{
+        try {
             return balance;
-        }
-        finally {
+        } finally {
             balanceLock.unlock();
         }
 
     }
 
-    public void printBal(){
+    public void printBalance() {
         System.out.println("Thread " + Thread.currentThread().getId() + " is checking balance: \n" + "\t Account number " + accountNumber + " has the balance of " + checkBal());
-       // System.out.println("Account number " + accountNumber + " has the balance of " + checkBal());
+        // System.out.println("Account number " + accountNumber + " has the balance of " + checkBal());
     }
 
     //account info getters and setters
-    public int getAccountNumber(){
+    public int getAccountNumber() {
         return accountNumber;
     }
-    public int getAccountSort(){
+
+    public int getAccountSort() {
         return sortCode;
     }
 
-    public void setInterestRate(double interestRt){
+    public void setInterestRate(double interestRt) {
         interestRate = interestRt;
     }
 
-    public double getInterestRate(){
+    public double getInterestRate() {
         return interestRate;
     }
 

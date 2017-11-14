@@ -2,46 +2,46 @@ package bank;
 
 import bank.system.*;
 
-public class EmployeeMovingMoneyDriver implements Runnable{
-    private static Customer c;
-    private static Account a;
-    private static Employee e;
-    private static Employee e1;
-    private static Account p;
+public class EmployeeMovingMoneyDriver implements Runnable {
+    private static Customer customer;
+    private static Employee EmployeeA;
+    private static Employee employeeB;
+    private static Account accountA;
+    private static Account accountB;
 
-    public static void main(String[] args){
-        c = new Customer("Rachel Grey" , BankSystem.getBank().getEmployee(0));
-        BankSystem.getBank().addCustomer(c);
-        a = new CurrentAccount(380);
-        p = new PlatinumAccount(4500);
-        c.requestNewAccount(a);
-        c.requestNewAccount(p);
-        BankSystem.getBank().tellMeAboutBank();
+    public static void main(String[] args) {
+        customer = new Customer("Rachel Grey", BankSystem.getBank().getEmployee(0));
+        BankSystem.getBank().addCustomer(customer);
+        accountA = new CurrentAccount(380);
+        accountB = new PlatinumAccount(4500);
+        customer.requestNewAccount(accountA);
+        customer.requestNewAccount(accountB);
+        BankSystem.getBank().printBankSystemInfo();
 
-        e = new Employee();
-        e1 = new Employee();
-        BankSystem.getBank().hireEmployee(e);
-        BankSystem.getBank().hireEmployee(e1);
+        EmployeeA = new Employee();
+        employeeB = new Employee();
+        BankSystem.getBank().hireEmployee(EmployeeA);
+        BankSystem.getBank().hireEmployee(employeeB);
 
-        Thread t = new Thread(new EmployeeMovingMoneyDriver());
-        Thread t1 = new Thread(new EmployeeMovingMoneyDriver());
-        t.start();
-        t1.start();
+        Thread threadA = new Thread(new EmployeeMovingMoneyDriver());
+        Thread threadB = new Thread(new EmployeeMovingMoneyDriver());
+        threadA.start();
+        threadB.start();
     }
 
     @Override
     public void run() {
-        c.printBalance(a);
-        e.depositInterest(a);
-        c.printBalance(a);
-        e1.depositInterest(a);
-        c.printBalance(a);
-        c.printBalance(p);
+        customer.printBalance(accountA);
+        EmployeeA.depositInterest(accountA);
+        customer.printBalance(accountA);
+        employeeB.depositInterest(accountA);
+        customer.printBalance(accountA);
+        customer.printBalance(accountB);
         try {
-            e.chargeFee((PlatinumAccount) p);
-            c.printBalance(p);
-            e1.grantOverdraft((UnlimitedAccounts) a,800);
-            c.printBalance(a);
+            EmployeeA.chargeFee((PlatinumAccount) accountB);
+            customer.printBalance(accountB);
+            employeeB.grantOverdraft((UnlimitedAccounts) accountA, 800);
+            customer.printBalance(accountA);
         } catch (InterruptedException e2) {
             System.out.println("Balance too low, never replenished, can't wait anymore");
         }

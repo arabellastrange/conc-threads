@@ -2,41 +2,42 @@ package bank;
 
 import bank.system.*;
 
-public class DeletingAccountDriver implements Runnable{
-    private static Customer c;
-    private static Account a;
-    private static Employee e;
-    private static Employee e1;
-    private static Account s;
+public class DeletingAccountDriver implements Runnable {
+    private static Customer customer;
+    private static Employee employeeA;
+    private static Employee employeeB;
+    private static Account accountA;
+    private static Account accountB;
 
-    public static void main(String[] args){
-        c = new Customer("Mary", BankSystem.getBank().getEmployee(0));
-        BankSystem.getBank().addCustomer(c);
-        a = new CurrentAccount(380);
-        s = new SavingAccount(450);
-        c.requestNewAccount(a);
-        c.requestNewAccount(s);
-        BankSystem.getBank().tellMeAboutBank();
+    public static void main(String[] args) {
+        customer = new Customer("Mary", BankSystem.getBank().getEmployee(0));
+        BankSystem.getBank().addCustomer(customer);
+        accountA = new CurrentAccount(380);
+        accountB = new SavingAccount(450);
+        customer.requestNewAccount(accountA);
+        customer.requestNewAccount(accountB);
+        BankSystem.getBank().printBankSystemInfo();
 
-        e = new Employee();
-        e1 = new Employee();
-        BankSystem.getBank().hireEmployee(e);
-        BankSystem.getBank().hireEmployee(e1);
+        employeeA = new Employee();
+        employeeB = new Employee();
+        BankSystem.getBank().hireEmployee(employeeA);
+        BankSystem.getBank().hireEmployee(employeeB);
 
-        Thread t = new Thread(new DeletingAccountDriver());
-        Thread t1 = new Thread(new DeletingAccountDriver());
-        t.start();
-        t1.start();
+        Thread threadA = new Thread(new DeletingAccountDriver());
+        Thread threadB = new Thread(new DeletingAccountDriver());
+
+        threadA.start();
+        threadB.start();
     }
 
-    public void run(){
-        e.deleteAcc(c,a.getAccountNumber());
-        BankSystem.getBank().tellMeAboutBank();
+    public void run() {
+        employeeA.deleteAcc(customer, accountA.getAccountNumber());
+        BankSystem.getBank().printBankSystemInfo();
 
-        e1.deleteAcc(c, s.getAccountNumber());
-        BankSystem.getBank().tellMeAboutBank();
+        employeeB.deleteAcc(customer, accountB.getAccountNumber());
+        BankSystem.getBank().printBankSystemInfo();
 
-        e1.deleteAcc(c,a.getAccountNumber());
+        employeeB.deleteAcc(customer, accountA.getAccountNumber());
     }
 
 }

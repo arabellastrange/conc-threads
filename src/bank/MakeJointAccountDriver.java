@@ -2,51 +2,51 @@ package bank;
 
 import bank.system.*;
 
-public class MakeJointAccountDriver implements Runnable{
-    private static Customer c;
-    private static Account a;
-    private static Account p;
-    private static Account as;
-    private static Customer x;
+public class MakeJointAccountDriver implements Runnable {
+    private static Account accountA;
+    private static Account accountB;
+    private static Account accountC;
+    private static Customer customerA;
+    private static Customer customerB;
 
-    public static void main(String args[]){
-        BankSystem.getBank().tellMeAboutBank();
+    public static void main(String args[]) {
+        BankSystem.getBank().printBankSystemInfo();
 
-        c = new Customer("Jean",  BankSystem.getBank().getEmployee(0));
-        BankSystem.getBank().addCustomer(c);
-        BankSystem.getBank().tellMeAboutBank();
+        customerA = new Customer("Jean", BankSystem.getBank().getEmployee(0));
+        BankSystem.getBank().addCustomer(customerA);
+        BankSystem.getBank().printBankSystemInfo();
 
-        a = new CurrentAccount(400);
-        p = new PlatinumAccount(5000);
-        c.requestNewAccount(a);
-        c.requestNewAccount(p);
-        BankSystem.getBank().tellMeAboutBank();
+        accountA = new CurrentAccount(400);
+        accountB = new PlatinumAccount(5000);
+        customerA.requestNewAccount(accountA);
+        customerA.requestNewAccount(accountB);
+        BankSystem.getBank().printBankSystemInfo();
 
-        x = new Customer("Ororo",  BankSystem.getBank().getEmployee(0));
-        as = new SavingAccount(600);
-        BankSystem.getBank().addCustomer(x);
-        x.requestNewAccount(as);
-        BankSystem.getBank().tellMeAboutBank();
+        customerB = new Customer("Ororo", BankSystem.getBank().getEmployee(0));
+        accountC = new SavingAccount(600);
+        BankSystem.getBank().addCustomer(customerB);
+        customerB.requestNewAccount(accountC);
+        BankSystem.getBank().printBankSystemInfo();
 
-        Thread t0 = new Thread(new MakeJointAccountDriver());
-        Thread t1 = new Thread(new MakeJointAccountDriver());
-        t0.start();
-        t1.start();
+        Thread threadA = new Thread(new MakeJointAccountDriver());
+        Thread threadB = new Thread(new MakeJointAccountDriver());
+        threadA.start();
+        threadB.start();
 
     }
 
     @Override
     public void run() {
-        x.requestJointAccount(as, c);
-        BankSystem.getBank().tellMeAboutBank();
-        c.printBalance(as);
-        c.deposit(as, 20);
-        c.printBalance(as);
+        customerB.requestJointAccount(accountC, customerA);
+        BankSystem.getBank().printBankSystemInfo();
+        customerA.printBalance(accountC);
+        customerA.deposit(accountC, 20);
+        customerA.printBalance(accountC);
         try {
-            x.withdraw(as, 10);
-            x.printBalance(as);
-            x.requestJointAccountDeletion(as,c);
-            BankSystem.getBank().tellMeAboutBank();
+            customerB.withdraw(accountC, 10);
+            customerB.printBalance(accountC);
+            customerB.requestJointAccountDeletion(accountC, customerA);
+            BankSystem.getBank().printBankSystemInfo();
         } catch (InterruptedException e) {
             System.out.println("Balance too low, never replenished, can't wait anymore");
         }
