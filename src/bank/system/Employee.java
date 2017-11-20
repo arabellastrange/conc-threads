@@ -68,10 +68,8 @@ public class Employee {
     }
 
     //needs to be tested
-    public void makeSavingsAccount(SavingAccount account)throws InterruptedException {
-        if (verifyEmployee(this)){
-            account.checkBal();
-        }
+    public static void makeSavingsAccount(SavingAccount a)throws InterruptedException {
+            a.enoughMoney();
     }
 
     @Override

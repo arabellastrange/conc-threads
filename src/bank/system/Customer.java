@@ -27,6 +27,11 @@ public class Customer {
             employee.grantOverdraft(a, amount);
         }
     }
+    public void savingEnoughMoney(SavingAccount a) throws InterruptedException {
+        if (verifyAccount(a)) {
+            employee.makeSavingsAccount(a);
+        }
+    }
 
     public void printBalance(Account a) {
         if (verifyAccount(a)) {

@@ -16,11 +16,15 @@ public class SavingAccount extends Account {
     }
 
 
-    private boolean enoughMoney(){
-        if (checkBal() <= 20) {
+    public boolean enoughMoney(){
+        double test = checkBal();
+        if (checkBal() < 20) {
+            System.out.println(test + ": Should be less than 20");
             System.out.println("Thread " + Thread.currentThread().getId() + " is checking SavingAccountBalance \n" + "\t Balance too low to preform this action. £20 minimum for saving account.");
             return false;
         }
+        System.out.println(test + ": Should be more than 20");
+        System.out.println("Thread " + Thread.currentThread().getId() +": Account has enough money!");
         return true;
     }
 
