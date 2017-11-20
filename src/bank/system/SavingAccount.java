@@ -10,9 +10,18 @@ public class SavingAccount extends Account {
     public SavingAccount(double initialBalance) {
         // must have minimum initial balance of £20?
         super(initialBalance);
-        setInterestRate(0);
-        setInterestLength(0);
+        setInterestRate(0.195);
+        setInterestLength(1);
         balanceTooLow = balanceLock.newCondition();
+    }
+
+
+    private boolean enoughMoney(){
+        if (checkBal() <= 20) {
+            System.out.println("Thread " + Thread.currentThread().getId() + " is checking SavingAccountBalance \n" + "\t Balance too low to preform this action. £20 minimum for saving account.");
+            return false;
+        }
+        return true;
     }
 
     @Override

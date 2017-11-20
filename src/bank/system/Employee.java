@@ -67,6 +67,13 @@ public class Employee {
         }
     }
 
+    //needs to be tested
+    public void makeSavingsAccount(SavingAccount account)throws InterruptedException {
+        if (verifyEmployee(this)){
+            account.checkBal();
+        }
+    }
+
     @Override
     public String toString() {
         return "ID: " + employeeID + "";
