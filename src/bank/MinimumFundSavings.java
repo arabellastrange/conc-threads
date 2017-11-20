@@ -37,7 +37,7 @@ public class MinimumFundSavings implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("********************");
+
         try {
             Thread.sleep(100);
             customer.savingEnoughMoney(accountA);
