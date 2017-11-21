@@ -3,13 +3,13 @@ package bank;
 import bank.system.*;
 
 public class PrintBalanceDrive implements Runnable {
-    private static Account accountA;
-    private static Account accountB;
-    private static Account accountC;
-    private static Customer customerA;
-    private static Customer customerB;
+    private Account accountA;
+    private Account accountB;
+    private Account accountC;
+    private Customer customerA;
+    private Customer customerB;
 
-    public static void main(String[] args){
+    public PrintBalanceDrive(){
         BankSystem.getBank().printBankSystemInfo();
 
         customerA = new Customer("Jean",  BankSystem.getBank().getEmployee(0));
@@ -40,5 +40,10 @@ public class PrintBalanceDrive implements Runnable {
         customerA.printBalance(accountB);
         customerA.printBalance(accountA);
         customerA.printBalance(accountC);
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
