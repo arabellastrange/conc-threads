@@ -28,11 +28,6 @@ public class PrintBalanceDrive implements Runnable {
 
         BankSystem.getBank().addCustomer(customerB);
         BankSystem.getBank().printBankSystemInfo();
-
-        Thread threadA = new Thread(new PrintBalanceDrive());
-        Thread threadB = new Thread(new PrintBalanceDrive());
-        threadA.start();
-        threadB.start();
     }
 
     @Override
@@ -41,7 +36,7 @@ public class PrintBalanceDrive implements Runnable {
         customerA.printBalance(accountA);
         customerA.printBalance(accountC);
         try {
-            Thread.sleep(10000);
+            Thread.sleep(1200000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
