@@ -17,6 +17,9 @@ public class Employee {
 
     public void createAccount(Customer cust, Account a) {
         if (verifyEmployee(this)) {
+            if(a instanceof SavingAccount && a.checkBal() < 20){
+                System.out.println("You cannot open a Saving account with less than £20!");
+            }
             workingAt.getBank().addAccount(cust, a);
         }
     }
@@ -65,11 +68,6 @@ public class Employee {
         if (verifyEmployee(this)) {
             a.verifyOverdraft(amount);
         }
-    }
-
-    //needs to be tested
-    public static void makeSavingsAccount(SavingAccount a)throws InterruptedException {
-            a.enoughMoney();
     }
 
     @Override
