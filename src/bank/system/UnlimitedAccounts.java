@@ -52,12 +52,12 @@ public abstract class UnlimitedAccounts extends Account {
     public boolean isBalanceTooLow(double amount) {
         if (hasOverdraft()) {
             if (checkBal() + overdraft < amount) {
-                System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to withdraw \n" + "\t Balance too low to preform this action will wait for more money");
+                System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to withdraw \n" + "\t Balance too low to perform this action will wait for more money");
                 return true;
             }
         } else {
             if (checkBal() <= 0) {
-                System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to withdraw \n" + "\t Balance too low to preform this action will wait for more money");
+                System.out.println("Thread " + Thread.currentThread().getId() + " is attempting to withdraw \n" + "\t Balance too low to perform this action will wait for more money");
                 return true;
             }
         }
