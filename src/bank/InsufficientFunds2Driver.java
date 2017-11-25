@@ -10,7 +10,7 @@ public class InsufficientFunds2Driver implements Runnable {
     private static Account accountC;
 
 
-    public static void main(String[] args) {
+    public InsufficientFunds2Driver() {
         BankSystem.getBank().printBankSystemInfo();
 
         customer = new Customer("Jean", BankSystem.getBank().getEmployee(0));
@@ -26,11 +26,6 @@ public class InsufficientFunds2Driver implements Runnable {
         customer.requestNewAccount(accountC);
         customer.requestNewAccount(accountB);
         BankSystem.getBank().printBankSystemInfo();
-
-        Thread t0 = new Thread(new InsufficientFunds2Driver());
-        Thread t1 = new Thread(new InsufficientFunds2Driver());
-        t0.start();
-        t1.start();
     }
 
     @Override
@@ -50,6 +45,12 @@ public class InsufficientFunds2Driver implements Runnable {
             customer.printBalance(accountA);
         } catch (InterruptedException e) {
             System.out.println("Balance too low, never replenished, can't wait anymore");
+        }
+
+        try {
+            Thread.sleep(1500000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
     }

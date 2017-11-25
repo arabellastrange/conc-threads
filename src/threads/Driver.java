@@ -1,5 +1,7 @@
 package threads;
 
+import bank.EmployeeMovingMoneyDriver;
+import bank.InsufficientFunds2Driver;
 import bank.PrintBalanceDrive;
 import threads.gui.App;
 
@@ -18,6 +20,12 @@ public class Driver {
 
         Thread threadA = new Thread(new PrintBalanceDrive(), "Balance print");
         threadA.start();
+
+        Thread threadB = new Thread(new InsufficientFunds2Driver(), "Overdrawn balance");
+        threadB.start();
+
+        Thread threadC = new Thread(new EmployeeMovingMoneyDriver(), "Employee actions");
+        threadC.start();
 
         try {
             Thread.sleep(1000);

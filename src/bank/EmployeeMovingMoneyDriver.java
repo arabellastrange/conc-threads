@@ -10,7 +10,7 @@ public class EmployeeMovingMoneyDriver implements Runnable {
     private static Account accountB;
 
 
-    public static void main(String[] args) {
+    public EmployeeMovingMoneyDriver() {
         customer = new Customer("Rachel Grey", BankSystem.getBank().getEmployee(0));
         BankSystem.getBank().addCustomer(customer);
         accountA = new CurrentAccount(380);
@@ -23,11 +23,6 @@ public class EmployeeMovingMoneyDriver implements Runnable {
         employeeB = new Employee();
         BankSystem.getBank().hireEmployee(EmployeeA);
         BankSystem.getBank().hireEmployee(employeeB);
-
-        Thread threadA = new Thread(new EmployeeMovingMoneyDriver());
-        Thread threadB = new Thread(new EmployeeMovingMoneyDriver());
-        threadA.start();
-        threadB.start();
     }
 
     @Override
@@ -45,6 +40,12 @@ public class EmployeeMovingMoneyDriver implements Runnable {
             customer.printBalance(accountA);
         } catch (InterruptedException e2) {
             System.out.println("Balance too low, never replenished, can't wait anymore");
+        }
+
+        try {
+            Thread.sleep(1500000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }

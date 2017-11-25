@@ -36,7 +36,7 @@ public class PrintBalanceDrive implements Runnable {
         customerA.printBalance(accountA);
         customerA.printBalance(accountC);
         try {
-            Thread.sleep(1200000);
+            Thread.sleep(1500000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
